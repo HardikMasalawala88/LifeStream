@@ -1,0 +1,107 @@
+﻿@model LifeStream.Models.DoctorViewModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>Doctor</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Doctor.UserId" class="control-label" hidden></label>
+                <select asp-for="Doctor.UserId" class="form-control" asp-items="ViewBag.UserId" hidden></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Doctor.Name" class="control-label"></label>
+                <input asp-for="Doctor.Name" class="form-control" />
+                <span asp-validation-for="Doctor.Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Doctor.FirstName" class="control-label"></label>
+                <input asp-for="Doctor.FirstName" class="form-control" />
+                <span asp-validation-for="Doctor.FirstName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Doctor.LastName" class="control-label"></label>
+                <input asp-for="Doctor.LastName" class="form-control" />
+                <span asp-validation-for="Doctor.LastName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Doctor.Email" class="control-label"></label>
+                <input asp-for="Doctor.Email" class="form-control" />
+                <span asp-validation-for="Doctor.Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Doctor.Specialization" class="control-label"></label>
+                <select asp-for="Doctor.Specialization" class="form-control" asp-items="ViewBag.SpecializationList">
+                    <option value="">-- Select Specialization --</option>
+                </select>
+                <span asp-validation-for="Doctor.Specialization" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="Doctor.Gender" class="control-label"></label>
+                <div>
+                    <label>
+                        <input asp-for="Doctor.Gender" type="radio" value="Male" /> Male
+                    </label>
+                    <label>
+                        <input asp-for="Doctor.Gender" type="radio" value="Female" /> Female
+                    </label>
+                </div>
+                <span asp-validation-for="Doctor.Gender" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="Doctor.Age" class="control-label"></label>
+                <input asp-for="Doctor.Age" class="form-control" type="number" min="26" max="60" />
+                <span asp-validation-for="Doctor.Age" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Doctor.PhoneNumber" class="control-label"></label>
+                <input asp-for="Doctor.PhoneNumber" class="form-control" />
+                <span asp-validation-for="Doctor.PhoneNumber" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Doctor.ExprienceYear" class="control-label"></label>
+                <input asp-for="Doctor.ExprienceYear" class="form-control" type="number" min="1" max="35" />
+                <span asp-validation-for="Doctor.ExprienceYear" class="text-danger"></span>
+            </div>
+
+            <!-- ✅ File Upload Control -->
+            <div class="form-group">
+                <label asp-for="ImageFile" class="control-label"></label>
+                <input type="file" asp-for="ImageFile" name="ImageFile" class="form-control" />
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mt-3">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,596 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Basic -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Site Metas -->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <link rel="shortcut icon" href="images/logo.jpg" type="">
+
+    <title> Lifestream</title>
+
+    <!-- bootstrap core css -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+
+    <!-- fonts style -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+    <!--owl slider stylesheet -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+    <!-- font awesome style -->
+    <link href="css/font-awesome.min.css" rel="stylesheet" />
+
+    <!-- Custom styles for this template -->
+    <link href="css/style.css" rel="stylesheet" />
+    <!-- responsive style -->
+    <link href="css/responsive.css" rel="stylesheet" />
+
+</head>
+
+<body>
+
+    <div class="hero_area">
+
+        <div class="hero_bg_box">
+            <img src="images/bg_home.jpg" alt="">
+        </div>
+
+        <!-- header section strats -->
+        <header class="header_section">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg custom_nav-container ">
+                    <a class="navbar-brand" href="c:\users\sujal\downloads\lifestream_default\lifestream_default\lifestream_default\views\lifestream\home.cshtml">
+                        <img src="images/logo.jpg" height="80" width="80" />
+                        <span>
+                            LifeStream
+                        </span>
+                    </a>
+
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class=""> </span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav">
+                            <li class="nav-item active">
+                                @* <a asp-controller="Doctor" asp-action="Index"> Show Doctor Details</a> *@
+                                <a class="nav-link" href="e:\project\lifestream\lifestream\views\home\index.cshtml">Home <span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a></a>
+                                <a class="nav-link" asp-controller="Home" asp-action="About"> About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="c:\users\sujal\downloads\lifestream_default\lifestream_default\lifestream_default\views\lifestream\department.cshtml">Departments</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="c:\users\sujal\downloads\lifestream_default\lifestream_default\lifestream_default\views\lifestream\doctor.cshtml">Doctors</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="c:\users\sujal\downloads\lifestream_default\lifestream_default\lifestream_default\views\lifestream\contact.cshtml">Contact Us</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <!-- end header section -->
+        <!-- slider section -->
+        <section class="slider_section ">
+            <div id="customCarousel1" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="container ">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="detail-box">
+                                        <h1>
+                                            Welcome to LifeStream Hospital
+                                        </h1>
+                                        <p>
+                                            LifeStream Hospital Surat currently provides Out and In patients services with a bed capacity of 243 beds and tertiary care facilities including Medical and Surgical intensive care.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item ">
+                        <div class="container ">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="detail-box">
+                                        <h1>
+                                            We Provide Best Healthcare
+                                        </h1>
+                                        <p>
+                                            LifeStream Multispecialty Hospital Surat offers the best care across various medical disciplines such as Mother & Child Care, Arthroscopy, Oncology, Cardiac Science, and Ophthalmology. Additionally, we excel in orthopedics & joint replacement surgery, sports medicine, spine & minimally invasive spine surgery, cardiology & cardiovascular surgery, medical & surgical oncology, neurology & neurosurgery, and more. Established in March 2017, the hospital serves the people of Surat and surrounding areas like Valsad, Udvada, Bharuch, and Hazira.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="container ">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="detail-box">
+                                        <h1>
+                                            We Provide Best Healthcare
+                                        </h1>
+                                        <p>
+
+                                        </p>
+                                        <div class="btn-box">
+                                            <a href="" class="btn1">
+                                                Read More
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <ol class="carousel-indicators">
+                    <li data-target="#customCarousel1" data-slide-to="0" class="active"></li>
+                    <li data-target="#customCarousel1" data-slide-to="1"></li>
+                    <li data-target="#customCarousel1" data-slide-to="2"></li>
+                </ol>
+            </div>
+
+        </section>
+        <!-- end slider section -->
+    </div>
+
+
+    <!-- department section -->
+
+    <section class="department_section layout_padding">
+        <div class="department_container">
+            <div class="container ">
+                <div class="heading_container heading_center">
+                    <h2>
+                        Area Of Specialization
+                    </h2>
+                    <p>
+                        LifeStream Hospital is Multi Specialty Health Hub for Oncology, Onco Surgery, Pediatric, Neurology, Neurosurgery, Laparoscopy Surgery, Orthopedics, Gynecology, Urology, Neurosurgery, Cardiology, Internal Medicine, Critical Care and Rehabilitation facilities.
+                    </p>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="box ">
+                            <div class="img-box">
+                                <img src="images/s1.png" alt="">
+                            </div>
+                            <div class="detail-box">
+                                <h5>
+                                    Cardiology
+                                </h5>
+                                <p>
+                                    Your heart is our priority
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="box ">
+                            <div class="img-box">
+                                <img src="images/s2.png" alt="">
+                            </div>
+                            <div class="detail-box">
+                                <h5>
+                                    Diagnosis
+                                </h5>
+                                <p>
+                                    We listen to your body, understand your concerns, and provide a precise diagnosis
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="box ">
+                            <div class="img-box">
+                                <img src="images/s3.png" alt="">
+                            </div>
+                            <div class="detail-box">
+                                <h5>
+                                    Surgery
+                                </h5>
+                                <p>
+                                    fact that a reader will be distracted by the readable page when looking at its layout.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="box ">
+                            <div class="img-box">
+                                <img src="images/s4.png" alt="">
+                            </div>
+                            <div class="detail-box">
+                                <h5>
+                                    First Aid
+                                </h5>
+                                <p>
+                                    fact that a reader will be distracted by the readable page when looking at its layout.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="btn-box">
+                    <a href="">
+                        View All
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- end department section -->
+    <!-- about section -->
+
+    <section class="about_section layout_margin-bottom">
+        <div class="container  ">
+            <div class="row">
+                <div class="col-md-6 ">
+                    <div class="img-box">
+                        <img src="images/LifeStream.png" alt="">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="detail-box">
+                        <div class="heading_container">
+                            <h2>
+                                About Us
+                            </h2>
+                        </div>
+                        <p>
+                            LifeStream hospital has state-of-the art infrastructure and is equipped to offer healthcare services in
+                            specialties and Super specialties backed by specialized facilities, value added services and round-the-clock
+                            services. The hospital is one place treatment center with all diagnostics facilities with excellence &
+                            patient-friendly ambiance.
+                            <br />
+                            <br />
+                            With medical expertise supported by the latest equipment’s, offer healthcare treatment of quality standards with utmost transparency, compassion and care. Care with compassion and service excellence are the guiding principles of the team. With the same, the hospital builds an integrated atmosphere that helps to provide patients with the most effective patient care meeting the core objective of “Care par excellence”.
+                        </p>
+                        <a href="">
+                            Read More
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- end about section -->
+    <!-- doctor section -->
+
+    <section class="doctor_section layout_padding">
+        <div class="container">
+            <div class="heading_container heading_center">
+                <h2>
+                    Our Doctors
+                </h2>
+                <p class="col-md-10 mx-auto px-0">
+                    We Have Multiple Expert Doctors In Different Departments Such as Pediatrics, Dental Surgery, Nephrology, Radiology, Cardiology, Orthopedics, ENT, Neuro Science unit, etc.
+                </p>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-4 mx-auto">
+                    <div class="box">
+                        <div class="img-box">
+                            <img src="images/d1.jpg" alt="">
+                        </div>
+                        <div class="detail-box">
+                            <div class="social_box">
+                                <a href="">
+                                    <i class="fa fa-facebook" aria-hidden="true"></i>
+                                </a>
+                                <a href="">
+                                    <i class="fa fa-twitter" aria-hidden="true"></i>
+                                </a>
+                                <a href="">
+                                    <i class="fa fa-linkedin" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                            <h5>
+                                Dr.MK Mehta
+                            </h5>
+                            <h6 class="">
+                                Neurosurgery
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-4 mx-auto">
+                    <div class="box">
+                        <div class="img-box">
+                            <img src="images/d2.jpg" alt="">
+                        </div>
+                        <div class="detail-box">
+                            <div class="social_box">
+                                <a href="">
+                                    <i class="fa fa-facebook" aria-hidden="true"></i>
+                                </a>
+                                <a href="">
+                                    <i class="fa fa-twitter" aria-hidden="true"></i>
+                                </a>
+                                <a href="">
+                                    <i class="fa fa-linkedin" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                            <h5>
+                                Dr.Abdul Patel
+                            </h5>
+                            <h6 class="">
+                                ENT
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-4 mx-auto">
+                    <div class="box">
+                        <div class="img-box">
+                            <img src="images/d3.jpg" alt="">
+                        </div>
+                        <div class="detail-box">
+                            <div class="social_box">
+                                <a href="">
+                                    <i class="fa fa-facebook" aria-hidden="true"></i>
+                                </a>
+                                <a href="">
+                                    <i class="fa fa-twitter" aria-hidden="true"></i>
+                                </a>
+                                <a href="">
+                                    <i class="fa fa-linkedin" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                            <h5>
+                                Dr.Zeel Adhiya
+                            </h5>
+                            <h6 class="">
+                                Neuro Science Unit
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+            </div>  <div class="col-sm-6 col-lg-4 mx-auto">
+                <div class="box">
+                    <div class="img-box">
+                        <img src="images/d4.jpg" alt="">
+                    </div>
+                    <div class="detail-box">
+                        <div class="social_box">
+                            <a href="">
+                                <i class="fa fa-facebook" aria-hidden="true"></i>
+                            </a>
+                            <a href="">
+                                <i class="fa fa-twitter" aria-hidden="true"></i>
+                            </a>
+                            <a href="">
+                                <i class="fa fa-linkedin" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                        <h5>
+                            Dr.Hardik Rawal
+                        </h5>
+                        <h6 class="">
+                            Neuro Science Unit
+                        </h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="btn-box">
+            <a href="">
+                View All
+            </a>
+        </div>
+
+    </section>
+
+    <!-- end doctor section -->
+    <!-- contact section -->
+    <section class="contact_section layout_padding">
+        <div class="container">
+            <div class="heading_container heading_center ">
+                <h2>
+                    Location on Maps
+                </h2>
+            </div>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3720.274435743174!2d72.82464929999999!3d21.1812543!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be04e69b0000001%3A0x889ddaa12034e9ed!2sNirmal%20Hospital%20Pvt%20Ltd!5e0!3m2!1sen!2sin!4v1741089181776!5m2!1sen!2sin"
+                    width="100%" height="300" style="border:0;" allowfullscreen=""
+                    loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+
+    </section>
+    <!-- end contact section -->
+    <!-- client section -->
+
+    <section class="client_section layout_padding-bottom">
+        <div class="container">
+            <div class="heading_container heading_center ">
+                <h2>
+                    Specialist
+                </h2>
+            </div>
+            <div id="carouselExample2Controls" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="row">
+                            <div class="col-md-11 col-lg-10 mx-auto">
+                                <div class="box">
+                                    <div class="img-box">
+                                        <img src="images/d6.jpg" alt="" />
+                                    </div>
+                                    <div class="detail-box">
+                                        <div class="name">
+                                            <h6>
+                                                Dr.Ujwal Shah
+                                            </h6>
+                                        </div>
+                                        <p>
+                                            Heart Surgeon
+                                        </p>
+                                        <p>
+                                            Perform surgery on the heart, aorta, pulmonary vein, and other heart-related structures
+                                            Perform complex surgeries like coronary artery bypass grafting (CABG)
+                                            Repair or replace heart valves
+                                        </p>
+                                        <i class="fa fa-quote-left" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="row">
+                            <div class="col-md-11 col-lg-10 mx-auto">
+                                <div class="box">
+                                    <div class="img-box">
+                                        <img src="images/d5.jpg" alt="" />
+                                    </div>
+                                    <div class="detail-box">
+                                        <div class="name">
+                                            <h6>
+                                                Dr.Sweta Jain
+                                            </h6>
+                                        </div>
+                                        <p>
+                                            Dermatology
+                                        </p>
+                                        <p>
+                                            Dermatology. Dermatology focuses on skin, hair, and nail conditions. Dermatologists treat issues like acne, eczema, psoriasis, and skin cancer
+                                        </p>
+                                        <i class="fa fa-quote-left" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="row">
+                            <div class="col-md-11 col-lg-10 mx-auto">
+                                <div class="box">
+                                    <div class="img-box">
+                                        <img src="images/d7.jpg" alt="" />
+                                    </div>
+                                    <div class="detail-box">
+                                        <div class="name">
+                                            <h6>
+                                                Dr.Dipti Patel
+                                            </h6>
+                                        </div>
+                                        <p>
+                                            Emergency medicine
+                                        </p>
+                                        <p>
+                                            Emergency medicine doctors are essential for managing critical situations in emergency departments, where their quick decision-making and expertise can save
+                                        </p>
+                                        <i class="fa fa-quote-left" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel_btn-container">
+                    <a class="carousel-control-prev" href="#carouselExample2Controls" role="button" data-slide="prev">
+                        <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExample2Controls" role="button" data-slide="next">
+                        <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- end client section -->
+    <!-- footer section -->
+    <footer class="footer_section">
+        <div class="container heading_center ">
+            <div class="row">
+                <div class="col-md-10 col-lg-6 footer_col">
+                    <div class="footer_contact">
+                        <h4>
+                            Reach at..
+                        </h4>
+                        <div class="contact_link_box">
+                            <a href="">
+                                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                <span>
+                                    Location  Nirmal Hospital, Sagrampura, Surat, Gujarat 395002
+                                </span>
+                            </a>
+                            <a href="">
+                                <i class="fa fa-phone" aria-hidden="true"></i>
+                                <span>
+                                    Call +91  352-315-7800
+                                </span>
+                            </a>
+                            <a href="">
+                                <i class="fa fa-envelope" aria-hidden="true"></i>
+                                <span>
+                                    lifestream@gmail.com
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-6 col-lg-2 mx-auto footer_col">
+                    <div class="footer_link_box">
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 footer_col ">
+                </div>
+            </div>
+            <div class="footer-info">
+                <p>
+                    &copy; <span id="displayYear"></span> All Rights Reserved By
+                    <a href="https://html.design/">LifeStream<br><br></a>
+                    &copy; <span id="displayYear"></span> Distributed By
+                    <a href="https://themewagon.com/">LifeStream</a>
+                </p>
+
+            </div>
+        </div>
+    </footer>
+    <!-- footer section -->
+    <!-- jQery -->
+    <script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
+    <!-- popper js -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+    </script>
+    <!-- bootstrap js -->
+    <script type="text/javascript" src="js/bootstrap.js"></script>
+    <!-- owl slider -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
+    </script>
+    <!-- custom js -->
+    <script type="text/javascript" src="js/custom.js"></script>
+    <!-- Google Map -->
+    <!-- End Google Map -->
+
+</body>
+
+</html>
