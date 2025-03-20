@@ -1,0 +1,119 @@
+﻿@model LifeStream.Models.Doctor
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>Doctor</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="UserId" />
+            <input type="hidden" asp-for="ImagePath" />
+
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Specialization" class="control-label"></label>
+                <select asp-for="Specialization" class="form-control" asp-items="ViewBag.SpecializationList">
+                    <option value="">-- Select Specialization --</option>
+                </select>
+                <span asp-validation-for="Specialization" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Gender" class="control-label"></label>
+                <div>
+                    <label>
+                        <input asp-for="Gender" type="radio" value="Male" /> Male
+                    </label>
+                    <label>
+                        <input asp-for="Gender" type="radio" value="Female" /> Female
+                    </label>
+                </div>
+                <span asp-validation-for="Gender" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Age" class="control-label"></label>
+                <input asp-for="Age" class="form-control" type="number" min="26" max="60" />
+                <span asp-validation-for="Age" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="PhoneNumber" class="control-label"></label>
+                <input asp-for="PhoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ExprienceYear" class="control-label"></label>
+                <input asp-for="ExprienceYear" class="form-control" type="number" min="1" max="35" />
+                <span asp-validation-for="ExprienceYear" class="text-danger"></span>
+            </div>
+
+            <!-- ✅ Current Image Display -->
+            <div class="form-group">
+    <label>Current Image:</label><br />
+    @if (!string.IsNullOrEmpty(Model.ImagePath))
+    {
+          <img src="@Model.ImagePath" alt="Current Image" width="150" height="150" style="border: 1px solid black; padding: 5px; border-radius:8px;"/>         
+    }
+    else
+    {
+        <p>No image available</p>
+    }
+</div>
+
+
+            <!-- ✅ File Upload Control -->
+            <div class="form-group">
+                <label>Upload New Image:</label>
+                <input type="file" name="ImageFile" class="form-control" />
+                <span asp-validation-for="ImagePath" class="text-danger"></span>
+                <small class="text-muted">Leave blank if you don't want to change the image.</small>
+            </div>
+
+            <div class="form-group mt-3">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
