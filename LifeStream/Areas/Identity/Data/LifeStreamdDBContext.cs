@@ -28,10 +28,9 @@ public class LifeStreamdDBContext : IdentityDbContext<LifeStreamUser>
     {
         base.OnModelCreating(modelBuilder);
 
-        string[] roleNames = { "Admin", "Doctor", "Patient", "Receptionist" };
         List<IdentityRole> roles = new List<IdentityRole>();
 
-        foreach (var roleName in roleNames)
+        foreach (var roleName in UserRoleInfo.AllRoles)
         {
             roles.Add(new IdentityRole
             {
