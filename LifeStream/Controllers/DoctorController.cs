@@ -19,11 +19,21 @@ namespace LifeStream.Controllers
             _userManager = userManager;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchQuery)
         {
-            var docdata = await dBContext.Doctors.ToListAsync();
-            return View(docdata);
+            var doctors = dBContext.Doctors.Include(d => d.User).AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchQuery))
+            {
+                doctors = doctors.Where(d => d.FirstName.Contains(searchQuery) ||
+                                             d.LastName.Contains(searchQuery) ||
+                                             d.Email.Contains(searchQuery) ||
+                                             d.Specialization.Contains(searchQuery));
+            }
+
+            return View(await doctors.ToListAsync());
         }
+
 
         // ✅ GET: Doctor/Details/5
         public async Task<IActionResult> Details(string id)
