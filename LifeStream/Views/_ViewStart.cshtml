@@ -1,3 +1,10 @@
 ﻿@{
     Layout = "_Layout";
+    if (User.IsInRole(UserRoleInfo.Admin) 
+    || User.IsInRole(UserRoleInfo.Doctor)
+    || User.IsInRole(UserRoleInfo.Receptionist)
+    )
+    { 
+        Layout = "_LayoutAdmin";
+    }
 }
