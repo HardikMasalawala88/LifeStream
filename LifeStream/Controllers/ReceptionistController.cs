@@ -21,10 +21,20 @@ namespace LifeStream.Controllers
             _userManager = userManager;
         }
         // GET: ReceptionistController
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(string searchQuery)
         {
-            var rdata = await dBContext.Receptionists.ToListAsync();
-            return View(rdata);
+            var receptionists = dBContext.Receptionists.AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchQuery))
+            {
+                receptionists = receptionists.Where(r =>
+                    r.FirstName.Contains(searchQuery) ||
+                    r.LastName.Contains(searchQuery) ||
+                    r.Email.Contains(searchQuery));
+
+            }
+
+            return View(await receptionists.ToListAsync());
         }
 
         // GET: ReceptionistController/Details/5

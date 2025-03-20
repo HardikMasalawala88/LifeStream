@@ -24,10 +24,21 @@ namespace LifeStream.Controllers
         }
 
         // GET: Patients
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchQuery)
         {
-            var lifeStreamdDBContext = _context.Patients.Include(p => p.User);
-            return View(await lifeStreamdDBContext.ToListAsync());
+            var patients = _context.Patients.Include(p => p.User).AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchQuery))
+            {
+                patients = patients.Where(p =>
+                    p.FirstName.Contains(searchQuery) ||
+                    p.LastName.Contains(searchQuery) ||
+                    p.Email.Contains(searchQuery) ||
+                    p.PhoneNumber.Contains(searchQuery) ||
+                    p.PatientName.Contains(searchQuery));
+            }
+
+            return View(await patients.ToListAsync());
         }
 
         // GET: Patients/Details/5
