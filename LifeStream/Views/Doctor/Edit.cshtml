@@ -2,13 +2,17 @@
 
 @{
     ViewData["Title"] = "Edit";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h1>Edit</h1>
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12 col-xl-12">
+            <div class="bg-light rounded p-4">
 
-<h4>Doctor</h4>
-<hr />
+<h3>Edit Doctor Details...</h3>
+
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit" method="post" enctype="multipart/form-data">
@@ -16,67 +20,96 @@
             <input type="hidden" asp-for="UserId" />
             <input type="hidden" asp-for="ImagePath" />
 
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+            <div class="mb-4">
+                <div class="input-group">
+                    @* <label asp-for="Name" class="control-label"></label> *@
+                     <span class="input-group-text"><i class="bi bi-person"></i></span>
+                    <input asp-for="Name" class="form-control" />
+                </div>
+                    <span asp-validation-for="Name" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <label asp-for="FirstName" class="control-label"></label>
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
+            <div class="mb-4">
+                <div class="input-group">
+                    @* <label asp-for="FirstName" class="control-label"></label> *@
+                    <span class="input-group-text"><i class="bi bi-person-lines-fill"></i></span>
+                    <input asp-for="FirstName" class="form-control" />
+                </div>
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <label asp-for="LastName" class="control-label"></label>
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
+            <div class="mb-4">
+                <div class="input-group">
+                    @* <label asp-for="LastName" class="control-label"></label> *@
+                    <span class="input-group-text"><i class="bi bi-person-lines-fill"></i></span>
+                    <input asp-for="LastName" class="form-control" />
+                </div>
+                    <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
+            <div class="mb-4">
+                <div class="input-group">
+                    @* <label asp-for="Email" class="control-label"></label> *@
+                    <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                    <input asp-for="Email" class="form-control" />
+                </div>
+                    <span asp-validation-for="Email" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <label asp-for="Specialization" class="control-label"></label>
-                <select asp-for="Specialization" class="form-control" asp-items="ViewBag.SpecializationList">
-                    <option value="">-- Select Specialization --</option>
-                </select>
-                <span asp-validation-for="Specialization" class="text-danger"></span>
+            <div class="mb-4">
+                <div class="input-group">
+                    @* <label asp-for="Specialization" class="control-label"></label> *@
+                    <span class="input-group-text"><i class="bi bi-x-diamond-fill"></i></span>
+                    <select asp-for="Specialization" class="form-control" asp-items="ViewBag.SpecializationList">
+                        <option value="">-- Select Specialization --</option>
+                    </select>
+                </div>
+                    <span asp-validation-for="Specialization" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
+            <div class="mb-4">
                 <label asp-for="Gender" class="control-label"></label>
-                <div>
-                    <label>
-                        <input asp-for="Gender" type="radio" value="Male" /> Male
+                <div class="form-check">
+                    <input asp-for="Gender" type="radio" value="Male" class="form-check-input" id="genderMale" />
+                    <label class="form-check-label" for="genderMale">
+                       <i class="bi bi-person-arms-up"></i> Male
                     </label>
-                    <label>
-                        <input asp-for="Gender" type="radio" value="Female" /> Female
+                </div>
+                <div class="form-check">
+                  <input asp-for="Gender" type="radio" value="Female" class="form-check-input" id="genderFemale" />
+                    <label class="form-check-label" for="genderFemale">
+                       Female
                     </label>
                 </div>
                 <span asp-validation-for="Gender" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <label asp-for="Age" class="control-label"></label>
-                <input asp-for="Age" class="form-control" type="number" min="26" max="60" />
-                <span asp-validation-for="Age" class="text-danger"></span>
+
+            <div class="mb-4">
+                <div class="input-group">
+                    @* <label asp-for="Age" class="control-label"></label> *@
+                    <span class="input-group-text"><i class="bi bi-calendar2-plus"></i></span>
+                    <input asp-for="Age" class="form-control" type="number" min="26" max="60" />
+                </div>
+                    <span asp-validation-for="Age" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <label asp-for="PhoneNumber" class="control-label"></label>
-                <input asp-for="PhoneNumber" class="form-control" />
-                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            <div class="mb-4">
+                <div class="input-group">
+                    @* <label asp-for="PhoneNumber" class="control-label"></label> *@
+                    <span class="input-group-text"><i class="bi bi-telephone"></i></span>
+                    <input asp-for="PhoneNumber" class="form-control" />
+                </div>
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <label asp-for="ExprienceYear" class="control-label"></label>
-                <input asp-for="ExprienceYear" class="form-control" type="number" min="1" max="35" />
-                <span asp-validation-for="ExprienceYear" class="text-danger"></span>
+            <div class="mb-4">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-calendar"></i></span>
+                    @* <label asp-for="ExprienceYear" class="control-label"></label> *@
+                    <input asp-for="ExprienceYear" class="form-control" type="number" min="1" max="35" />
+                </div>
+                    <span asp-validation-for="ExprienceYear" class="text-danger"></span>
             </div>
 
             <!-- ✅ Current Image Display -->
@@ -94,22 +127,33 @@
 
 
             <!-- ✅ File Upload Control -->
-            <div class="form-group">
-                <label>Upload New Image:</label>
-                <input type="file" name="ImageFile" class="form-control" />
-                <span asp-validation-for="ImagePath" class="text-danger"></span>
-                <small class="text-muted">Leave blank if you don't want to change the image.</small>
+            <div class="mb-4 mt-4">
+                <div class="input-group">
+                    @* <label>Upload New Image:</label> *@
+                    <span class="input-group-text"><i class="bi bi-file-earmark"></i></span>
+                    <input type="file" name="ImageFile" class="form-control" />
+                </div>
+                    <span asp-validation-for="ImagePath" class="text-danger"></span>
+                    <small class="text-muted">Leave blank if you don't want to change the image.</small>
             </div>
 
-            <div class="form-group mt-3">
-                <input type="submit" value="Save" class="btn btn-primary" />
+            <div class="mb-4">
+                <div class="input-group">
+                     <span class="input-group-text bg-primary"><i class="bi bi-box-arrow-down text-light"></i></span>
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
             </div>
         </form>
     </div>
 </div>
 
 <div>
+    <i class="bi bi-arrow-left-short text-primary"></i>
     <a asp-action="Index">Back to List</a>
+</div>
+</div>
+    </div>
+    </div>
 </div>
 
 @section Scripts {
