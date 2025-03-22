@@ -31,7 +31,9 @@ $textCol: #1f1f1f;
   text-transform: uppercase;
   font-weight: bold;
 }
-
+html {
+    scroll-behavior: smooth;
+}
 body {
   @include main-font;
   color: #000000;
@@ -636,7 +638,7 @@ a:focus {
     background-repeat: no-repeat;
     background-size: 12px;
     background-position: center;
-    background-color: $primary1;
+    background-color:#153d9b;
     background-position: center;
     border-radius: 5px;
     margin: 0 2.5px;
@@ -658,7 +660,7 @@ a:focus {
   background: darken($color: $primary2, $amount: 10);
   color: $white;
   padding: 60px 0 15px 0;
-  position: relative;
+  position: center;
 
   h4 {
     font-weight: 600;
