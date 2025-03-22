@@ -71,7 +71,7 @@
     top: 0;
     left: 0;
     bottom: 0;
-    width: 250px;
+    width: 270px;
     height: 100vh;
     overflow-y: auto;
     background: var(--light);
@@ -80,7 +80,7 @@
 }
 
 .content {
-    margin-left: 250px;
+    margin-left: 100px;
     min-height: 100vh;
     background: #FFFFFF;
     transition: 0.5s;
@@ -170,6 +170,8 @@
 
 .sidebar .navbar .dropdown-item {
     padding-left: 25px;
+    min-width: 220px; /* Adjust width */
+    max-width: 100%; /* Prevent overflow */
     border-radius: 0 30px 30px 0;
 }
 
@@ -179,6 +181,10 @@
     color: var(--dark);
     outline: none;
 }
+.receptionist-details {
+    width: 100%; /* Adjust width */
+}
+
 
 .content .navbar .navbar-nav .nav-link:hover,
 .content .navbar .navbar-nav .nav-link.active {
@@ -199,7 +205,7 @@
 .content .navbar .dropdown-toggle::after {
     margin-left: 6px;
     vertical-align: middle;
-    border: none;
+    border: none;d
     content: "\f107";
     font-family: "Font Awesome 5 Free";
     font-weight: 900;
