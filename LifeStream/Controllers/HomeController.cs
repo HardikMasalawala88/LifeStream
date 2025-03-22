@@ -8,7 +8,7 @@ using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.General;
 
 namespace LifeStream.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -26,7 +26,7 @@ namespace LifeStream.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult login()
         {
             return View();
         }
@@ -38,21 +38,7 @@ namespace LifeStream.Controllers
         }
 
 
-        public IActionResult About()
-        {
-            return View();
-        }
-        public IActionResult Contact()
-        {
-            return View();
-        }
-        public IActionResult Department()
-        {
-            return View();
-        }
-        public IActionResult Doctor()
-        {
-            return View();
-        }
+       
+   
     }
 }
