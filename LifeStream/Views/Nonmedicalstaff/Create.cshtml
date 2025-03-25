@@ -2,24 +2,30 @@
 
 @{
     ViewData["Title"] = "Create";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h1>Create</h1>
 
-<h4>Non Medical Staff</h4>
-<hr />
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-12 col-xl-12">
+            <div class="bg-light rounded p-4">
+                <h3>Insert Doctor Details...</h3>
+                <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="StaffName" class="control-label"></label>
+            <div class="mb-4">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-person-circle"></i></span>
+                @* <label asp-for="StaffName" class="control-label"></label> *@
                 <input asp-for="StaffName" class="form-control" />
+                </div>
                 <span asp-validation-for="StaffName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Gender" class="control-label"></label>
+                @* <label asp-for="Gender" class="control-label"></label> *@
                 <div>
                     <label>
                         <input asp-for="Gender" type="radio" value="Male" /> Male
@@ -29,25 +35,40 @@
                     </label>
                 </div>
                 <span asp-validation-for="Gender" class="text-danger"></span>
-            </div>            <div class="form-group">
-                <label asp-for="Jobtitle" class="control-label"></label>
-                <input asp-for="Jobtitle" class="form-control" />
-                <span asp-validation-for="Jobtitle" class="text-danger"></span>
+            </div>  
+            
+            <div class="mb-4">
+                <div class="input-group">
+                    @* <label asp-for="Jobtitle" class="control-label"></label> *@
+                    <span class="input-group-text"><i class="bi bi-person-bounding-box"></i></span>
+                    <input asp-for="Jobtitle" class="form-control" />
+                </div>
+                    <span asp-validation-for="Jobtitle" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Department" class="control-label"></label>
-                <input asp-for="Department" class="form-control" />
-                <span asp-validation-for="Department" class="text-danger"></span>
+
+            <div class="mb-4">
+                    <div class="input-group">
+                        @* <label asp-for="Department" class="control-label"></label> *@
+                         <span class="input-group-text"><i class="bi bi-diagram-3-fill"></i></span>
+                        <input asp-for="Department" class="form-control" />
+                    </div>
+                    <span asp-validation-for="Department" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Salary" class="control-label"></label>
-                <input asp-for="Salary" class="form-control" />
-                <span asp-validation-for="Salary" class="text-danger"></span>
+            <div class="mb-4">
+                    <div class="input-group">
+                @* <label asp-for="Salary" class="control-label"></label> *@
+                                    <span class="input-group-text"><i class="bi bi-cash"></i></span>
+                        <input asp-for="Salary" class="form-control" />
+                    </div>
+                        <span asp-validation-for="Salary" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Status" class="control-label"></label>
-                <input asp-for="Status" class="form-control" />
-                <span asp-validation-for="Status" class="text-danger"></span>
+            <div class="mb-4">
+                <div class="input-group">
+                    @* <label asp-for="Status" class="control-label"></label> *@
+                     <span class="input-group-text"><i class="bi bi-currency-rupee"></i></span>
+                    <input asp-for="Status" class="form-control" />
+                </div>
+                    <span asp-validation-for="Status" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -59,7 +80,10 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-
+</div>
+</div>
+</div>
+</div>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

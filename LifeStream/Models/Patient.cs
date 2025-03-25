@@ -25,7 +25,17 @@ namespace LifeStream.Models
 
         [Required]
         [DataType(DataType.Date)]
+        [CustomValidation(typeof(Patient), nameof(ValidateDOB))]
         public DateTime DateOfBirth { get; set; }
+
+        public static ValidationResult ValidateDOB(DateTime dob, ValidationContext context)
+        {
+            if (dob > DateTime.Today)
+            {
+                return new ValidationResult("Date of Birth cannot be in the future.");
+            }
+            return ValidationResult.Success;
+        }
         public string Gender { get; set; }
 
        

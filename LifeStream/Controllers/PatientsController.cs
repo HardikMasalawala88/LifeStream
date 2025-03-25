@@ -116,16 +116,27 @@ namespace LifeStream.Controllers
             return View(patient);
         }
 
-        private int CalculateAge(DateTime dateOfBirth)
+        
+        public int CalculateAge(DateTime dob)
         {
-            var today = DateTime.Today;
-            int age = today.Year - dateOfBirth.Year;
+            DateTime today = DateTime.Today;
 
-            if (dateOfBirth.Date > today.AddYears(-age))
+            if (dob > today)
+            {
+                throw new ArgumentException("Date of Birth cannot be in the future.");
+            }
+
+            int age = today.Year - dob.Year;
+
+            // If the birthday has not occurred this year, subtract 1
+            if (dob.Date > today.AddYears(-age))
+            {
                 age--;
+            }
 
             return age;
         }
+
 
 
         // GET: Patients/Edit/5

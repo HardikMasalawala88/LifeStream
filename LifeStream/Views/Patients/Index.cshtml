@@ -11,10 +11,12 @@
 
                 <div class="table-responsive">
 <h1>Patients</h1>
-
+@if (User.IsInRole(UserRoleInfo.Receptionist))
+{
 <p>
     <a asp-action="Create" class="btn btn-primary">Create New Patient</a>
 </p>
+}
 
  @if (User.IsInRole(UserRoleInfo.Admin))
 {
@@ -59,10 +61,14 @@
                 <td>@Html.DisplayFor(modelItem => item.PhoneNumber)</td>
                 <td>@Html.DisplayFor(modelItem => item.Address)</td>
                 <td>
-                   <a asp-action="Edit" asp-route-id="@item.UserId"><i style="color:blue; font-size:small" class="bi bi-pencil-square"></i></a>
+                   
                    <a asp-action="Details" asp-route-id="@item.UserId"><i style="color:deepskyblue" class="bi bi-card-list"></i></a>
+                     @if (User.IsInRole(UserRoleInfo.Receptionist))
+                    {
+                   <a asp-action="Edit" asp-route-id="@item.UserId"><i style="color:blue; font-size:small" class="bi bi-pencil-square"></i></a>
                    <a asp-action="Delete" asp-route-id="@item.UserId"><i style="color:red" class="bi bi-trash-fill"></i></a>
-                </td>
+                    }
+               </td>
             </tr>
         }
     </tbody>

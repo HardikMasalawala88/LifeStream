@@ -51,7 +51,7 @@ public class LifeStreamdDBContext : IdentityDbContext<LifeStreamUser>
             Email = "admin@lifestream.com",
             NormalizedEmail = "ADMIN@LIFESTREAM.COM",
             EmailConfirmed = true,
-            FirstName = "System",
+            FirstName = "LifeStream",
             LastName = "Admin"
         };
 
