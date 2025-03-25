@@ -44,10 +44,10 @@ using (var scope = app.Services.CreateScope())
         adminUser = new LifeStreamUser
         {
             UserName = adminEmail,
-            Email = adminEmail,
+            Email ="admin@lifestream.com",
             EmailConfirmed = true,
-            FirstName = "Admin",
-            LastName = "User"
+            FirstName = "LifeStream",
+            LastName = "Admin"
         };
 
         var result = await userManager.CreateAsync(adminUser, "Admin@123");
@@ -69,7 +69,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Admin}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 
 app.Run();

@@ -57,7 +57,7 @@
                     </div>
                 </div>
                 <div class="navbar-nav w-auto">
-                    <a href="index.html" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                    <a asp-controller="Admin" asp-action="Index" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="bi bi-person-badge me-2"></i>Doctor Details</a>
                         <div class="dropdown-menu bg-transparent border-0">
@@ -74,12 +74,22 @@
                     </div>
 
                     <div class="nav-item dropdown ">
-                        <a class="nav-link dropdown-toggle receptionist-details" data-bs-toggle="dropdown" style="width: 220px;">
+                        <a class="nav-link dropdown-toggle receptionist-details" data-bs-toggle="dropdown" style="width: 250px;">
                             <i class="bi bi-person-badge me-2"></i>Receptionist Details
                         </a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a asp-controller="Receptionist" asp-action="Create" class="dropdown-item"><i class="bi bi-plus-square me-2"></i>Add New Receptionist</a>
                             <a asp-controller="Receptionist" asp-action="Index" class="dropdown-item"><i class="bi bi-list me-2"></i>Receptionist List</a>
+                        </div>
+                    </div>
+
+                    <div class="nav-item dropdown ">
+                        <a class="nav-link dropdown-toggle receptionist-details" data-bs-toggle="dropdown" style="width: 280px;">
+                            <i class="bi bi-person-badge me-2"></i>Non-Medical Staff Details
+                        </a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a asp-controller="Nonmedicalstaff" asp-action="Create" class="dropdown-item"><i class="bi bi-plus-square me-2"></i>Add New Non Medical Staff</a>
+                            <a asp-controller="Nonmedicalstaff" asp-action="Index" class="dropdown-item"><i class="bi bi-list me-2"></i>Non Medical Staff List</a>
                         </div>
                     </div>
 
