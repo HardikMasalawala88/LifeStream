@@ -1,4 +1,7 @@
-﻿@{
+﻿@model List<LifeStream.Models.Doctor>
+
+
+@{
     Layout = null;
 }
 
@@ -77,7 +80,7 @@
                                 <a class="nav-link" href="#section_contactus">Contact Us</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/Identity/Account/Login" target="_blank">Login</a>
+                                <a class="nav-link" href="/Identity/Account/Login" target="_self">Login</a>
                             </li>
                         </ul>                        
                     </div> 
@@ -262,124 +265,47 @@
     <!-- doctor section -->
 
     <section id="section_doctors" class="doctor_section layout_padding">
+       
         <div class="container">
             <div class="heading_container heading_center">
                 <h2>
                      Doctors
                 </h2>
-                <p class="col-md-10 mx-auto px-0">
+                <p class="col-md-10 mx-auto mb-4 px-0">
                     We Have Multiple Expert Doctors In Different Departments Such as Pediatrics, Dental Surgery, Nephrology, Radiology, Cardiology, Orthopedics, ENT, Neuro Science unit, etc.
                 </p>
             </div>
-            <div class="row">
-                <div class="col-sm-6 col-lg-4 mx-auto">
-                    <div class="box">
-                        <div class="img-box">
-                            <img src="images/d1.jpg" alt="">
-                        </div>
-                        <div class="detail-box">
-                            <div class="social_box">
-                                <a href="">
-                                    <i class="fa fa-facebook" aria-hidden="true"></i>
-                                </a>
-                                <a href="">
-                                    <i class="fa fa-twitter" aria-hidden="true"></i>
-                                </a>
-                                <a href="">
-                                    <i class="fa fa-linkedin" aria-hidden="true"></i>
-                                </a>
+            @if (Model != null && Model.Any())
+            {
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-5">
+                    @foreach (var doctor in Model)
+                    {
+                        <div class="col-4 mb-4">
+                            <div class="card h-100 text-center shadow p-3">
+                                <!-- Image Box -->
+                                <div class="img-box" style="height: 300px; overflow: hidden; border-radius: 10px 10px 0 0;">
+                                    <img src="@doctor.ImagePath" alt="Doctor Image" class="img-fluid w-100" style="height: 100%; object-fit: cover;">
+                                </div>
+                
+                                <!-- Details -->
+                                <div class="card-body">
+                                    <h5 class="card-title">@doctor.Name</h5>
+                                    <h6 class="card-subtitle text-muted">@doctor.Specialization</h6>
+                                </div>
                             </div>
-                            <h5>
-                                Dr.MK Mehta
-                            </h5>
-                            <h6 class="">
-                                Neurosurgery
-                            </h6>
                         </div>
-                    </div>
+                    }
                 </div>
-                <div class="col-sm-6 col-lg-4 mx-auto">
-                    <div class="box">
-                        <div class="img-box">
-                            <img src="images/d2.jpg" alt="">
-                        </div>
-                        <div class="detail-box">
-                            <div class="social_box">
-                                <a href="">
-                                    <i class="fa fa-facebook" aria-hidden="true"></i>
-                                </a>
-                                <a href="">
-                                    <i class="fa fa-twitter" aria-hidden="true"></i>
-                                </a>
-                                <a href="">
-                                    <i class="fa fa-linkedin" aria-hidden="true"></i>
-                                </a>
-                            </div>
-                            <h5>
-                                Dr.Abdul Patel
-                            </h5>
-                            <h6 class="">
-                                ENT
-                            </h6>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-lg-4 mx-auto">
-                    <div class="box">
-                        <div class="img-box">
-                            <img src="images/d3.jpg" alt="">
-                        </div>
-                        <div class="detail-box">
-                            <div class="social_box">
-                                <a href="">
-                                    <i class="fa fa-facebook" aria-hidden="true"></i>
-                                </a>
-                                <a href="">
-                                    <i class="fa fa-twitter" aria-hidden="true"></i>
-                                </a>
-                                <a href="">
-                                    <i class="fa fa-linkedin" aria-hidden="true"></i>
-                                </a>
-                            </div>
-                            <h5>
-                                Dr.Zeel Adhiya
-                            </h5>
-                            <h6 class="">
-                                Neuro Science Unit
-                            </h6>
-                        </div>
-                    </div>
-                </div>
-            </div>  <div class="col-sm-6 col-lg-4 mx-auto">
-                <div class="box">
-                    <div class="img-box">
-                        <img src="images/d4.jpg" alt="">
-                    </div>
-                    <div class="detail-box">
-                        <div class="social_box">
-                            <a href="">
-                                <i class="fa fa-facebook" aria-hidden="true"></i>
-                            </a>
-                            <a href="">
-                                <i class="fa fa-twitter" aria-hidden="true"></i>
-                            </a>
-                            <a href="">
-                                <i class="fa fa-linkedin" aria-hidden="true"></i>
-                            </a>
-                        </div>
-                        <h5>
-                            Dr.Hardik Rawal
-                        </h5>
-                        <h6 class="">
-                            Neuro Science Unit
-                        </h6>
-                    </div>
-                </div>
-            </div>
+
+            }
+            else
+            {
+                <p>No doctors available.</p>
+            }
+
+            
         </div>
-        <div class="btn-box">
-           
-        </div>
+        
 
     </section>
 
