@@ -7,7 +7,8 @@
 <div class="row">
     <div class="col-md-12 mt-4 px-5">
         <div class="card px-3 pt-auto">
-<h1>Patients</h1>
+            <div class="mt-3">
+<h2>Patients</h2>
 <hr/>
 
 <p>
@@ -45,22 +46,23 @@
                 <td>@Html.DisplayFor(modelItem => item.Age)</td>
                 <td>@Html.DisplayFor(modelItem => item.PhoneNumber)</td>
                 <td>@Html.DisplayFor(modelItem => item.Address)</td>
-                                    <td>
-                                        <a asp-action="Edit" asp-route-id="@item.UserId" class="btn btn-sm btn-primary">
-                                            <i class="bi bi-pencil-square"></i> 
-                                        </a>
-                                        <a asp-action="Details" asp-route-id="@item.UserId" class="btn btn-sm btn-info">
-                                            <i class="bi bi-card-list"></i> 
-                                        </a>
-                                        <a asp-action="Delete" asp-route-id="@item.UserId" class="btn btn-sm btn-danger">
-                                            <i class="bi bi-trash-fill"></i> 
-                                        </a>
-                                    </td>
+                 <td>
+                    <a asp-action="Edit" asp-route-id="@item.UserId" class="btn btn-sm btn-primary">
+                    <i class="bi bi-pencil-square"></i> 
+                    </a>
+                     <a asp-action="Details" asp-route-id="@item.UserId" class="btn btn-sm btn-info">
+                     <i class="bi bi-card-list"></i> 
+                     </a>
+                     <a asp-action="Delete" asp-route-id="@item.UserId" class="btn btn-sm btn-danger">
+                     <i class="bi bi-trash-fill"></i> 
+                      </a>
+                 </td>
 
             </tr>
         }
     </tbody>
 </table>
+            </div>
 </div>
     </div>
     </div>

@@ -298,9 +298,10 @@
                             </ul>
                         </li>
 
+                        
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <i class="fa-solid fa-stethoscope nav-icon"></i>
+                                <i class="fa-regular fa-circle-user nav-icon"></i>
                                 <p>
                                     Patients
                                     <i class="nav-arrow bi bi-chevron-right"></i>
@@ -309,7 +310,7 @@
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a asp-controller="Patients" asp-action="Index" class="nav-link">
-                                        <i class="nav-icon bi bi-circle"></i>
+                                        <i class="fa-solid fa-table-list nav-icon"></i>
                                         <p>Patient List</p>
                                     </a>
                                 </li>
@@ -317,13 +318,40 @@
                                 {
                                     <li class="nav-item">
                                         <a asp-controller="Patients" asp-action="Create" class="nav-link">
-                                            <i class="nav-icon bi bi-circle"></i>
+                                            <i class="fa-solid fa-square-plus nav-icon"></i>
                                             <p>Add New Patient</p>
                                         </a>
                                     </li>
                                 }
                             </ul>
                         </li>
+
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fa-solid fa-person-through-window nav-icon"></i>
+                                <p>
+                                    Receptionist
+                                    <i class="nav-arrow bi bi-chevron-right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a asp-controller="Receptionist" asp-action="Index" class="nav-link">
+                                        <i class="fa-solid fa-table-list nav-icon"></i>
+                                        <p>Receptionist List</p>
+                                    </a>
+                                </li>
+                                
+                                    <li class="nav-item">
+                                        <a asp-controller="Receptionist" asp-action="Create" class="nav-link">
+                                        <i class="fa-solid fa-square-plus nav-icon"></i>
+                                            <p>Add New Receptionist</p>
+                                        </a>
+                                    </li>
+                                
+                            </ul>
+                        </li>
+
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon bi bi-table"></i>
