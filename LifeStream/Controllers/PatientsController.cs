@@ -27,6 +27,8 @@ namespace LifeStream.Controllers
         public async Task<IActionResult> Index(string searchQuery)
         {
             var patients = _context.Patients.Include(p => p.User).AsQueryable();
+                _context.Patients.Include(p => p.Appointments)
+                .ThenInclude(a => a.Doctor).ToList(); 
 
             if (!string.IsNullOrEmpty(searchQuery))
             {
@@ -50,7 +52,7 @@ namespace LifeStream.Controllers
             }
 
             var patient = await _context.Patients
-                .Include(p => p.User)
+                .Include(p => p.User).Include(p=> p.Appointments)
                 .FirstOrDefaultAsync(m => m.UserId == id);
             if (patient == null)
             {

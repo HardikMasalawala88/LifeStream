@@ -14,7 +14,6 @@ namespace LifeStream.Models
 
         [Required]
         public string Name { get; set; }
-
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
@@ -44,7 +43,6 @@ namespace LifeStream.Models
 
         public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
         public ICollection<MedicalRecord> MedicalRecords { get; set; } = new List<MedicalRecord>();
-
         public ICollection<Feedback> FeedBacks { get; set; } = new List<Feedback>();
     }
 }

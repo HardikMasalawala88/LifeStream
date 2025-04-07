@@ -1,149 +1,323 @@
-﻿@model LifeStream.Models.DoctorViewModel
+﻿@model LifeStream.Models.Doctor
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create Doctor";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<div class="container-fluid pt-4 px-4">
-    <div class="row g-4">
-        <div class="col-sm-12 col-xl-12">
-            <div class="bg-light rounded p-4">
-                <h3>Insert Doctor Details...</h3>
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create" method="post" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                                <label asp-for="Doctor.UserId" class="control-label" hidden></label>
-                <select asp-for="Doctor.UserId" class="form-control" asp-items="ViewBag.UserId" hidden></select>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-xl-8 col-lg-10">
+            <div class="card card-glassmorphism mb-5">
+                <div class="card-header bg-gradient-primary text-white py-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h3 class="mb-0">
+                            <i class="fas fa-user-md me-2"></i> Create New Doctor Profile
+                        </h3>
+                        <a asp-action="Index" class="btn btn-outline-light btn-sm">
+                            <i class="fas fa-arrow-left me-1"></i> Back to List
+                        </a>
+                    </div>
+                </div>
+
+                <form asp-action="Create" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                    <div class="card-body">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+
+                        <div class="form-group">
+                            <label asp-for="UserId" class="control-label" hidden></label>
+                            <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId" hidden></select>
+                        </div>
+                        <div class="row g-4">
+                            <!-- Left Column -->
+                            <div class="col-md-6">
+                                <!-- Name Section -->
+                                <div class="form-floating mb-4">
+                                    <input asp-for="Name" class="form-control" placeholder=" " required />
+                                    <label asp-for="Name" class="form-label">
+                                        <i class="fas fa-signature me-2 text-primary"></i>Full Name
+                                    </label>
+                                    <span asp-validation-for="Name" class="text-danger small"></span>
+                                </div>
+
+                                <!-- First & Last Name -->
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-4">
+                                            <input asp-for="FirstName" class="form-control" placeholder=" " />
+                                            <label asp-for="FirstName" class="form-label">
+                                                <i class="fas fa-user me-2 text-primary"></i>First Name
+                                            </label>
+                                            <span asp-validation-for="FirstName" class="text-danger small"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-4">
+                                            <input asp-for="LastName" class="form-control" placeholder=" " />
+                                            <label asp-for="LastName" class="form-label">
+                                                <i class="fas fa-user me-2 text-primary"></i>Last Name
+                                            </label>
+                                            <span asp-validation-for="LastName" class="text-danger small"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Email -->
+                                <div class="form-floating mb-4">
+                                    <input asp-for="Email" type="email" class="form-control" placeholder=" " required />
+                                    <label asp-for="Email" class="form-label">
+                                        <i class="fas fa-envelope me-2 text-primary"></i>Email Address
+                                    </label>
+                                    <span asp-validation-for="Email" class="text-danger small"></span>
+                                </div>
+
+                                <!-- Specialization -->
+                                <div class="form-floating mb-4">
+                                    <select asp-for="Specialization" asp-items="ViewBag.SpecializationList" class="form-select" required>
+                                        <option value="">-- Select Specialization --</option>
+                                    </select>
+                                    <label asp-for="Specialization" class="form-label">
+                                        <i class="fas fa-stethoscope me-2 text-primary"></i>Specialization
+                                    </label>
+                                    <span asp-validation-for="Specialization" class="text-danger small"></span>
+                                </div>
+                            </div>
+
+                            <!-- Right Column -->
+                            <div class="col-md-6">
+                                <!-- Age & Experience -->
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-4">
+                                            <input asp-for="Age" type="number" min="26" max="40" class="form-control" placeholder=" " required />
+                                            <label asp-for="Age" class="form-label">
+                                                <i class="fas fa-birthday-cake me-2 text-primary"></i>Age
+                                            </label>
+                                            <span asp-validation-for="Age" class="text-danger small"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-4">
+                                            <input asp-for="ExprienceYear" type="number" min="1" max="35" class="form-control" placeholder=" " required />
+                                            <label asp-for="ExprienceYear" class="form-label">
+                                                <i class="fas fa-briefcase me-2 text-primary"></i>Experience (Years)
+                                            </label>
+                                            <span asp-validation-for="ExprienceYear" class="text-danger small"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Phone Number -->
+                                <div class="form-floating mb-4">
+                                    <input asp-for="PhoneNumber" class="form-control" placeholder=" " required />
+                                    <label asp-for="PhoneNumber" class="form-label">
+                                        <i class="fas fa-phone-alt me-2 text-primary"></i>Phone Number
+                                    </label>
+                                    <span asp-validation-for="PhoneNumber" class="text-danger small"></span>
+                                </div>
+
+                                <!-- Gender -->
+                                <div class="mb-4">
+                                    <label class="form-label d-block">
+                                        <i class="fas fa-venus-mars me-2 text-primary"></i>Gender
+                                    </label>
+                                    <div class="btn-group w-100" role="group">
+                                        <input type="radio" asp-for="Gender" value="Male" class="btn-check" id="genderMale" autocomplete="off" />
+                                        <label class="btn btn-outline-primary" for="genderMale">
+                                            <i class="fas fa-male me-1"></i> Male
+                                        </label>
+
+                                        <input type="radio" asp-for="Gender" value="Female" class="btn-check" id="genderFemale" autocomplete="off" />
+                                        <label class="btn btn-outline-primary" for="genderFemale">
+                                            <i class="fas fa-female me-1"></i> Female
+                                        </label>
+                                    </div>
+                                    <span asp-validation-for="Gender" class="text-danger small"></span>
+                                </div>
+
+                                <!-- Profile Image -->
+                                <div class="mb-4">
+                                    <label class="form-label d-block">
+                                        <i class="fas fa-camera me-2 text-primary"></i>Profile Image
+                                    </label>
+                                    <div class="file-upload-wrapper">
+                                        <input type="file" name="ImageFile" class="form-control file-upload-input" id="imageUpload" />
+                                        <label for="imageUpload" class="file-upload-label">
+                                            <span class="file-upload-text">Choose file...</span>
+                                            <span class="file-upload-button btn btn-sm btn-outline-primary">
+                                                <i class="fas fa-cloud-upload-alt"></i> Browse
+                                            </span>
+                                        </label>
+                                        <div class="image-preview mt-2 text-center" id="imagePreview">
+                                            <img src="" alt="Preview"
+                                                 class="rounded-circle border border-3 border-primary shadow-sm d-none"
+                                                 id="previewImage"
+                                                 style="width: 150px; height: 150px; object-fit: cover;">
+                                        </div>
+                                    </div>
+                                    <span asp-validation-for="ImagePath" class="text-danger small"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-footer bg-light text-center py-3">
+                        <button type="submit" class="btn btn-primary btn-lg px-5">
+                            <i class="fas fa-user-plus me-2"></i> Create Doctor
+                        </button>
+                    </div>
+                </form>
             </div>
-             <div class="mb-4">
-                 @* <label asp-for="Doctor.Name" class="form-label"></label>  *@
-                <div class="input-group">
-                    <span class="input-group-text"><i class="bi bi-person-circle"></i></span>
-                    <input asp-for="Doctor.Name" class="form-control" placeholder="Enter User Name:" />
-                </div>
-                     <span asp-validation-for="Doctor.Name" class="text-danger"></span>
-             </div>
-
-            <div class="mb-4">
-                @* <label asp-for="Doctor.FirstName" class="control-label"></label> *@
-                 <div class="input-group">
-                 <span class="input-group-text"><i class="bi bi-person-lines-fill"></i></span>
-                <input asp-for="Doctor.FirstName" class="form-control" placeholder="Enter First Name:" />
-                </div>
-                <span asp-validation-for="Doctor.FirstName" class="text-danger"></span>
-            </div>
-
-            <div class="mb-4">
-              <div class="input-group">
-                @* <label asp-for="Doctor.LastName" class="control-label"></label> *@
-                 <span class="input-group-text"><i class="bi bi-person-lines-fill"></i></span>
-                <input asp-for="Doctor.LastName" class="form-control" placeholder="Enter Last Name:" />
-                </div>
-                <span asp-validation-for="Doctor.LastName" class="text-danger"></span>
-            </div>
-
-            <div class="mb-4">
-              <div class="input-group">
-                @* <label asp-for="Doctor.Email" class="control-label"></label> *@
-                 <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-                <input asp-for="Doctor.Email" class="form-control" placeholder="Enter Email:" />
-                </div>
-                <span asp-validation-for="Doctor.Email" class="text-danger"></span>
-            </div>
-
-            <div class="mb-4">
-               @* <label asp-for="Doctor.Specialization" class="control-label"></label> *@
-               <div class="input-group">
-                 <span class="input-group-text"><i class="bi bi-x-diamond-fill"></i></span>
-                   <select asp-for="Doctor.Specialization" class="form-control" asp-items="ViewBag.SpecializationList">
-                    <option value="">-- Select Specialization --</option>
-                    </select>
-              </div>
-                  <span asp-validation-for="Doctor.Specialization" class="text-danger"></span>
-             </div>
-
-
-
-            <div class="mb-4">
-              <label asp-for="Doctor.Gender" class="control-label"></label>
-            <div class="form-check">
-                <input asp-for="Doctor.Gender" type="radio" value="Male" class="form-check-input" id="genderMale" />
-               <label class="form-check-label" for="genderMale">
-               <i class="bi bi-person-standing"></i> Male
-               </label>
-                </div>
-              <div class="form-check">
-               <input asp-for="Doctor.Gender" type="radio" value="Female" class="form-check-input" id="genderFemale" />
-                 <label class="form-check-label" for="genderFemale">
-                    <i class="bi bi-gender-female"></i>Female
-                 </label>
-               </div>
-               <span asp-validation-for="Doctor.Gender" class="text-danger"></span>
-               </div>
-
-
-            <div class="mb-4">
-                    @* <label asp-for="Doctor.Age" class="control-label"></label> *@
-                <div class="input-group">
-                     <span class="input-group-text"><i class="bi bi-calendar2-plus"></i></span>
-                    <input asp-for="Doctor.Age" class="form-control" type="number" min="26" max="60" placeholder="Enter Age:" />
-                </div>
-                    <span asp-validation-for="Doctor.Age" class="text-danger"></span>
-            </div>
-
-            <div class="mb-4">
-                    @* <label asp-for="Doctor.PhoneNumber" class="control-label"></label> *@
-                <div class="input-group">
-                    <span class="input-group-text"><i class="bi bi-telephone"></i></span>
-                    <input asp-for="Doctor.PhoneNumber" class="form-control" placeholder="Enter Phone Number:" />
-                </div>
-                    <span asp-validation-for="Doctor.PhoneNumber" class="text-danger"></span>
-            </div>
-
-            <div class="mb-4">
-                    @* <label asp-for="Doctor.ExprienceYear" class="control-label"></label> *@
-                <div class="input-group">
-                    <span class="input-group-text"><i class="bi bi-calendar"></i></span>
-                    <input asp-for="Doctor.ExprienceYear" class="form-control" type="number" min="1" max="35" placeholder="Enter Experience Year:" />
-                </div>
-                    <span asp-validation-for="Doctor.ExprienceYear" class="text-danger"></span>
-            </div>
-
-            <!-- ✅ File Upload Control -->
-            <div class="mb-4">
-                <div class="input-group">
-                    @* <label asp-for="ImageFile" class="control-label"></label> *@
-                    <span class="input-group-text"><i class="bi bi-file-earmark"></i></span>
-                    <input type="file" asp-for="ImageFile" name="ImageFile" class="form-control" />
-                </div>
-                    <span asp-validation-for="ImageFile" class="text-danger"></span>
-            </div>
-
-            <div class="mb-4">
-                <div class="input-group">
-                <span class="input-group-text bg-primary"><i class="bi bi-plus-square text-light"></i></span>
-                <input type="submit" value="Create" class="btn btn-primary" />
-                </div>
-            </div>
-
-        </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <i class="bi bi-arrow-left-short text-primary"></i>
-    <a asp-action="Index">Back to List</a>
-</div>
-</div>
-</div>
-</div>
-</div>
+@section Styles {
+    <style>
+        .card-glassmorphism {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+            .card-glassmorphism:hover {
+                box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.25);
+            }
+
+        .bg-gradient-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        }
+
+        .form-floating label {
+            padding-left: 2.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-floating .form-control,
+        .form-floating .form-select {
+            padding-left: 3rem;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+            .form-floating .form-control:focus,
+            .form-floating .form-select:focus {
+                border-color: #667eea;
+                box-shadow: 0 0 0 0.25rem rgba(102, 126, 234, 0.25);
+            }
+
+        .form-floating i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 5;
+            color: #667eea;
+        }
+
+        .file-upload-wrapper {
+            position: relative;
+        }
+
+        .file-upload-input {
+            opacity: 0;
+            position: absolute;
+            z-index: -1;
+        }
+
+        .file-upload-label {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1rem;
+            border: 1px solid #dee2e6;
+            border-radius: 0.5rem;
+            background-color: #f8f9fa;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+            .file-upload-label:hover {
+                border-color: #adb5bd;
+            }
+
+        .file-upload-text {
+            color: #6c757d;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            margin-right: 10px;
+        }
+
+        .file-upload-button {
+            flex-shrink: 0;
+        }
+
+        .btn-outline-primary:hover i {
+            color: white;
+        }
+
+        .img-thumbnail {
+            transition: all 0.3s ease;
+            border-radius: 0.5rem;
+        }
+
+        .btn-group .btn-outline-primary.active {
+            background-color: #667eea;
+            color: white;
+        }
+    </style>
+}
 
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+    <script>
+        // Image preview functionality (preserved exactly as provided)
+        document.getElementById('imageUpload').addEventListener('change', function(event) {
+            const preview = document.getElementById('previewImage');
+            const previewContainer = document.getElementById('imagePreview');
+            const file = event.target.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.classList.remove('d-none');
+                }
+
+                reader.readAsDataURL(file);
+                document.querySelector('.file-upload-text').textContent = file.name;
+            } else {
+                preview.src = '';
+                preview.classList.add('d-none');
+                document.querySelector('.file-upload-text').textContent = 'Choose file...';
+            }
+        });
+
+        // Form validation (preserved exactly as provided)
+        (function () {
+            'use strict'
+
+            var forms = document.querySelectorAll('.needs-validation')
+
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+    </script>
 }

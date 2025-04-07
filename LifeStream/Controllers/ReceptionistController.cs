@@ -77,19 +77,18 @@ namespace LifeStream.Controllers
                             NormalizedEmail = recep.Email.ToUpper(),
                             FirstName = recep.FirstName,
                             LastName = recep.LastName,
-                            Role = UserRole.Receptionist, // Assign Patient Role
-                            //PhoneNumber = doc.PhoneNumber,
+                            Role = UserRole.Receptionist, // Assign Patient Role                            //PhoneNumber = doc.PhoneNumber,
                             EmailConfirmed = true,
                             SecurityStamp = Guid.NewGuid().ToString(),
                             ConcurrencyStamp = Guid.NewGuid().ToString()
                         };
 
-                        var result = await _userManager.CreateAsync(user, "Test@123"); // You may use a random password generator
+                        var result = await _userManager.CreateAsync(user, "Rec@123"); // You may use a random password generator
 
                         if (result.Succeeded)
                         {
                             // Step 2: Assign "Patient" role to the new user
-                            await _userManager.AddToRoleAsync(user, UserRole.Patient.ToString());
+                            await _userManager.AddToRoleAsync(user, UserRole.Receptionist.ToString());
 
                             // Step 3: Save user ID in the Patient table
                             recep.UserId = user.Id; // Assign the created UserId

@@ -122,11 +122,11 @@ namespace LifeStream.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
-                    if (User.IsInRole(UserRoleInfo.Admin))
+                    if (User.IsInRole(UserRoleInfo.Admin) || User.IsInRole(UserRoleInfo.Receptionist))
                     {
                         returnUrl = "/admin/index";
                     }
-                
+
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)

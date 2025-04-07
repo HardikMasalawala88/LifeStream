@@ -1,0 +1,76 @@
+﻿@model LifeStream.Models.Staff
+
+@{
+    ViewData["Title"] = "Edit Staff";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-lg border-0 rounded-3 mt-4">
+            <div class="card-header bg-primary text-white text-center py-4 rounded-top">
+                <h2><i class="fa-solid fa-user-edit"></i> Edit Staff</h2>
+            </div>
+            <div class="card-body p-4">
+                <form asp-action="Edit" method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="StaffId" />
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label asp-for="StaffName" class="form-label fw-bold">Full Name</label>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text"><i class="bi bi-person"></i></span>
+                                <input asp-for="StaffName" class="form-control" required />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Email" class="form-label fw-bold">Email</label>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                                <input asp-for="Email" class="form-control" required />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label asp-for="PhoneNumber" class="form-label fw-bold">Phone Number</label>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text"><i class="bi bi-telephone"></i></span>
+                                <input asp-for="PhoneNumber" class="form-control" required />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Designation" class="form-label fw-bold">Designation</label>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text"><i class="bi bi-briefcase"></i></span>
+                                <input asp-for="Designation" class="form-control" required />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label asp-for="DOJ" class="form-label fw-bold">Date of Joining</label>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text"><i class="bi bi-calendar"></i></span>
+                                <input asp-for="DOJ" class="form-control" type="date" required />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group text-center mt-4">
+                        <button type="submit" class="btn btn-success px-4"><i class="fa-solid fa-save"></i> Save Changes</button>
+                        <a asp-action="Index" class="btn btn-secondary px-4"><i class="fa-solid fa-arrow-left"></i> Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
