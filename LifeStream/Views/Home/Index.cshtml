@@ -1,7 +1,8 @@
-﻿@model List<LifeStream.Models.Doctor>
-
+﻿
+@model List<LifeStream.Models.Doctor>
 
 @{
+    ViewData["Title"] = "Create";
     Layout = null;
 }
 
@@ -18,7 +19,7 @@
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    
+
     <link rel="shortcut icon" href="~/images/logo.png" type="">
 
     <title>Lifestream</title>
@@ -34,6 +35,7 @@
 
     <!-- font awesome style -->
     <link href="css/font-awesome.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <!-- Custom styles for this template -->
     <link href="css/style.css" rel="stylesheet" />
@@ -79,9 +81,23 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="#section_contactus">Contact Us</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/Identity/Account/Login" target="_self">Login</a>
-                            </li>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li class="nav-item">
+                                    <form id="logoutForm" action="/Identity/Account/Logout" method="post" style="display: none;">
+                                        @Html.AntiForgeryToken()
+                                    </form>
+
+                                    <a class="nav-link" href="javascript:void(0);" onclick="document.getElementById('logoutForm').submit();">
+                                        Log Out
+                                    </a>
+                                </li>
+                            }else
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/Identity/Account/Login" target="_self">Login</a>
+                                </li>
+                            }
                         </ul>                        
                     </div> 
                 </nav>
@@ -103,6 +119,24 @@
                                         <p>
                                             LifeStream Hospital Surat currently provides Out and In patients services with a bed capacity of 243 beds and tertiary care facilities including Medical and Surgical intensive care.
                                         </p>
+                                        <button type="button" class="btn btn-outline-light btn-lg" onclick="handleAppointmentClick()">
+                                            Book Appointment
+                                        </button>
+
+                                        <script>
+                                            function handleAppointmentClick() {
+                                            @if (User.Identity.IsAuthenticated)
+                                            {
+                                                <text>window.location.href = 'tel:+917016161851';</text>
+                                            }
+                                            else
+                                            {
+                                                <text>window.location.href = '@Url.Page("/Account/Login", new { area = "Identity" })';</text>
+                                            }
+                                            }
+                                        </script>
+
+
                                     </div>
                                 </div>
                             </div>
@@ -119,6 +153,9 @@
                                         <p>
                                             LifeStream Multispecialty Hospital Surat offers the best care across various medical disciplines such as Mother & Child Care, Arthroscopy, Oncology, Cardiac Science, and Ophthalmology. Additionally, we excel in orthopedics & joint replacement surgery, sports medicine, spine & minimally invasive spine surgery, cardiology & cardiovascular surgery, medical & surgical oncology, neurology & neurosurgery, and more. Established in March 2017, the hospital serves the people of Surat and surrounding areas like Valsad, Udvada, Bharuch, and Hazira.
                                         </p>
+                                        <button type="button" class="btn btn-outline-light btn-lg" onclick="handleAppointmentClick()">
+                                            Book Appointment
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -132,11 +169,19 @@
                                         <h1>
                                             We Provide Best Healthcare
                                         </h1>
+                                        <button type="button" class="btn btn-outline-light btn-lg" onclick="handleAppointmentClick()">
+                                            Book Appointment
+                                        </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    
+
+                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
                 </div>
                 <ol class="carousel-indicators">
                     <li data-target="#customCarousel1" data-slide-to="0" class="active"></li>
@@ -229,9 +274,24 @@
     </section>
 
     <!-- end department section -->
+    <section id="section_doctors" class="doctor_section layout_padding mb-5">
+
+        <div class="container">
+            <div class="heading_container col-lg-6">
+                <div>
+                    <span>We are here for you</span>
+                    <h3>Book Appointment</h3>
+                </div>
+                <button type="button" class="btn btn-outline-light btn-lg" onclick="handleAppointmentClick()">
+                    Book Appointment
+                </button>
+            </div>
+            
+        </div>
+    </section>
     <!-- about section -->
 
-    <section id="section_aboutus" class="about_section layout_margin-bottom">
+    <section id="section_aboutus" class="about_section layout_margin-bottom mt-5">
         <div class="container  ">
             <div class="row">
                 <div class="col-md-6 ">
@@ -264,7 +324,7 @@
     <!-- end about section -->
     <!-- doctor section -->
 
-    <section id="section_doctors" class="doctor_section layout_padding">
+    <section id="section_doctors" class="doctor_section layout_padding mt-5">
        
         <div class="container">
             <div class="heading_container heading_center">
@@ -506,6 +566,10 @@
     <script type="text/javascript" src="js/custom.js"></script>
     <!-- Google Map -->
     <!-- End Google Map -->
+
+    @section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
 
 </body>
 

@@ -1,10 +1,11 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using LifeStream.Areas.Identity.Data;
 using LifeStream.Data;
 using LifeStream.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.General;
 
@@ -24,20 +25,12 @@ namespace LifeStream.Controllers
             _dBContext = dBContext; // Correcting the variable name
         }
 
-
         public IActionResult Index()
         {
-            //ViewData["UserID"]=_userManager.GetUserId(this.User);
             var doctors = _dBContext.Doctors.ToList();
-
-            if (doctors == null || !doctors.Any()) // Check if no data
-            {
-                ViewBag.Message = "No doctors available.";
-                return View(new List<Doctor>()); // Empty list mukva maate
-            }
-
             return View(doctors);
         }
+
 
         public IActionResult login()
         {

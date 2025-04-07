@@ -90,7 +90,7 @@ namespace LifeStream.Controllers
                     if (result.Succeeded)
                     {
                         // Step 2: Assign "Patient" role to the new user
-                        await _userManager.AddToRoleAsync(user, UserRole.Patient.ToString());
+                        await _userManager.AddToRoleAsync(user, UserRole.Receptionist.ToString());
 
                         // Step 3: Save user ID in the Patient table
                         recep.UserId = user.Id; // Assign the created UserId

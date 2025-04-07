@@ -3,10 +3,10 @@
 <!--begin::Head-->
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>AdminLTE | Dashboard v3</title>
+    <title>Life Stream</title>
     <!--begin::Primary Meta Tags-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="title" content="AdminLTE | Dashboard v3" />
+    <meta name="title" content="Life Stream" />
     <meta name="author" content="ColorlibHQ" />
     <meta name="description"
     content="AdminLTE is a Free Bootstrap 5 Admin Dashboard, 30 example pages using Vanilla JS." />
@@ -162,6 +162,11 @@
                         </div>
                     </li>
                     <!--end::Messages Dropdown Menu-->
+                    <li class="nav-item">
+                        <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                            <button id="logout" type="submit" class="nav-link btn btn-link text-dark border-0">Logout</button>
+                        </form>
+                    </li>
                     <!--begin::Notifications Dropdown Menu-->
                     <li class="nav-item dropdown">
                         <a class="nav-link" data-bs-toggle="dropdown" href="#">
@@ -232,7 +237,7 @@
                             <!--begin::Menu Footer-->
                             <li class="user-footer">
                                 <a href="#" class="btn btn-default btn-flat">Profile</a>
-                                <a href="#" class="btn btn-default btn-flat float-end">Sign out</a>
+                                <a href="/Identity/Account/Login" class="btn btn-default btn-flat float-end">Sign out</a>
                             </li>
                             <!--end::Menu Footer-->
                         </ul>

@@ -19,7 +19,7 @@ namespace LifeStream.Models
 
         public DateTime AppointmentDate { get; set; }
 
-        public string Status { get; set; }
+        public string Status { get; set; } = "Pending";
 
         public string Description { get; set; }
 
