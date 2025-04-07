@@ -22,7 +22,7 @@ public class LifeStreamdDBContext : IdentityDbContext<LifeStreamUser>
     public DbSet<Bill> Bills { get; set; }
     public DbSet<Feedback> Feedbacks { get; set; }
     public DbSet<Receptionist> Receptionists { get; set; }
-    public DbSet<Nonmedicaltaff> nonmedicaltaffs { get; set; }
+    public DbSet<Staff> Staffs { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -51,7 +51,7 @@ public class LifeStreamdDBContext : IdentityDbContext<LifeStreamUser>
             Email = "admin@lifestream.com",
             NormalizedEmail = "ADMIN@LIFESTREAM.COM",
             EmailConfirmed = true,
-            FirstName = "System",
+            FirstName = "LifeStream",
             LastName = "Admin"
         };
 
@@ -67,12 +67,11 @@ public class LifeStreamdDBContext : IdentityDbContext<LifeStreamUser>
         });
 
 
-    
-    // Customize the ASP.NET Identity model and override the defaults if needed.
-    // For example, you can rename the ASP.NET Identity table names and more.
-    // Add your customizations after calling base.OnModelCreating(builder);
+        // Customize the ASP.NET Identity model and override the defaults if needed.
+        // For example, you can rename the ASP.NET Identity table names and more.
+        // Add your customizations after calling base.OnModelCreating(builder);
 
-    modelBuilder.Entity<Appointment>()
+        modelBuilder.Entity<Appointment>()
         .HasOne(a => a.Patient)
         .WithMany(p => p.Appointments)
         .HasForeignKey(a => a.PatientId)
@@ -137,7 +136,5 @@ public class LifeStreamdDBContext : IdentityDbContext<LifeStreamUser>
            .WithOne(e => e.Receptionist)
            .HasForeignKey<Receptionist>(x => x.UserId)
            .IsRequired(false);
-
-        
     }
 }

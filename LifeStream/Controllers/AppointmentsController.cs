@@ -61,15 +61,18 @@ namespace LifeStream.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("AppointmentId,PatientId,DoctorId,AppointmentDate,Status,Description")] Appointment appointment)
         {
+            if (appointment.AppointmentDate <= DateTime.Now)
+            {
+                ModelState.AddModelError("AppointmentDate", "Appointment date and time must be in the future.");
+            }
+
             if (ModelState.IsValid)
             {
-
                 _context.Appointments.Add(appointment);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
 
-            // Repopulate the dropdown lists to prevent errors on form reloading
             ViewData["DoctorList"] = new SelectList(
                 _context.Doctors.Select(d => new { d.UserId, FullName = d.FirstName + " " + d.LastName }),
                 "UserId", "FullName", appointment.DoctorId);
@@ -80,6 +83,7 @@ namespace LifeStream.Controllers
 
             return View(appointment);
         }
+
 
         // GET: Appointments/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -111,6 +115,11 @@ namespace LifeStream.Controllers
                 return NotFound();
             }
 
+            if (appointment.AppointmentDate <= DateTime.Now)
+            {
+                ModelState.AddModelError("AppointmentDate", "Appointment date and time must be in the future.");
+            }
+
             if (ModelState.IsValid)
             {
                 try
@@ -131,6 +140,7 @@ namespace LifeStream.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["DoctorId"] = new SelectList(_context.Doctors, "UserId", "Name", appointment.DoctorId);
             ViewData["PatientId"] = new SelectList(_context.Patients, "UserId", "PatientName", appointment.PatientId);
             return View(appointment);

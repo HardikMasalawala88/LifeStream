@@ -1,0 +1,44 @@
+﻿@model LifeStream.Models.Staff
+
+@{
+    ViewData["Title"] = "Staff Details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0 rounded-3">
+                <div class="card-header bg-primary text-white text-center py-3">
+                    <h3><i class="bi bi-person-badge"></i> Staff Details</h3>
+                </div>
+                <div class="card-body p-4">
+                    <dl class="row">
+                        <dt class="col-sm-4 fw-bold"><i class="bi bi-person"></i> Name</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.StaffName)</dd>
+
+                        <dt class="col-sm-4 fw-bold"><i class="bi bi-briefcase"></i> Designation</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.Designation)</dd>
+
+                        <dt class="col-sm-4 fw-bold"><i class="bi bi-telephone"></i> Phone Number</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.PhoneNumber)</dd>
+
+                        <dt class="col-sm-4 fw-bold"><i class="bi bi-envelope"></i> Email</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.Email)</dd>
+
+                        <dt class="col-sm-4 fw-bold"><i class="bi bi-calendar"></i> Date of Joining</dt>
+                        <dd class="col-sm-8">@Html.DisplayFor(model => model.DOJ)</dd>
+                    </dl>
+                </div>
+                <div class="card-footer text-center">
+                    <a asp-action="Edit" asp-route-id="@Model.StaffId" class="btn btn-warning px-4">
+                        <i class="bi bi-pencil-square"></i> Edit
+                    </a>
+                    <a asp-action="Index" class="btn btn-secondary px-4">
+                        <i class="bi bi-arrow-left"></i> Back to List
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

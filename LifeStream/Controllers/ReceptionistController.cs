@@ -63,57 +63,55 @@ namespace LifeStream.Controllers
         // POST: ReceptionistController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(Receptionist recep)
-        {
-            if (ModelState.IsValid)
+            public async Task<ActionResult> Create(Receptionist recep)
             {
                 if (ModelState.IsValid)
                 {
-                    var user = new LifeStreamUser
-                    {
-                        Id = Guid.NewGuid().ToString(),
-                        UserName = recep.Email,
-                        NormalizedUserName = recep.Email.ToUpper(),
-                        Email = recep.Email,
-                        NormalizedEmail = recep.Email.ToUpper(),
-                        FirstName = recep.FirstName,
-                        LastName = recep.LastName,
-                        Role = UserRole.Receptionist, // Assign Patient Role
-                        //PhoneNumber = doc.PhoneNumber,
-                        EmailConfirmed = true,
-                        SecurityStamp = Guid.NewGuid().ToString(),
-                        ConcurrencyStamp = Guid.NewGuid().ToString()
-                    };
-
-                    var result = await _userManager.CreateAsync(user, "Test@123"); // You may use a random password generator
-
-                    if (result.Succeeded)
-                    {
-                        // Step 2: Assign "Patient" role to the new user
-                        await _userManager.AddToRoleAsync(user, UserRole.Patient.ToString());
-
-                        // Step 3: Save user ID in the Patient table
-                        recep.UserId = user.Id; // Assign the created UserId
-
-                        dBContext.Receptionists.Add(recep);
-                        await dBContext.SaveChangesAsync();
-
-                        return RedirectToAction(nameof(Index));
-                    }
-                    else
-                    {
-                        // Handle errors if user creation fails
-                        foreach (var error in result.Errors)
+                    
+                        var user = new LifeStreamUser
                         {
-                            ModelState.AddModelError("", error.Description);
-                        }
-                    }
+                            Id = Guid.NewGuid().ToString(),
+                            UserName = recep.Email,
+                            NormalizedUserName = recep.Email.ToUpper(),
+                            Email = recep.Email,
+                            NormalizedEmail = recep.Email.ToUpper(),
+                            FirstName = recep.FirstName,
+                            LastName = recep.LastName,
+                            Role = UserRole.Receptionist, // Assign Patient Role                            //PhoneNumber = doc.PhoneNumber,
+                            EmailConfirmed = true,
+                            SecurityStamp = Guid.NewGuid().ToString(),
+                            ConcurrencyStamp = Guid.NewGuid().ToString()
+                        };
 
-                }
+                        var result = await _userManager.CreateAsync(user, "Rec@123"); // You may use a random password generator
+
+                        if (result.Succeeded)
+                        {
+                            // Step 2: Assign "Patient" role to the new user
+                            await _userManager.AddToRoleAsync(user, UserRole.Receptionist.ToString());
+
+                            // Step 3: Save user ID in the Patient table
+                            recep.UserId = user.Id; // Assign the created UserId
+
+                            dBContext.Receptionists.Add(recep);
+                            await dBContext.SaveChangesAsync();
+
+                            return RedirectToAction(nameof(Index));
+                        }
+                        else
+                        {
+                            // Handle errors if user creation fails
+                            foreach (var error in result.Errors)
+                            {
+                                ModelState.AddModelError("", error.Description);
+                            }
+                        }
+
+                    }
+                
+                    //ViewBag.UserId = new SelectList(dBContext.Users, "Id", "UserName", doc.UserId);
+                    return View(recep);
             }
-                //ViewBag.UserId = new SelectList(dBContext.Users, "Id", "UserName", doc.UserId);
-                return View(recep);
-        }
 
         // GET: ReceptionistController/Edit/5
         public async Task<IActionResult> Edit(string id)

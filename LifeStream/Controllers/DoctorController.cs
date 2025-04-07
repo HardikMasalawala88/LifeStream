@@ -74,7 +74,7 @@ namespace LifeStream.Controllers
         // ✅ POST: Doctor/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(DoctorViewModel model)
+        public async Task<IActionResult> Create(Doctor model, IFormFile ImageFile)
         {
             if (ModelState.IsValid)
             {
@@ -82,14 +82,14 @@ namespace LifeStream.Controllers
                 var user = new LifeStreamUser
                 {
                     Id = Guid.NewGuid().ToString(),
-                    UserName = model.Doctor.Email,
-                    NormalizedUserName = model.Doctor.Email.ToUpper(),
-                    Email = model.Doctor.Email,
-                    NormalizedEmail = model.Doctor.Email.ToUpper(),
-                    FirstName = model.Doctor.FirstName,
-                    LastName = model.Doctor.LastName,
+                    UserName = model.Email,
+                    NormalizedUserName = model.Email.ToUpper(),
+                    Email = model.Email,
+                    NormalizedEmail = model.Email.ToUpper(),
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
                     Role = UserRole.Doctor,
-                    PhoneNumber = model.Doctor.PhoneNumber,
+                    PhoneNumber = model.PhoneNumber,
                     EmailConfirmed = true,
                     SecurityStamp = Guid.NewGuid().ToString(),
                     ConcurrencyStamp = Guid.NewGuid().ToString()
@@ -100,7 +100,7 @@ namespace LifeStream.Controllers
                 if (result.Succeeded)
                 {
                     // ✅ Step 2: Handle Image Upload
-                    if (model.ImageFile != null && model.ImageFile.Length > 0)
+                    if (ImageFile != null && ImageFile.Length > 0)
                     {
                         var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/image/doctors");
 
@@ -111,27 +111,27 @@ namespace LifeStream.Controllers
                         }
 
                         // ✅ Generate Unique File Name
-                        var fileName = Guid.NewGuid().ToString() + Path.GetExtension(model.ImageFile.FileName);
+                        var fileName = Guid.NewGuid().ToString() + Path.GetExtension(ImageFile.FileName);
                         var filePath = Path.Combine(folderPath, fileName);
 
                         // ✅ Save the Image in Folder
                         using (var stream = new FileStream(filePath, FileMode.Create))
                         {
-                            await model.ImageFile.CopyToAsync(stream);
+                            await ImageFile.CopyToAsync(stream);
                         }
 
                         // ✅ Save Image Path in Database
-                        model.Doctor.ImagePath = "/image/doctors/" + fileName;
+                        model.ImagePath = "/image/doctors/" + fileName;
                     }
                     else
                     {
                         // ✅ Set Default Image If No Image Uploaded
-                        model.Doctor.ImagePath = "/image/BCA.png";
+                        model.ImagePath = "/image/BCA.png";
                     }
 
                     // ✅ Step 3: Save Doctor Data
-                    model.Doctor.UserId = user.Id;
-                    dBContext.Doctors.Add(model.Doctor);
+                    model.UserId = user.Id;
+                    dBContext.Doctors.Add(model);
                     await dBContext.SaveChangesAsync();
 
                     return RedirectToAction(nameof(Index));
@@ -176,12 +176,11 @@ namespace LifeStream.Controllers
             };
 
             return View(doctor);
-        }
+          }
 
-        // ✅ POST: Edit Doctor
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, Doctor doctor, IFormFile ImageFile)
+        public async Task<IActionResult> Edit(string id, Doctor doctor, IFormFile? ImageFile)
         {
             if (id != doctor.UserId)
             {
@@ -192,15 +191,14 @@ namespace LifeStream.Controllers
             {
                 var existingDoctor = await dBContext.Doctors.FindAsync(id);
 
-                if (existingDoctor == null) 
+                if (existingDoctor == null)
                 {
                     return NotFound();
                 }
 
-                // ✅ Handle Image Update
+                // ✅ Image Handling
                 if (ImageFile != null && ImageFile.Length > 0)
                 {
-                    // ✅ Step 1: Delete Old Image
                     if (!string.IsNullOrEmpty(existingDoctor.ImagePath))
                     {
                         var oldFilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", existingDoctor.ImagePath.TrimStart('/'));
@@ -210,7 +208,6 @@ namespace LifeStream.Controllers
                         }
                     }
 
-                    // ✅ Step 2: Upload New Image
                     var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/image/doctors");
                     var fileName = Guid.NewGuid().ToString() + Path.GetExtension(ImageFile.FileName);
                     var filePath = Path.Combine(folderPath, fileName);
@@ -220,26 +217,47 @@ namespace LifeStream.Controllers
                         await ImageFile.CopyToAsync(stream);
                     }
 
-                    // ✅ Save New Image Path
                     existingDoctor.ImagePath = "/image/doctors/" + fileName;
                 }
 
-                // ✅ Update Doctor Data
-                existingDoctor.FirstName=doctor.FirstName;
-                existingDoctor.LastName=doctor.LastName;
-                existingDoctor.Email=doctor.Email;
-                existingDoctor.Specialization=doctor.Specialization;
-                existingDoctor.Gender=doctor.Gender;
-                existingDoctor.Age=doctor.Age;
-                existingDoctor.PhoneNumber=doctor.PhoneNumber;
-                existingDoctor.ExprienceYear=doctor.ExprienceYear;
+                // ✅ Update doctor properties
+                existingDoctor.FirstName = doctor.FirstName;
+                existingDoctor.LastName = doctor.LastName;
+                existingDoctor.Email = doctor.Email;
+                existingDoctor.Specialization = doctor.Specialization;
+                existingDoctor.Gender = doctor.Gender;
+                existingDoctor.Age = doctor.Age;
+                existingDoctor.PhoneNumber = doctor.PhoneNumber;
+                existingDoctor.ExprienceYear = doctor.ExprienceYear;
+
                 dBContext.Doctors.Update(existingDoctor);
                 await dBContext.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
+            }
+
+            // ❗ Model invalid — repopulate dropdown
+            ViewBag.SpecializationList = new List<SelectListItem>
+                {
+                    new SelectListItem { Text = "Cardiologist", Value = "Cardiologist" },
+                    new SelectListItem { Text = "Dermatologist", Value = "Dermatologist" },
+                    new SelectListItem { Text = "Neurologist", Value = "Neurologist" },
+                    new SelectListItem { Text = "Pediatrician", Value = "Pediatrician" },
+                    new SelectListItem { Text = "Orthopedic Surgeon", Value = "Orthopedic Surgeon" },
+                    new SelectListItem { Text = "Psychiatrist", Value = "Psychiatrist" },
+                    new SelectListItem { Text = "General Surgeon", Value = "General Surgeon" }
+                };
+
+            // ✅ Retain current image path on validation error
+            var originalDoctor = await dBContext.Doctors.FindAsync(id);
+            if (originalDoctor != null)
+            {
+                doctor.ImagePath = originalDoctor.ImagePath;
             }
 
             return View(doctor);
         }
+
 
         [HttpGet]
         public async Task<IActionResult> Delete(string id)

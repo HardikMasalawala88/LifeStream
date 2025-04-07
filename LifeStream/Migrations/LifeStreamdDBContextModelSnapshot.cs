@@ -105,20 +105,20 @@ namespace LifeStream.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6033a350-859d-4da8-978a-4f852d6a10ec",
+                            Id = "6ebaa794-8534-4899-b516-c07e4ba30d65",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "deb73ee8-acd8-43c1-ab4f-6ff007c0e963",
+                            ConcurrencyStamp = "40f901a4-e9a2-48d2-b7f4-f2b1feac69c8",
                             Email = "admin@lifestream.com",
                             EmailConfirmed = true,
-                            FirstName = "System",
+                            FirstName = "LifeStream",
                             LastName = "Admin",
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LIFESTREAM.COM",
                             NormalizedUserName = "ADMIN@LIFESTREAM.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEEVuw61WTrlIIDXt1ju0bZ93FSPlcH8X85anrb05fHaOqWQBwx9iwVGocqDlFzkoMg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJrSyoQym060L4cyF3VJZorhQwTAK2bBf8uo/3Nwx+FKmLkknwwfnOXybfBmHdsfaw==",
                             PhoneNumberConfirmed = false,
                             Role = 0,
-                            SecurityStamp = "2ba73e8f-2064-47d0-bedd-2b9e96757de7",
+                            SecurityStamp = "c8e58966-0bf5-4068-9555-b37da296e178",
                             TwoFactorEnabled = false,
                             UserName = "admin@lifestream.com"
                         });
@@ -328,43 +328,6 @@ namespace LifeStream.Migrations
                     b.ToTable("MedicalRecords");
                 });
 
-            modelBuilder.Entity("LifeStream.Models.Nonmedicaltaff", b =>
-                {
-                    b.Property<int>("StaffId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StaffId"));
-
-                    b.Property<string>("Department")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Gender")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Jobtitle")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Salary")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StaffName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("StaffId");
-
-                    b.ToTable("nonmedicaltaffs");
-                });
-
             modelBuilder.Entity("LifeStream.Models.Patient", b =>
                 {
                     b.Property<string>("UserId")
@@ -435,6 +398,38 @@ namespace LifeStream.Migrations
                     b.ToTable("Receptionists");
                 });
 
+            modelBuilder.Entity("LifeStream.Models.Staff", b =>
+                {
+                    b.Property<int>("StaffId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StaffId"));
+
+                    b.Property<DateTime>("DOJ")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Designation")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StaffName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("StaffId");
+
+                    b.ToTable("Staffs");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -464,25 +459,25 @@ namespace LifeStream.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "25fc34ae-f504-4756-9b26-9527bdaf520d",
+                            Id = "c7c1db37-342a-434f-8706-7b35c460b50f",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "e034c4a2-c014-45b9-b426-ae65fa15c3ed",
+                            Id = "34e635c4-a3bd-4250-a667-ba86e4989b61",
                             Name = "Doctor",
                             NormalizedName = "DOCTOR"
                         },
                         new
                         {
-                            Id = "55c2a9bf-d538-438a-bfad-8e27b614b065",
+                            Id = "63265cb2-e275-4820-9751-766a18991057",
                             Name = "Patient",
                             NormalizedName = "PATIENT"
                         },
                         new
                         {
-                            Id = "1206788d-2e17-4387-b62c-8a859d07f2c7",
+                            Id = "53e4491a-aa8d-43ea-b3f9-58e992ad9a80",
                             Name = "Receptionist",
                             NormalizedName = "RECEPTIONIST"
                         });
@@ -579,8 +574,8 @@ namespace LifeStream.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "6033a350-859d-4da8-978a-4f852d6a10ec",
-                            RoleId = "25fc34ae-f504-4756-9b26-9527bdaf520d"
+                            UserId = "6ebaa794-8534-4899-b516-c07e4ba30d65",
+                            RoleId = "c7c1db37-342a-434f-8706-7b35c460b50f"
                         });
                 });
 

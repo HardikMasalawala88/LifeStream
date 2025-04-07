@@ -4,44 +4,14 @@
     ViewData["Title"] = "Patients";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
-<div class="container-fluid pt-1 px-1">
-    <div class="row g-4">
-        <div class="col-12">
-            <div class="bg-light rounded h-100 p-4">
 
-                <div class="table-responsive">
-<h1>Patients</h1>
-
-<p>
-    <a asp-action="Create" class="btn btn-primary">Create New Patient</a>
-</p>
-
- @if (User.IsInRole(UserRoleInfo.Admin))
-{
-    <!-- ✅ Search Form -->
-    <form asp-action="Index" method="get" class="mb-3">
-        <div class="input-group">
-            <input type="text" name="searchQuery" value="@Context.Request.Query["searchQuery"]" class="form-control" placeholder="Search by Name, Email, or Phone" />
-            <button type="submit" class="input-group-text bg-primary">
-                <i class="bi bi-search text-light"></i>
-            </button>
-        </div>
-    </form>
-}
-
-
-<table class="table table-hover defaul-primary">
-    <thead class="thead-dark">       
+<table class="table table-hover default-primary">
+    <thead class="thead-dark">
         <tr>
-            <th>@Html.DisplayNameFor(model => model.First().PatientName)</th>
-            <th>@Html.DisplayNameFor(model => model.First().FirstName)</th>
-            <th>@Html.DisplayNameFor(model => model.First().LastName)</th>
-            <th>@Html.DisplayNameFor(model => model.First().Email)</th>
-            <th>@Html.DisplayNameFor(model => model.First().DateOfBirth)</th>
-            <th>@Html.DisplayNameFor(model => model.First().Gender)</th>
-            <th>@Html.DisplayNameFor(model => model.First().Age)</th>
-            <th>@Html.DisplayNameFor(model => model.First().PhoneNumber)</th>
-            <th>@Html.DisplayNameFor(model => model.First().Address)</th>
+            <th>Patient Name</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Appointments</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -50,25 +20,30 @@
         {
             <tr>
                 <td>@Html.DisplayFor(modelItem => item.PatientName)</td>
-                <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
-                <td>@Html.DisplayFor(modelItem => item.LastName)</td>
                 <td>@Html.DisplayFor(modelItem => item.Email)</td>
-                <td>@Html.DisplayFor(modelItem => item.DateOfBirth)</td>
-                <td>@Html.DisplayFor(modelItem => item.Gender)</td>
-                <td>@Html.DisplayFor(modelItem => item.Age)</td>
                 <td>@Html.DisplayFor(modelItem => item.PhoneNumber)</td>
-                <td>@Html.DisplayFor(modelItem => item.Address)</td>
                 <td>
-                   <a asp-action="Edit" asp-route-id="@item.UserId"><i style="color:blue; font-size:small" class="bi bi-pencil-square"></i></a>
-                   <a asp-action="Details" asp-route-id="@item.UserId"><i style="color:deepskyblue" class="bi bi-card-list"></i></a>
-                   <a asp-action="Delete" asp-route-id="@item.UserId"><i style="color:red" class="bi bi-trash-fill"></i></a>
+                    @if (item.Appointments.Any())
+                    {
+                        <ul>
+                            @foreach (var appointment in item.Appointments)
+                            {
+                                <li>@appointment.AppointmentDate - @appointment.Doctor.Name</li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <span>No Appointments</span>
+                    }
                 </td>
             </tr>
         }
+        @foreach (var item in Model)
+        {
+                <a asp-action="Edit" asp-route-id="@item.UserId"><i style="color:blue; font-size:small" class="bi bi-pencil-square"></i></a>
+                <a asp-action="Details" asp-route-id="@item.UserId"><i style="color:deepskyblue" class="bi bi-card-list"></i></a>
+                <a asp-action="Delete" asp-route-id="@item.UserId"><i style="color:red" class="bi bi-trash-fill"></i></a>
+        }
     </tbody>
 </table>
-</div>
-    </div>
-    </div>
-    </div>
-</div>

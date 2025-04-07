@@ -1,163 +1,328 @@
 ﻿@model LifeStream.Models.Doctor
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Doctor";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<div class="container-fluid pt-4 px-4">
-    <div class="row g-4">
-        <div class="col-sm-12 col-xl-12">
-            <div class="bg-light rounded p-4">
-
-<h3>Edit Doctor Details...</h3>
-
-
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit" method="post" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="UserId" />
-            <input type="hidden" asp-for="ImagePath" />
-
-            <div class="mb-4">
-                <div class="input-group">
-                    @* <label asp-for="Name" class="control-label"></label> *@
-                     <span class="input-group-text"><i class="bi bi-person"></i></span>
-                    <input asp-for="Name" class="form-control" />
+<div class="container-fluid py-4">
+    <div class="row justify-content-center">
+        <div class="col-xl-8 col-lg-10">
+            <div class="card border-0 shadow-lg rounded-3 overflow-hidden">
+                <!-- Header Section -->
+                <div class="card-header bg-gradient-primary text-white py-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h3 class="mb-0">
+                            <i class="bi bi-pencil-square me-2"></i> Edit Doctor Profile
+                        </h3>
+                        <a asp-action="Index" class="btn btn-outline-light btn-sm rounded-pill">
+                            <i class="bi bi-arrow-left me-1"></i> Back to List
+                        </a>
+                    </div>
                 </div>
-                    <span asp-validation-for="Name" class="text-danger"></span>
+
+                <form asp-action="Edit" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                    <div class="card-body p-4">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger rounded-3 mb-4"></div>
+
+                        <input type="hidden" asp-for="UserId" />
+                        <input type="hidden" asp-for="ImagePath" />
+
+                        <!-- Image and Basic Info Row -->
+                        <div class="row mb-4 align-items-center">
+                            <!-- Image Column -->
+                            <div class="col-md-3 text-center">
+                                <!-- Current Image Preview -->
+                                <div class="position-relative">
+                                    @if (!string.IsNullOrEmpty(Model.ImagePath))
+                                    {
+                                        <img src="@Model.ImagePath" alt="Current Image"
+                                             class="img-thumbnail rounded-circle shadow border-3 border-white"
+                                             style="width: 150px; height: 150px; object-fit: cover;">
+                                    }
+                                    else
+                                    {
+                                        <div class="bg-light rounded-circle d-flex align-items-center justify-content-center shadow-sm"
+                                             style="width: 150px; height: 150px; margin: 0 auto;">
+                                            <i class="bi bi-person-bounding-box text-secondary" style="font-size: 3rem;"></i>
+                                        </div>
+                                    }
+
+                                    <!-- Upload Button -->
+                                    <div class="mt-3">
+                                        <label class="btn btn-sm btn-outline-primary rounded-pill px-3 cursor-pointer">
+                                            <i class="bi bi-cloud-arrow-up me-1"></i> Change Photo
+                                            <input type="file" name="ImageFile" class="d-none" id="imageUpload" />
+                                        </label>
+                                        <small class="d-block text-muted mt-1">Max 2MB</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Basic Info Column -->
+                            <div class="col-md-9">
+                                <div class="row g-3">
+                                    <!-- Name -->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="Name" class="form-label fw-bold mb-2">
+                                                <i class="bi bi-person-badge me-2 text-primary"></i>Full Name
+                                            </label>
+                                            <input asp-for="Name" class="form-control" required />
+                                            <span asp-validation-for="Name" class="text-danger small"></span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Specialization -->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="Specialization" class="form-label fw-bold mb-2">
+                                                <i class="bi bi-stethoscope me-2 text-primary"></i>Specialization
+                                            </label>
+                                            <select asp-for="Specialization" class="form-select" asp-items="ViewBag.SpecializationList" required>
+                                                <option value="">-- Select Specialization --</option>
+                                            </select>
+                                            <span asp-validation-for="Specialization" class="text-danger small"></span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Email -->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="Email" class="form-label fw-bold mb-2">
+                                                <i class="bi bi-envelope me-2 text-primary"></i>Email Address
+                                            </label>
+                                            <input asp-for="Email" type="email" class="form-control" required />
+                                            <span asp-validation-for="Email" class="text-danger small"></span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Phone -->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label asp-for="PhoneNumber" class="form-label fw-bold mb-2">
+                                                <i class="bi bi-telephone me-2 text-primary"></i>Phone Number
+                                            </label>
+                                            <input asp-for="PhoneNumber" class="form-control" required />
+                                            <span asp-validation-for="PhoneNumber" class="text-danger small"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Demographic Information Section -->
+                        <div class="row g-3">
+                            <!-- Gender -->
+                            <div class="col-md-4">
+                                <div class="form-group mb-0">
+                                    <label class="form-label fw-bold mb-2">
+                                        <i class="bi bi-gender-ambiguous me-2 text-primary"></i>Gender
+                                    </label>
+                                    <div class="btn-group w-100" role="group">
+                                        <input type="radio" asp-for="Gender" value="Male" class="btn-check" id="genderMale" autocomplete="off" required />
+                                        <label class="btn btn-outline-primary" for="genderMale">
+                                            <i class="bi bi-gender-male me-1"></i> Male
+                                        </label>
+                                        <input type="radio" asp-for="Gender" value="Female" class="btn-check" id="genderFemale" autocomplete="off" required />
+                                        <label class="btn btn-outline-primary" for="genderFemale">
+                                            <i class="bi bi-gender-female me-1"></i> Female
+                                        </label>
+                                    </div>
+                                    <span asp-validation-for="Gender" class="text-danger small"></span>
+                                </div>
+                            </div>
+
+                            <!-- Age -->
+                            <div class="col-md-4">
+                                <div class="form-group mb-0">
+                                    <label asp-for="Age" class="form-label fw-bold mb-2">
+                                        <i class="bi bi-calendar3 me-2 text-primary"></i>Age
+                                    </label>
+                                    <input asp-for="Age" type="number" min="26" max="60" class="form-control" required />
+                                    <span asp-validation-for="Age" class="text-danger small"></span>
+                                </div>
+                            </div>
+
+                            <!-- Experience -->
+                            <div class="col-md-4">
+                                <div class="form-group mb-0">
+                                    <label asp-for="ExprienceYear" class="form-label fw-bold mb-2">
+                                        <i class="bi bi-award me-2 text-primary"></i>Experience (Years)
+                                    </label>
+                                    <input asp-for="ExprienceYear" type="number" min="1" max="35" class="form-control" required />
+                                    <span asp-validation-for="ExprienceYear" class="text-danger small"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Hidden Fields -->
+                        <div hidden>
+                            <div class="form-group">
+                                <label asp-for="FirstName" class="form-label fw-bold mb-2"></label>
+                                <input asp-for="FirstName" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="LastName" class="form-label fw-bold mb-2"></label>
+                                <input asp-for="LastName" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Centered Footer Buttons -->
+                    <div class="card-footer bg-light py-3">
+                        <div class="d-flex justify-content-center">
+                            <button type="submit" class="btn btn-primary px-4 rounded-pill me-2">
+                                <i class="bi bi-check-circle me-1"></i> Save Changes
+                            </button>
+                            <a asp-action="Index" class="btn btn-outline-secondary px-4 rounded-pill">
+                                <i class="bi bi-x-circle me-1"></i> Cancel
+                            </a>
+                        </div>
+                    </div>
+                </form>
             </div>
-
-            <div class="mb-4">
-                <div class="input-group">
-                    @* <label asp-for="FirstName" class="control-label"></label> *@
-                    <span class="input-group-text"><i class="bi bi-person-lines-fill"></i></span>
-                    <input asp-for="FirstName" class="form-control" />
-                </div>
-                    <span asp-validation-for="FirstName" class="text-danger"></span>
-            </div>
-
-            <div class="mb-4">
-                <div class="input-group">
-                    @* <label asp-for="LastName" class="control-label"></label> *@
-                    <span class="input-group-text"><i class="bi bi-person-lines-fill"></i></span>
-                    <input asp-for="LastName" class="form-control" />
-                </div>
-                    <span asp-validation-for="LastName" class="text-danger"></span>
-            </div>
-
-            <div class="mb-4">
-                <div class="input-group">
-                    @* <label asp-for="Email" class="control-label"></label> *@
-                    <span class="input-group-text"><i class="bi bi-envelope"></i></span>
-                    <input asp-for="Email" class="form-control" />
-                </div>
-                    <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-
-            <div class="mb-4">
-                <div class="input-group">
-                    @* <label asp-for="Specialization" class="control-label"></label> *@
-                    <span class="input-group-text"><i class="bi bi-x-diamond-fill"></i></span>
-                    <select asp-for="Specialization" class="form-control" asp-items="ViewBag.SpecializationList">
-                        <option value="">-- Select Specialization --</option>
-                    </select>
-                </div>
-                    <span asp-validation-for="Specialization" class="text-danger"></span>
-            </div>
-
-            <div class="mb-4">
-                <label asp-for="Gender" class="control-label"></label>
-                <div class="form-check">
-                    <input asp-for="Gender" type="radio" value="Male" class="form-check-input" id="genderMale" />
-                    <label class="form-check-label" for="genderMale">
-                       <i class="bi bi-person-arms-up"></i> Male
-                    </label>
-                </div>
-                <div class="form-check">
-                  <input asp-for="Gender" type="radio" value="Female" class="form-check-input" id="genderFemale" />
-                    <label class="form-check-label" for="genderFemale">
-                       Female
-                    </label>
-                </div>
-                <span asp-validation-for="Gender" class="text-danger"></span>
-            </div>
-
-
-            <div class="mb-4">
-                <div class="input-group">
-                    @* <label asp-for="Age" class="control-label"></label> *@
-                    <span class="input-group-text"><i class="bi bi-calendar2-plus"></i></span>
-                    <input asp-for="Age" class="form-control" type="number" min="26" max="60" />
-                </div>
-                    <span asp-validation-for="Age" class="text-danger"></span>
-            </div>
-
-            <div class="mb-4">
-                <div class="input-group">
-                    @* <label asp-for="PhoneNumber" class="control-label"></label> *@
-                    <span class="input-group-text"><i class="bi bi-telephone"></i></span>
-                    <input asp-for="PhoneNumber" class="form-control" />
-                </div>
-                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-            </div>
-
-            <div class="mb-4">
-                <div class="input-group">
-                    <span class="input-group-text"><i class="bi bi-calendar"></i></span>
-                    @* <label asp-for="ExprienceYear" class="control-label"></label> *@
-                    <input asp-for="ExprienceYear" class="form-control" type="number" min="1" max="35" />
-                </div>
-                    <span asp-validation-for="ExprienceYear" class="text-danger"></span>
-            </div>
-
-            <!-- ✅ Current Image Display -->
-            <div class="form-group">
-    <label>Current Image:</label><br />
-    @if (!string.IsNullOrEmpty(Model.ImagePath))
-    {
-          <img src="@Model.ImagePath" alt="Current Image" width="150" height="150" style="border: 1px solid black; padding: 5px; border-radius:8px;"/>         
-    }
-    else
-    {
-        <p>No image available</p>
-    }
-</div>
-
-
-            <!-- ✅ File Upload Control -->
-            <div class="mb-4 mt-4">
-                <div class="input-group">
-                    @* <label>Upload New Image:</label> *@
-                    <span class="input-group-text"><i class="bi bi-file-earmark"></i></span>
-                    <input type="file" name="ImageFile" class="form-control" />
-                </div>
-                    <span asp-validation-for="ImagePath" class="text-danger"></span>
-                    <small class="text-muted">Leave blank if you don't want to change the image.</small>
-            </div>
-
-            <div class="mb-4">
-                <div class="input-group">
-                     <span class="input-group-text bg-primary"><i class="bi bi-box-arrow-down text-light"></i></span>
-                    <input type="submit" value="Save" class="btn btn-primary" />
-                </div>
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <i class="bi bi-arrow-left-short text-primary"></i>
-    <a asp-action="Index">Back to List</a>
-</div>
-</div>
-    </div>
-    </div>
-</div>
+@section Styles {
+    <style>
+        .bg-gradient-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        }
+
+        .card {
+            border: none;
+            box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.08);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+            .form-group.mb-0 {
+                margin-bottom: 0 !important;
+            }
+
+        .form-label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+            color: #495057;
+        }
+
+        .form-control, .form-select {
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.375rem;
+            border: 1px solid #ced4da;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+
+            .form-control:focus, .form-select:focus {
+                border-color: #86b7fe;
+                box-shadow: 0 0 0 0.25rem rgba(102, 126, 234, 0.25);
+            }
+
+        .btn-group {
+            box-shadow: none;
+        }
+
+        .btn-outline-primary {
+            border-color: #667eea;
+            color: #667eea;
+        }
+
+            .btn-outline-primary:hover,
+            .btn-outline-primary:active,
+            .btn-outline-primary:focus {
+                background-color: #667eea;
+                color: white;
+            }
+
+        .img-thumbnail {
+            transition: all 0.3s ease;
+            border: 3px solid #fff;
+        }
+
+        .text-danger.small {
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+        }
+
+        /* Responsive adjustments */
+        @@media (max-width: 768px) {
+            .row.mb-4.align-items-center {
+                flex-direction: column;
+            }
+
+            .col-md-3.text-center {
+                margin-bottom: 1.5rem;
+            }
+
+            .btn-group {
+                width: 100% !important;
+            }
+
+                .btn-group .btn {
+                    flex: 1;
+                }
+
+            .card-footer .d-flex {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .card-footer .btn {
+                width: 100%;
+            }
+        }
+    </style>
+}
 
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+    <script>
+        // Image upload preview
+        document.getElementById('imageUpload').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                if (file.size > 2 * 1024 * 1024) {
+                    alert('File size exceeds 2MB limit');
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.querySelector('.img-thumbnail');
+                    if (preview) {
+                        preview.src = e.target.result;
+                    } else {
+                        const imgContainer = document.querySelector('.bg-light.rounded-circle');
+                        imgContainer.innerHTML = `<img src="${e.target.result}" class="img-fluid rounded-circle" style="width: 150px; height: 150px; object-fit: cover;">`;
+                    }
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Form validation
+        (function () {
+            'use strict';
+            var forms = document.querySelectorAll('.needs-validation');
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+        })();
+    </script>
 }

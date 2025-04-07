@@ -1,49 +1,58 @@
 ﻿@model LifeStream.Models.Appointment
 
 @{
-    ViewData["Title"] = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Appointment Details";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h1>Details</h1>
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10">
+            <div class="card shadow-lg border-0 rounded-3">
 
-<div>
-    <h4>Appointment</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Patient)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Patient.PatientName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Doctor)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Doctor.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AppointmentDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AppointmentDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.AppointmentId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+                <!-- Header Section -->
+                <div class="card-header bg-primary text-white text-center py-4 rounded-top">
+                    <h2><i class="bi bi-calendar-check-fill"></i> Appointment Details</h2>
+                </div>
+
+                <!-- Card Body -->
+                <div class="card-body p-4">
+                    <table class="table table-borderless">
+                        <tbody>
+                            <tr>
+                                <td><i class="bi bi-person"></i> <strong>Patient Name:</strong></td>
+                                <td class="fw-bold">@Html.DisplayFor(model => model.Patient.PatientName)</td>
+                            </tr>
+                            <tr>
+                                <td><i class="bi bi-person-badge"></i> <strong>Doctor Name:</strong></td>
+                                <td class="fw-bold">@Html.DisplayFor(model => model.Doctor.Name)</td>
+                            </tr>
+                            <tr>
+                                <td><i class="bi bi-calendar-event"></i> <strong>Appointment Date:</strong></td>
+                                <td class="fw-bold text-primary">@Html.DisplayFor(model => model.AppointmentDate)</td>
+                            </tr>
+                            <tr>
+                                <td><i class="bi bi-info-circle"></i> <strong>Status:</strong></td>
+                                <td class="fw-bold text-success">@Html.DisplayFor(model => model.Status)</td>
+                            </tr>
+                            <tr>
+                                <td><i class="bi bi-chat-text"></i> <strong>Description:</strong></td>
+                                <td class="fw-bold">@Html.DisplayFor(model => model.Description)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="card-footer bg-light text-center py-3">
+                    <a asp-action="Edit" asp-route-id="@Model?.AppointmentId" class="btn btn-warning me-2 px-4">
+                        <i class="fa-solid fa-pen-to-square"></i> Edit
+                    </a>
+                    <a asp-action="Index" class="btn btn-secondary px-4">
+                        <i class="fa-solid fa-arrow-left"></i> Back to List
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

@@ -1,9 +1,12 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using LifeStream.Areas.Identity.Data;
+using LifeStream.Data;
 using LifeStream.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.General;
 
 namespace LifeStream.Controllers
@@ -13,18 +16,21 @@ namespace LifeStream.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly UserManager<LifeStreamUser> _userManager;
+        private readonly LifeStreamdDBContext _dBContext;
 
-        public HomeController(ILogger<HomeController> logger,UserManager<LifeStreamUser> userManager)
+        public HomeController(ILogger<HomeController> logger, UserManager<LifeStreamUser> userManager, LifeStreamdDBContext dBContext)
         {
             _logger = logger;
-            this._userManager = userManager;
+            _userManager = userManager;
+            _dBContext = dBContext; // Correcting the variable name
         }
 
         public IActionResult Index()
         {
-            //ViewData["UserID"]=_userManager.GetUserId(this.User);
-            return View();
+            var doctors = _dBContext.Doctors.ToList();
+            return View(doctors);
         }
+
 
         public IActionResult login()
         {
@@ -37,8 +43,11 @@ namespace LifeStream.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
+        public IActionResult Contact()
+        {
+            return View();
+        }
 
-       
-   
+
     }
 }

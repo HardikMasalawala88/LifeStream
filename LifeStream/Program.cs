@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using LifeStream.Data;
 using LifeStream.Areas.Identity.Data;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("LifeStreamdDBContextConnection")
@@ -18,6 +19,28 @@ builder.Services.AddDefaultIdentity<LifeStreamUser>(options =>
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
+#region Swagger
+// Add Swagger services
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "Mobile API",
+        Version = "v1"
+    });
+
+    // Show only MobileAPIController
+    c.DocInclusionPredicate((docName, apiDesc) =>
+    {
+        var actionDescriptor = apiDesc.ActionDescriptor;
+        if (actionDescriptor is Microsoft.AspNetCore.Mvc.Controllers.ControllerActionDescriptor controllerActionDescriptor)
+        {
+            return controllerActionDescriptor.ControllerTypeInfo.Name == "MobileAPIController";
+        }
+        return false;
+    });
+});
+#endregion
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
@@ -44,10 +67,10 @@ using (var scope = app.Services.CreateScope())
         adminUser = new LifeStreamUser
         {
             UserName = adminEmail,
-            Email = adminEmail,
+            Email ="admin@lifestream.com",
             EmailConfirmed = true,
-            FirstName = "Admin",
-            LastName = "User"
+            FirstName = "LifeStream",
+            LastName = "Admin"
         };
 
         var result = await userManager.CreateAsync(adminUser, "Admin@123");
@@ -65,11 +88,11 @@ if (!app.Environment.IsDevelopment())
 }
 app.UseStaticFiles();
 app.UseRouting();
-app.UseAuthentication();
+app.UseAuthentication();    
 app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Admin}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 
 app.Run();
