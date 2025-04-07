@@ -9,47 +9,49 @@
     <meta name="title" content="Life Stream" />
     <meta name="author" content="ColorlibHQ" />
     <meta name="description"
-    content="AdminLTE is a Free Bootstrap 5 Admin Dashboard, 30 example pages using Vanilla JS." />
+          content="AdminLTE is a Free Bootstrap 5 Admin Dashboard, 30 example pages using Vanilla JS." />
     <meta name="keywords"
-    content="bootstrap 5, bootstrap, bootstrap 5 admin dashboard, bootstrap 5 dashboard, bootstrap 5 charts, bootstrap 5 calendar, bootstrap 5 datepicker, bootstrap 5 tables, bootstrap 5 datatable, vanilla js datatable, colorlibhq, colorlibhq dashboard, colorlibhq admin dashboard" />
+          content="bootstrap 5, bootstrap, bootstrap 5 admin dashboard, bootstrap 5 dashboard, bootstrap 5 charts, bootstrap 5 calendar, bootstrap 5 datepicker, bootstrap 5 tables, bootstrap 5 datatable, vanilla js datatable, colorlibhq, colorlibhq dashboard, colorlibhq admin dashboard" />
     <!--end::Primary Meta Tags-->
     <!--begin::Fonts-->
     <link rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/@@fontsource/source-sans-3@5.0.12/index.css"
-    integrity="sha256-tXJfXfp6Ewt1ilPzLDtQnJV4hclT9XuaZUKyUvmyr+Q="
-    crossorigin="anonymous" />
+          href="https://cdn.jsdelivr.net/npm/@@fontsource/source-sans-3@5.0.12/index.css"
+          integrity="sha256-tXJfXfp6Ewt1ilPzLDtQnJV4hclT9XuaZUKyUvmyr+Q="
+          crossorigin="anonymous" />
     <!--end::Fonts-->
     <!--begin::Third Party Plugin(OverlayScrollbars)-->
     <link rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.10.1/styles/overlayscrollbars.min.css"
-    integrity="sha256-tZHrRjVqNSRyWg2wbppGnT833E/Ys0DHWGwT04GiqQg="
-    crossorigin="anonymous" />
+          href="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.10.1/styles/overlayscrollbars.min.css"
+          integrity="sha256-tZHrRjVqNSRyWg2wbppGnT833E/Ys0DHWGwT04GiqQg="
+          crossorigin="anonymous" />
     <!--end::Third Party Plugin(OverlayScrollbars)-->
     <!--begin::Third Party Plugin(Bootstrap Icons)-->
     <link rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-    integrity="sha256-9kPW/n5nn53j4WMRYAxe9c1rCY96Oogo/MKSVdKzPmI="
-    crossorigin="anonymous" />
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+          integrity="sha256-9kPW/n5nn53j4WMRYAxe9c1rCY96Oogo/MKSVdKzPmI="
+          crossorigin="anonymous" />
     <!--end::Third Party Plugin(Bootstrap Icons)-->
     <!--begin::Required Plugin(AdminLTE)-->
 
-    <link rel="stylesheet" href="~/AdminLayout/css/adminlte.css"/>
+    <link rel="stylesheet" href="~/AdminLayout/css/adminlte.css" />
     <!--end::Required Plugin(AdminLTE)-->
     <!-- apexcharts -->
     <link rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.css"
-    integrity="sha256-4MX+61mt9NVvvuPjUWdUdyfZfxSB1/Rf9WtqRHgG5S0="
-    crossorigin="anonymous" />
+          href="https://cdn.jsdelivr.net/npm/apexcharts@3.37.1/dist/apexcharts.css"
+          integrity="sha256-4MX+61mt9NVvvuPjUWdUdyfZfxSB1/Rf9WtqRHgG5S0="
+          crossorigin="anonymous" />
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
+    <link rel="stylesheet" 
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!--DATATABLE CUSTOM-->
     <!-- Add these in your _Layout.cshtml or specific view -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-
     <!--DATATABLE CUSTOM END-->
+    @RenderSection("Styles", required: false)
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 </head>
 
 
@@ -65,175 +67,20 @@
                         <a class="nav-link" data-lte-toggle="sidebar" href="#" role="button">
                             <i class="bi bi-list"></i>
                         </a>
-                    </li>
-                    <li class="nav-item d-none d-md-block"><a href="#" class="nav-link">Home</a></li>
-                    <li class="nav-item d-none d-md-block"><a href="#" class="nav-link">Contact</a></li>
+                    </li>                  
                 </ul>
                 <!--end::Start Navbar Links-->
                 <!--begin::End Navbar Links-->
-                <ul class="navbar-nav ms-auto">
-                    <!--begin::Navbar Search-->
-                    <li class="nav-item">
-                        <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-                            <i class="bi bi-search"></i>
-                        </a>
-                    </li>
-                    <!--end::Navbar Search-->
-                    <!--begin::Messages Dropdown Menu-->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" data-bs-toggle="dropdown" href="#">
-                            <i class="bi bi-chat-text"></i>
-                            <span class="navbar-badge badge text-bg-danger">3</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
-                            <a href="#" class="dropdown-item">
-                                <!--begin::Message-->
-                                <div class="d-flex">
-                                    <div class="flex-shrink-0">
-                                        <img src="~/AdminLayout/assets/img/user1-128x128.jpg"
-                                        alt="User Avatar"
-                                        class="img-size-50 rounded-circle me-3" />
-                                    </div>
-                                    <div class="flex-grow-1">
-                                        <h3 class="dropdown-item-title">
-                                            Brad Diesel
-                                            <span class="float-end fs-7 text-danger">
-                                                <i class="bi bi-star-fill"></i>
-                                            </span>
-                                        </h3>
-                                        <p class="fs-7">Call me whenever you can...</p>
-                                        <p class="fs-7 text-secondary">
-                                            <i class="bi bi-clock-fill me-1"></i> 4 Hours Ago
-                                        </p>
-                                    </div>
-                                </div>
-                                <!--end::Message-->
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item">
-                                <!--begin::Message-->
-                                <div class="d-flex">
-                                    <div class="flex-shrink-0">
-                                        <img src="~/AdminLayout/assets/img/user1-128x128.jpg"
-                                        alt="User Avatar"
-                                        class="img-size-50 rounded-circle me-3" />
-                                    </div>
-                                    <div class="flex-grow-1">
-                                        <h3 class="dropdown-item-title">
-                                            John Pierce
-                                            <span class="float-end fs-7 text-secondary">
-                                                <i class="bi bi-star-fill"></i>
-                                            </span>
-                                        </h3>
-                                        <p class="fs-7">I got your message bro</p>
-                                        <p class="fs-7 text-secondary">
-                                            <i class="bi bi-clock-fill me-1"></i> 4 Hours Ago
-                                        </p>
-                                    </div>
-                                </div>
-                                <!--end::Message-->
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item">
-                                <!--begin::Message-->
-                                <div class="d-flex">
-                                    <div class="flex-shrink-0">
-                                        <img src="~/AdminLayout/assets/img/user1-128x128.jpg"
-                                        alt="User Avatar"
-                                        class="img-size-50 rounded-circle me-3" />
-                                    </div>
-                                    <div class="flex-grow-1">
-                                        <h3 class="dropdown-item-title">
-                                            Nora Silvester
-                                            <span class="float-end fs-7 text-warning">
-                                                <i class="bi bi-star-fill"></i>
-                                            </span>
-                                        </h3>
-                                        <p class="fs-7">The subject goes here</p>
-                                        <p class="fs-7 text-secondary">
-                                            <i class="bi bi-clock-fill me-1"></i> 4 Hours Ago
-                                        </p>
-                                    </div>
-                                </div>
-                                <!--end::Message-->
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-                        </div>
-                    </li>
-                    <!--end::Messages Dropdown Menu-->
-                    <li class="nav-item">
-                        <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                            <button id="logout" type="submit" class="nav-link btn btn-link text-dark border-0">Logout</button>
-                        </form>
-                    </li>
-                    <!--begin::Notifications Dropdown Menu-->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" data-bs-toggle="dropdown" href="#">
-                            <i class="bi bi-bell-fill"></i>
-                            <span class="navbar-badge badge text-bg-warning">15</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
-                            <span class="dropdown-item dropdown-header">15 Notifications</span>
-                            <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item">
-                                <i class="bi bi-envelope me-2"></i> 4 new messages
-                                <span class="float-end text-secondary fs-7">3 mins</span>
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item">
-                                <i class="bi bi-people-fill me-2"></i> 8 friend requests
-                                <span class="float-end text-secondary fs-7">12 hours</span>
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item">
-                                <i class="bi bi-file-earmark-fill me-2"></i> 3 new reports
-                                <span class="float-end text-secondary fs-7">2 days</span>
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item dropdown-footer"> See All Notifications </a>
-                        </div>
-                    </li>
-                    <!--end::Notifications Dropdown Menu-->
-                    <!--begin::Fullscreen Toggle-->
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" data-lte-toggle="fullscreen">
-                            <i data-lte-icon="maximize" class="bi bi-arrows-fullscreen"></i>
-                            <i data-lte-icon="minimize" class="bi bi-fullscreen-exit" style="display: none"></i>
-                        </a>
-                    </li>
-                    <!--end::Fullscreen Toggle-->
-                    <!--begin::User Menu Dropdown-->
+                <ul class="navbar-nav ms-auto">                                                          
+                   
                     <li class="nav-item dropdown user-menu">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img src="~/AdminLayout/assets/img/user2-160x160.jpg"
-                            class="user-image rounded-circle shadow"
-                            alt="User Image" />
-                            <span class="d-none d-md-inline">Alexander Pierce</span>
+                            <img src="~/images/logo.png"
+                                 class="user-image rounded-circle shadow"
+                                 alt="User Image" />
+                            <span class="d-none d-md-inline">Admin </span>
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
-                            <!--begin::User Image-->
-                            <li class="user-header text-bg-primary">
-                                <img src="../../dist/assets/img/user2-160x160.jpg"
-                                class="rounded-circle shadow"
-                                alt="User Image" />
-                                <p>
-                                    Alexander Pierce - Web Developer
-                                    <small>Member since Nov. 2023</small>
-                                </p>
-                            </li>
-                            <!--end::User Image-->
-                            <!--begin::Menu Body-->
-                            <li class="user-body">
-                                <!--begin::Row-->
-                                <div class="row">
-                                    <div class="col-4 text-center"><a href="#">Followers</a></div>
-                                    <div class="col-4 text-center"><a href="#">Sales</a></div>
-                                    <div class="col-4 text-center"><a href="#">Friends</a></div>
-                                </div>
-                                <!--end::Row-->
-                            </li>
-                            <!--end::Menu Body-->
+                        <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">                                                     
                             <!--begin::Menu Footer-->
                             <li class="user-footer">
                                 <a href="#" class="btn btn-default btn-flat">Profile</a>
@@ -248,17 +95,17 @@
             </div>
             <!--end::Container-->
         </nav>
-
+                            <a asp-controller="Doctor" asp-action="Create" class="dropdown-item"><i class="bi bi-plus-square me-2"></i>Add New Doctor</a>
         <!--begin::Sidebar-->
-        <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
+        <aside class="app-sidebar bg-body-secondary " data-bs-theme="light">
             <!--begin::Sidebar Brand-->
             <div class="sidebar-brand">
                 <!--begin::Brand Link-->
                 <a asp-controller="Admin" asp-action="Index" class="brand-link">
                     <!--begin::Brand Image-->
-                    <img src="~/AdminLayout/assets/img/AdminLTELogo.png"
-                    alt="AdminLTE Logo"
-                    class="brand-image opacity-75 shadow" />
+                    <img src="~/images/logo.png"
+                         alt="AdminLTE Logo"
+                         class="brand-image opacity-75 shadow" />
                     <!--end::Brand Image-->
                     <!--begin::Brand Text-->
                     <span class="brand-text fw-light">LIFE STREAM</span>
@@ -272,9 +119,9 @@
                 <nav class="mt-2">
                     <!--begin::Sidebar Menu-->
                     <ul class="nav sidebar-menu flex-column"
-                    data-lte-toggle="treeview"
-                    role="menu"
-                    data-accordion="false">
+                        data-lte-toggle="treeview"
+                        role="menu"
+                        data-accordion="false">
                         <li class="nav-item menu-open">
                             <a asp-controller="Admin" asp-action="Index" class="nav-link active">
                                 <i class="nav-icon bi bi-speedometer"></i>
@@ -286,13 +133,70 @@
                         </li>
 
                         <li class="nav-item">
+							<a href="#" class="nav-link">
+								<i class="fa-solid fa-stethoscope nav-icon"></i>
+                                <p>
+                                Doctors
+                                <i class="nav-arrow bi bi-chevron-right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a asp-controller="Doctor" asp-action="Index" class="nav-link">
+                                    <i class="bi bi-person-lines-fill"></i>
+                                        <p>Doctor's List</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-controller="Doctor" asp-action="Create" class="nav-link">
+                                        <i class="bi bi-person-fill-add"></i>
+                                        <p>Add Doctor</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fa-solid fa-calendar-check"></i>
+                                <p>
+                                    Appointments
+                                    <i class="nav-arrow bi bi-chevron-right"></i>
+                                </p>
+                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a asp-controller="Appointments" asp-action="Index" class="nav-link">
+                                        <i class="fa-solid fa-clipboard-list"></i>
+                                        <p>Appointment List</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fa-solid fa-users"></i>
+                                <p>
+                                    Staff
+                                    <i class="nav-arrow bi bi-chevron-right"></i>
+                                </p>
+                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a asp-controller="Staffs" asp-action="Index" class="nav-link">
+                                        <i class="bi bi-person-lines-fill"></i>
+                                        <p>Staff List</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon bi bi-pencil-square"></i>
                                 <p>
                                     Forms
                                     <i class="nav-arrow bi bi-chevron-right"></i>
                                 </p>
-                            </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="./forms/general.html" class="nav-link">
@@ -302,61 +206,6 @@
                                 </li>
                             </ul>
                         </li>
-
-                        
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="fa-regular fa-circle-user nav-icon"></i>
-                                <p>
-                                    Patients
-                                    <i class="nav-arrow bi bi-chevron-right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a asp-controller="Patients" asp-action="Index" class="nav-link">
-                                        <i class="fa-solid fa-table-list nav-icon"></i>
-                                        <p>Patient List</p>
-                                    </a>
-                                </li>
-                                @if (User.IsInRole(UserRoleInfo.Receptionist))
-                                {
-                                    <li class="nav-item">
-                                        <a asp-controller="Patients" asp-action="Create" class="nav-link">
-                                            <i class="fa-solid fa-square-plus nav-icon"></i>
-                                            <p>Add New Patient</p>
-                                        </a>
-                                    </li>
-                                }
-                            </ul>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="fa-solid fa-person-through-window nav-icon"></i>
-                                <p>
-                                    Receptionist
-                                    <i class="nav-arrow bi bi-chevron-right"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a asp-controller="Receptionist" asp-action="Index" class="nav-link">
-                                        <i class="fa-solid fa-table-list nav-icon"></i>
-                                        <p>Receptionist List</p>
-                                    </a>
-                                </li>
-                                
-                                    <li class="nav-item">
-                                        <a asp-controller="Receptionist" asp-action="Create" class="nav-link">
-                                        <i class="fa-solid fa-square-plus nav-icon"></i>
-                                            <p>Add New Receptionist</p>
-                                        </a>
-                                    </li>
-                                
-                            </ul>
-                        </li>
-
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon bi bi-table"></i>
@@ -364,7 +213,7 @@
                                     Tables
                                     <i class="nav-arrow bi bi-chevron-right"></i>
                                 </p>
-                            </a>
+                            <hr class="dropdown-divider">
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="./tables/simple.html" class="nav-link">
@@ -373,35 +222,32 @@
                                     </a>
                                 </li>
                             </ul>
-                        </li>      
+                        </li>
                     </ul>
                     <!--end::Sidebar Menu-->
                 </nav>
             </div>
             <!--end::Sidebar Wrapper-->
         </aside>
-
+                    </div>
         <div class="container">
             <main role="main" class="pb-3">
                 @RenderBody()
             </main>
-        </div>
+                    </div>
 
-        <footer class="app-footer">
-            <!--begin::To the end-->
-            <div class="float-end d-none d-sm-inline">Anything you want</div>
-            <!--end::To the end-->
+        <footer class="app-footer">           
             <!--begin::Copyright-->
             <strong>
                 Copyright &copy; 2014-2024&nbsp;
-                <a href="https://adminlte.io" class="text-decoration-none">AdminLTE.io</a>.
+                <a href="" class="text-decoration-none">LifeStream</a>.
             </strong>
             All rights reserved.
             <!--end::Copyright-->
         </footer>
         <!--end::Footer-->
-    </div>
-
+        </div>
+        <!-- Content End -->
 
     <script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.10.1/browser/overlayscrollbars.browser.es6.min.js"
             integrity="sha256-dghWARbRe2eLlIJ56wNB+b760ywulqK3DzZYEpsg2fQ="
@@ -410,7 +256,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@@popperjs/core@2.11.8/dist/umd/popper.min.js"
             integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
             crossorigin="anonymous"></script>
-            <!--end::Required Plugin(popperjs for Bootstrap 5)--><!--begin::Required Plugin(Bootstrap 5)-->
+    <!--end::Required Plugin(popperjs for Bootstrap 5)--><!--begin::Required Plugin(Bootstrap 5)-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
             integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
             crossorigin="anonymous"></script>
@@ -493,6 +339,10 @@
           visitors_chart_options,
         );
         visitors_chart.render();
+    <script src="~/AdminLayout/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="~/AdminLayout/lib/tempusdominus/js/moment.min.js"></script>
+    <script src="~/AdminLayout/lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="~/AdminLayout/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
         const sales_chart_options = {
           series: [
@@ -543,10 +393,6 @@
               formatter: function (val) {
                 return '$ ' + val + ' thousands';
               },
-            },
-          },
-        };
-
         const sales_chart = new ApexCharts(
           document.querySelector('#sales-chart'),
           sales_chart_options,
@@ -560,6 +406,11 @@
             }, 200); // 2000 milliseconds = 2 seconds
         });
     </script>
+    <!--end::Script-->
+            },
+          },
+        };
+
     @await RenderSectionAsync("Scripts", required: false)
 
     <!--end::Script-->

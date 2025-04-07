@@ -126,10 +126,7 @@ namespace LifeStream.Areas.Identity.Pages.Account
                     {
                         returnUrl = "/admin/index";
                     }
-                    //else
-                    //{
-                    //    returnUrl = "/Home/index";
-                    //}
+
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)

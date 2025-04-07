@@ -9,8 +9,6 @@ using Microsoft.AspNetCore.Identity;
 namespace LifeStream.Areas.Identity.Data
 {
 
-
-
     public enum UserRole
     {
         Admin,

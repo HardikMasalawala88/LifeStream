@@ -1,79 +1,290 @@
 ﻿@model IEnumerable<LifeStream.Models.Doctor>
 
 @{
-    ViewData["Title"] = "Doctor List";
+    ViewData["Title"] = "Doctor Dashboard";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-
-<div class="container-fluid pt-1 px-1">
-<div class="row g-4">
-
-        <div class="col-12">
-            <div class="bg-light rounded h-100 p-4">
-               
-                <div class="table-responsive">
-<h1>Doctors</h1>
-
-
-<div class="mb-3">
-    <a asp-action="Create" class="btn btn-primary">
-    <i class="bi bi-plus-square"></i> Add New Doctor
-</a>
-</div>
-
-<!-- ✅ Search Form -->
-<form asp-action="Index" method="get" class="mb-3">
-    <div class="input-group">
-        <input type="text" name="searchQuery" value="@Context.Request.Query["searchQuery"]" class="form-control" placeholder="Search by Name, Email, or Specialization" />
-                            @* <span class="input-group-text bg-primary"><i class="bi bi-search text-light"></i></span> *@
-                            <button type="submit" class="btn btn-primary"><i class="bi bi-search text-light"></i></button>
-    </div>
-</form>
-
-<table class="table table-hover defaul-primary">
-    <thead class="thead-dark">
-        <tr>
-            <th>@Html.DisplayNameFor(model => model.First().FirstName)</th>
-            <th>@Html.DisplayNameFor(model => model.First().LastName)</th>
-            <th>@Html.DisplayNameFor(model => model.First().Email)</th>
-            <th>@Html.DisplayNameFor(model => model.First().Specialization)</th>
-            <th>@Html.DisplayNameFor(model => model.First().Gender)</th>
-            <th>@Html.DisplayNameFor(model => model.First().Age)</th>
-            <th>@Html.DisplayNameFor(model => model.First().PhoneNumber)</th>
-            <th>@Html.DisplayNameFor(model => model.First().ExprienceYear)</th>
-            <th>Doctor Image</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
-                <td>@Html.DisplayFor(modelItem => item.LastName)</td>
-                <td>@Html.DisplayFor(modelItem => item.Email)</td>
-                <td>@Html.DisplayFor(modelItem => item.Specialization)</td>
-                <td>@Html.DisplayFor(modelItem => item.Gender)</td>
-                <td>@Html.DisplayFor(modelItem => item.Age)</td>
-                <td>@Html.DisplayFor(modelItem => item.PhoneNumber)</td>
-                <td>@Html.DisplayFor(modelItem => item.ExprienceYear)</td>
-                <td>
-                    <img src="@Url.Content(item.ImagePath)" alt="Doctor's Image" class="img-fluid rounded" style="max-width: 50px; height: auto;" />
-                </td>
-                <td>
-                            <a asp-action="Edit" asp-route-id="@item.UserId"><i style="color:blue; font-size:small" class="bi bi-pencil-square"></i></a>
-                            <a asp-action="Details" asp-route-id="@item.UserId"><i style="color:deepskyblue" class="bi bi-card-list"></i></a>
-                            <a asp-action="Delete" asp-route-id="@item.UserId"><i style="color:red" class="bi bi-trash-fill"></i></a>
-                </td>
-            </tr>
+<style>
+    .card-primary {
+        border-color: #667eea;
+    }
+    
+    .card-primary .card-header {
+        background-color: #667eea;
+        color: white;
+        border-bottom: 1px solid #5a6fcf;
+    }
+    
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    
+    .table thead th {
+        background-color: #f8f9fa;
+        color: #2c3e50;
+        font-weight: 600;
+        border-bottom: 2px solid #e9ecef;
+        padding: 12px 15px;
+        text-align: left;
+    }
+    
+    .table tbody td {
+        padding: 12px 15px;
+        border-top: 1px solid #e9ecef;
+        vertical-align: middle;
+    }
+    
+    .table-hover tbody tr:hover {
+        background-color: rgba(102, 126, 234, 0.05);
+    }
+    
+    .img-circle {
+        border-radius: 50%;
+    }
+    
+    .progress {
+        height: 6px;
+        background-color: #e9ecef;
+        border-radius: 3px;
+    }
+    
+    .progress-bar {
+        background-color: #667eea;
+    }
+    
+    .badge {
+        font-weight: 500;
+        padding: 4px 8px;
+        font-size: 0.75rem;
+    }
+    
+    .bg-primary {
+        background-color: #667eea !important;
+    }
+    
+    .btn-primary {
+        background-color: #667eea;
+        border-color: #5a6fcf;
+    }
+    
+    .btn-primary:hover {
+        background-color: #5a6fcf;
+        border-color: #4f63bd;
+    }
+    
+    .btn-info {
+        background-color: #6cb2eb;
+        border-color: #5aa1e0;
+    }
+    
+    .btn-info:hover {
+        background-color: #5aa1e0;
+        border-color: #4e90d0;
+    }
+    
+    .btn-danger {
+        background-color: #e3342f;
+        border-color: #d32722;
+    }
+    
+    .btn-danger:hover {
+        background-color: #d32722;
+        border-color: #c3211d;
+    }
+    
+    .btn-group .btn {
+        margin-right: 5px;
+    }
+    
+    .btn-group .btn:last-child {
+        margin-right: 0;
+    }
+    
+    .text-muted {
+        color: #6c757d !important;
+    }
+    
+    .card-tools .btn {
+        color: white;
+        background-color: rgba(255, 255, 255, 0.2);
+        border: none;
+    }
+    
+    .card-tools .btn:hover {
+        background-color: rgba(255, 255, 255, 0.3);
+    }
+    
+    /* Modal styling */
+    .modal-header.bg-danger {
+        background-color: #e3342f !important;
+    }
+    
+    /* Responsive adjustments */
+    @@media (max-width: 768px) {
+        .table thead {
+            display: none;
         }
-    </tbody>
-</table>
+        
+        .table, .table tbody, .table tr, .table td {
+            display: block;
+            width: 100%;
+        }
+        
+        .table tr {
+            margin-bottom: 15px;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+        }
+        
+        .table td {
+            text-align: right;
+            padding-left: 50%;
+            position: relative;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .table td::before {
+            content: attr(data-label);
+            position: absolute;
+            left: 15px;
+            width: 45%;
+            padding-right: 15px;
+            font-weight: 600;
+            text-align: left;
+            color: #2c3e50;
+        }
+        
+        .table td:last-child {
+            border-bottom: 0;
+        }
+    }
+</style>
 
-</div>
-</div>
-</div>
-</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Doctor Management</h3>
+                <div class="card-tools">
+                    <a asp-action="Create" class="btn btn-tool btn-sm">
+                        <i class="fas fa-plus"></i> Add New Doctor
+                    </a>
+                </div>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <table id="doctorsTable" class="table table-bordered table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Photo</th>
+                            <th>Name</th>
+                            <th>Specialization</th>
+                            <th>Contact</th>
+                            <th>Experience</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td data-label="Photo">
+                                    <img src="@Url.Content(item.ImagePath ?? "/images/default-doctor.png")" 
+                                         alt="Doctor Image" 
+                                         class="img-circle img-size-50" 
+                                         style="width: 50px; height: 50px; object-fit: cover;">
+                                </td>
+                                <td data-label="Name">
+                                    <strong>@item.Name</strong><br>
+                                    <small class="text-muted">@item.Gender, @item.Age yrs</small>
+                                </td>
+                                <td data-label="Specialization">@item.Specialization</td>
+                                <td data-label="Contact">
+                                    <i class="fas fa-envelope mr-1"></i> @item.Email<br>
+                                    <i class="fas fa-phone mr-1"></i> @item.PhoneNumber
+                                </td>
+                                <td data-label="Experience">
+                                    <div class="progress progress-xs">
+                                        <div class="progress-bar" style="width: @(Math.Min(item.ExprienceYear*10, 100))%"></div>
+                                    </div>
+                                    <span class="badge bg-primary">@item.ExprienceYear Years</span>
+                                </td>
+                                <td data-label="Actions">
+                                    <div class="btn-group">
+                                        <a asp-action="Edit" asp-route-id="@item.UserId" class="btn btn-sm btn-primary" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a asp-action="Details" asp-route-id="@item.UserId" class="btn btn-sm btn-info" title="Details">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" 
+                                                data-bs-target="#deleteDoctorModal" data-userid="@item.UserId" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
 </div>
 
+<!-- Delete Doctor Modal -->
+<div class="modal fade" id="deleteDoctorModal" tabindex="-1" aria-labelledby="deleteDoctorModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="deleteDoctorModalLabel">Confirm Delete</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this doctor? This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form id="deleteForm" method="post" style="display: inline;">
+                    <input type="hidden" id="doctorId" name="UserId" />
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(function () {
+            // Initialize DataTable
+            $('#doctorsTable').DataTable({
+                "responsive": true,
+                "autoWidth": false,
+                "columnDefs": [
+                    { "orderable": false, "targets": [0, 5] },
+                    { "className": "dt-center", "targets": [0, 5] }
+                ],
+                "language": {
+                    "paginate": {
+                        "previous": "<i class='fas fa-chevron-left'></i>",
+                        "next": "<i class='fas fa-chevron-right'></i>"
+                    }
+                }
+            });
+
+            // Delete modal handler
+            $('#deleteDoctorModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                var userId = button.data('userid');
+                var modal = $(this);
+                modal.find('#doctorId').val(userId);
+                modal.find('#deleteForm').attr('action', '/Doctor/Delete/' + userId);
+            });
+        });
+    </script>
+}

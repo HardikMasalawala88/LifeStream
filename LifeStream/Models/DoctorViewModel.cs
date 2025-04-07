@@ -7,7 +7,7 @@ namespace LifeStream.Models
         public Doctor Doctor { get; set; }
 
         //[Required(ErrorMessage = "Please upload an image.")]
-        [DataType(DataType.Upload)]
-        public IFormFile? ImageFile { get; set; }
+       // [DataType(DataType.Upload)]
+        //public IFormFile? ImageFile { get; set; }
     }
 }
