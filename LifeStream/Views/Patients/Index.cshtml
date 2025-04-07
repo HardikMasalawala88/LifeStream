@@ -37,10 +37,13 @@
                         <span>No Appointments</span>
                     }
                 </td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.UserId"><i class="bi bi-card-list"></i></a>
-                </td>
             </tr>
+        }
+        @foreach (var item in Model)
+        {
+                <a asp-action="Edit" asp-route-id="@item.UserId"><i style="color:blue; font-size:small" class="bi bi-pencil-square"></i></a>
+                <a asp-action="Details" asp-route-id="@item.UserId"><i style="color:deepskyblue" class="bi bi-card-list"></i></a>
+                <a asp-action="Delete" asp-route-id="@item.UserId"><i style="color:red" class="bi bi-trash-fill"></i></a>
         }
     </tbody>
 </table>

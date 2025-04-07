@@ -43,7 +43,7 @@
 
     <link rel="stylesheet" 
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!--DATATABLE CUSTOM-->
     <!-- Add these in your _Layout.cshtml or specific view -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
@@ -51,7 +51,7 @@
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     <!--DATATABLE CUSTOM END-->
     @RenderSection("Styles", required: false)
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 </head>
 
 
@@ -95,7 +95,7 @@
             </div>
             <!--end::Container-->
         </nav>
-
+                            <a asp-controller="Doctor" asp-action="Create" class="dropdown-item"><i class="bi bi-plus-square me-2"></i>Add New Doctor</a>
         <!--begin::Sidebar-->
         <aside class="app-sidebar bg-body-secondary " data-bs-theme="light">
             <!--begin::Sidebar Brand-->
@@ -162,7 +162,7 @@
                                     Appointments
                                     <i class="nav-arrow bi bi-chevron-right"></i>
                                 </p>
-                            </a>
+                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a asp-controller="Appointments" asp-action="Index" class="nav-link">
@@ -179,7 +179,7 @@
                                     Staff
                                     <i class="nav-arrow bi bi-chevron-right"></i>
                                 </p>
-                            </a>
+                                        <h6 class="fw-normal mb-0">Jhon send you a message</h6>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a asp-controller="Staffs" asp-action="Index" class="nav-link">
@@ -196,7 +196,7 @@
                                     Forms
                                     <i class="nav-arrow bi bi-chevron-right"></i>
                                 </p>
-                            </a>
+                        <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="./forms/general.html" class="nav-link">
@@ -213,7 +213,7 @@
                                     Tables
                                     <i class="nav-arrow bi bi-chevron-right"></i>
                                 </p>
-                            </a>
+                            <hr class="dropdown-divider">
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="./tables/simple.html" class="nav-link">
@@ -229,12 +229,12 @@
             </div>
             <!--end::Sidebar Wrapper-->
         </aside>
-
+                    </div>
         <div class="container">
             <main role="main" class="pb-3">
                 @RenderBody()
             </main>
-        </div>
+                    </div>
 
         <footer class="app-footer">           
             <!--begin::Copyright-->
@@ -246,8 +246,8 @@
             <!--end::Copyright-->
         </footer>
         <!--end::Footer-->
-    </div>
-
+        </div>
+        <!-- Content End -->
 
     <script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.10.1/browser/overlayscrollbars.browser.es6.min.js"
             integrity="sha256-dghWARbRe2eLlIJ56wNB+b760ywulqK3DzZYEpsg2fQ="
@@ -339,6 +339,10 @@
           visitors_chart_options,
         );
         visitors_chart.render();
+    <script src="~/AdminLayout/lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="~/AdminLayout/lib/tempusdominus/js/moment.min.js"></script>
+    <script src="~/AdminLayout/lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="~/AdminLayout/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
         const sales_chart_options = {
           series: [
@@ -389,10 +393,6 @@
               formatter: function (val) {
                 return '$ ' + val + ' thousands';
               },
-            },
-          },
-        };
-
         const sales_chart = new ApexCharts(
           document.querySelector('#sales-chart'),
           sales_chart_options,
@@ -407,6 +407,13 @@
         });
     </script>
     <!--end::Script-->
+            },
+          },
+        };
+
     @await RenderSectionAsync("Scripts", required: false)
+
+    <!--end::Script-->
+
 </body>
 </html>

@@ -2,93 +2,126 @@
 
 @{
     ViewData["Title"] = "Edit";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h1>Edit</h1>
-
-<h4>Patient</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="UserId" />
-            <div class="form-group">
-                <label asp-for="PatientName" class="control-label"></label>
-                <input asp-for="PatientName" class="form-control" />
-                <span asp-validation-for="PatientName" class="text-danger"></span>
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <div class="card card-secondary mt-3">
+            <div class="card-header">
+                <h3 class="card-title"><i class="fa-solid fa-user-edit"></i> Edit Patient</h3>
             </div>
-            <div class="form-group">
-                <label asp-for="FirstName" class="control-label"></label>
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
+            <div class="card-body">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+                    <input type="hidden" asp-for="UserId" />
+                    <div class="row">
+                        <!-- Left Column -->
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <div class="input-group">
+                                    @* <label asp-for="PatientName"></label> *@
+                                    <span class="input-group-text"><i class="fa-solid fa-file-signature"></i></span>
+                                    <input asp-for="PatientName" class="form-control" placeholder="Enter Patient Name" />
+                                </div>
+                                <span asp-validation-for="PatientName" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <div class="input-group">
+                                    @* <label asp-for="FirstName"></label> *@
+                                    <span class="input-group-text"><i class="fa-regular fa-circle-user"></i></span>
+                                    <input asp-for="FirstName" class="form-control" placeholder="Enter First Name" />
+                                </div>
+                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fa-regular fa-circle-user"></i></span>
+                                    @* <label asp-for="LastName"></label> *@
+                                    <input asp-for="LastName" class="form-control" placeholder="Enter Last Name" />
+                                </div>
+                                <span asp-validation-for="LastName" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
+                                    @* <label asp-for="Email"></label> *@
+                                    <input asp-for="Email" type="email" class="form-control" placeholder="Enter Email" />
+                                </div>
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <div class="input-group">
+                                    @* <label asp-for="DateOfBirth"></label> *@
+                                    <span class="input-group-text"><i class="fa-solid fa-calendar"></i></span>
+                                    <input asp-for="DateOfBirth" type="date" class="form-control" id="dob" required />
+                                </div>
+                                <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <!-- Right Column -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Gender"></label>
+                                <div>
+                                    <label class="mr-3">
+                                        <input asp-for="Gender" type="radio" value="Male" /> Male
+                                    </label>
+                                    <label>
+                                        <input asp-for="Gender" type="radio" value="Female" /> Female
+                                    </label>
+                                </div>
+                                <span asp-validation-for="Gender" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <div class="input-group">
+                                    @* <label asp-for="Age"></label> *@
+                                    <span class="input-group-text"><i class="fa-solid fa-calendar-plus"></i></span>
+                                    <input asp-for="Age" class="form-control" id="age" placeholder="Age" readonly />
+                                    <span asp-validation-for="Age" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                            <div class="input-group">
+                                @* <label asp-for="PhoneNumber"></label> *@
+                                <span class="input-group-text"><i class="fa-solid fa-phone-volume"></i></span>
+                                <input asp-for="PhoneNumber" class="form-control" placeholder="Enter Phone Number" />
+                            </div>
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
+                            <div class="mb-3">
+                                <div class="input-group align-items-start">
+                                    <span class="input-group-text"><i class="fa-solid fa-house"></i></span>
+                                    <textarea asp-for="Address" class="form-control" rows="3" placeholder="Enter Address"></textarea>
+                                </div>
+                                <span asp-validation-for="Address" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Form Buttons -->
+                    <div class="form-group text-center mt-3">
+                        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-save"></i> Save</button>
+                        <a asp-action="Index" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i> Back</a>
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <label asp-for="LastName" class="control-label"></label>
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DateOfBirth" class="control-label"></label>
-                <input asp-for="DateOfBirth" class="form-control" id="dob" required />
-                <span asp-validation-for="DateOfBirth" class="text-danger"></span>
-            </div>
-
-            <script>
-                   document.getElementById("dob").addEventListener("change", function () {
-                    var dob = new Date(this.value);
-                    var today = new Date();
-                    var age = today.getFullYear() - dob.getFullYear();
-                    var monthDiff = today.getMonth() - dob.getMonth();
-                    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
-                        age--;
-                    }
-                    document.getElementById("age").value = age > 0 ? age : 0;
-                });
-            </script>
-            <div class="form-group">
-                <label asp-for="Gender" class="control-label"></label>
-                <div>
-                    <label>
-                        <input asp-for="Gender" type="radio" value="Male" /> Male
-                    </label>
-                    <label>
-                        <input asp-for="Gender" type="radio" value="Female" /> Female
-                    </label>
-                </div>
-                <span asp-validation-for="Gender" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Age" class="control-label"></label>
-                <input asp-for="Age" class="form-control" id="age" readonly />
-                <span asp-validation-for="Age" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PhoneNumber" class="control-label"></label>
-                <input asp-for="PhoneNumber" class="form-control" />
-                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+<!-- Script to Auto-Calculate Age from DOB -->
+<script>
+    document.getElementById("dob").addEventListener("change", function () {
+        var dob = new Date(this.value);
+        var today = new Date();
+        var age = today.getFullYear() - dob.getFullYear();
+        var monthDiff = today.getMonth() - dob.getMonth();
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
+            age--;
+        }
+        document.getElementById("age").value = age > 0 ? age : 0;
+    });
+</script>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
