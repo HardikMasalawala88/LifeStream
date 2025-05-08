@@ -1,74 +1,95 @@
-﻿@model IEnumerable<LifeStream.Models.Patient>
+﻿    @model IEnumerable<LifeStream.Models.Patient>
 
-@{
-    ViewData["Title"] = "Patients";
-    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
-}
-<div class="container-fluid pt-1 px-1">
-    <div class="row g-4">
-        <div class="col-12">
-            <div class="bg-light rounded h-100 p-4">
+    @{
+        ViewData["Title"] = "Patients";
+        Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    }
 
-                <div class="table-responsive">
-<h1>Patients</h1>
+    <div class="container-fluid pt-4 px-4">
+    <div class="container-fluid pt-2 px-3">
+        <!-- Reduced padding -->
+        <div class="bg-primary text-white rounded shadow p-3">
+            <!-- Smaller padding -->
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <!-- Adjusted margin -->
+                <h4 class="mb-0"><i class="bi bi-people-fill"></i> Patient Directory</h4> <!-- Smaller heading -->
+                <a asp-action="Create" class="btn btn-sm btn-light text-primary">
+                    <!-- Smaller button -->
+                    <i class="bi bi-person-plus-fill"></i> Add Patient
+                </a>
+            </div>
+       
+    
 
-<p>
-    <a asp-action="Create" class="btn btn-primary">Create New Patient</a>
-</p>
-
- @if (User.IsInRole(UserRoleInfo.Admin))
-{
-    <!-- ✅ Search Form -->
-    <form asp-action="Index" method="get" class="mb-3">
-        <div class="input-group">
-            <input type="text" name="searchQuery" value="@Context.Request.Query["searchQuery"]" class="form-control" placeholder="Search by Name, Email, or Phone" />
-            <button type="submit" class="input-group-text bg-primary">
-                <i class="bi bi-search text-light"></i>
-            </button>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover align-middle text-center">
+                    <thead class="table-primary text-white">
+                        <tr>
+                            <th>Patient Name</th>
+                            <th>Email</th>
+                            <th>Phone Number</th>
+                            <th>Appointments</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-dark">
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.PatientName</td>
+                                <td>@item.Email</td>
+                                <td>@item.PhoneNumber</td>
+                                <td class="text-start">
+                                    @if (item.Appointments != null && item.Appointments.Any())
+                                    {
+                                        <ul class="list-unstyled mb-0">
+                                            @foreach (var appointment in item.Appointments)
+                                            {
+                                                <li>
+                                                    <i class="bi bi-calendar-check text-success"></i>
+                                                    @appointment.AppointmentDate.ToString("dd MMM yyyy") -
+                                                    <span class="text-muted">@appointment.Doctor.Name</span>
+                                                </li>
+                                            }
+                                        </ul>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-light"><i class="bi bi-x-circle-fill text-warning"></i> No Appointments</span>
+                                    }
+                                </td>
+                                <td>
+                                    <a asp-action="Details" asp-route-id="@item.UserId" class="btn btn-sm btn-outline" title="Details">
+                                        <i class="bi bi-card-list"></i> View
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </form>
-}
-
-
-<table class="table table-hover defaul-primary">
-    <thead class="thead-dark">       
-        <tr>
-            <th>@Html.DisplayNameFor(model => model.First().PatientName)</th>
-            <th>@Html.DisplayNameFor(model => model.First().FirstName)</th>
-            <th>@Html.DisplayNameFor(model => model.First().LastName)</th>
-            <th>@Html.DisplayNameFor(model => model.First().Email)</th>
-            <th>@Html.DisplayNameFor(model => model.First().DateOfBirth)</th>
-            <th>@Html.DisplayNameFor(model => model.First().Gender)</th>
-            <th>@Html.DisplayNameFor(model => model.First().Age)</th>
-            <th>@Html.DisplayNameFor(model => model.First().PhoneNumber)</th>
-            <th>@Html.DisplayNameFor(model => model.First().Address)</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@Html.DisplayFor(modelItem => item.PatientName)</td>
-                <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
-                <td>@Html.DisplayFor(modelItem => item.LastName)</td>
-                <td>@Html.DisplayFor(modelItem => item.Email)</td>
-                <td>@Html.DisplayFor(modelItem => item.DateOfBirth)</td>
-                <td>@Html.DisplayFor(modelItem => item.Gender)</td>
-                <td>@Html.DisplayFor(modelItem => item.Age)</td>
-                <td>@Html.DisplayFor(modelItem => item.PhoneNumber)</td>
-                <td>@Html.DisplayFor(modelItem => item.Address)</td>
-                <td>
-                   <a asp-action="Edit" asp-route-id="@item.UserId"><i style="color:blue; font-size:small" class="bi bi-pencil-square"></i></a>
-                   <a asp-action="Details" asp-route-id="@item.UserId"><i style="color:deepskyblue" class="bi bi-card-list"></i></a>
-                   <a asp-action="Delete" asp-route-id="@item.UserId"><i style="color:red" class="bi bi-trash-fill"></i></a>
-                </td>
-            </tr>
+    </div>
+    </div>
+    <style>
+        .table-primary {
+            background-color: #0d6efd !important;
         }
-    </tbody>
-</table>
-</div>
-    </div>
-    </div>
-    </div>
-</div>
+
+        .bg-primary {
+            background-color: #0d6efd !important;
+        }
+
+        .btn-light {
+            background-color: white;
+            border: 1px solid #0d6efd;
+        }
+
+        .btn-outline-light {
+            border: 1px solid white;
+        }
+
+        .text-light {
+            color: white;
+        }
+    </style>

@@ -17,6 +17,7 @@ namespace LifeStream.Models
         public string DoctorId { get; set; }
         public Doctor? Doctor { get; set; }
 
+        [Required]
         public DateTime AppointmentDate { get; set; }
 
         public string Status { get; set; }
@@ -24,5 +25,6 @@ namespace LifeStream.Models
         public string Description { get; set; }
 
         public ICollection<Feedback> FeedBacks { get; set; } = new List<Feedback>();
+
     }
 }

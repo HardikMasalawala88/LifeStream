@@ -1,60 +1,113 @@
 ﻿@model IEnumerable<LifeStream.Models.Appointment>
 
 @{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+    ViewData["Title"] = "Appointment Schedule";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 
-<h1>Index</h1>
+    var timeSlots = new List<string> { "09:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "01:00 PM", "02:00 PM", "03:00 PM", "04:00 PM" };
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Patient)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Doctor)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AppointmentDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Patient.PatientName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Doctor.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AppointmentDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.AppointmentId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.AppointmentId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.AppointmentId">Delete</a>
-            </td>
-        </tr>
+    var selectedDate = Context.Request.Query["date"].ToString();
+    DateTime selectedDay = string.IsNullOrEmpty(selectedDate) ? DateTime.Today : DateTime.Parse(selectedDate);
+
+    var dailyAppointments = Model
+        .Where(a => a.AppointmentDate.Date == selectedDay.Date)
+        .ToList();
+
+    bool isWeekend =  selectedDay.DayOfWeek == DayOfWeek.Sunday;
 }
-    </tbody>
-</table>
+<style>
+    .slot-card {
+        border: 1px solid #e0e0e0;
+        border-radius: 10px;
+        padding: 15px;
+        text-align: center;
+        background-color: #f9f9f9;
+        min-height: 150px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        transition: 0.2s;
+    }
+
+        .slot-card:hover {
+            background-color: #eef4ff;
+        }
+
+        .slot-card h5 {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .slot-card a {
+            color: #0d6efd;
+            text-decoration: none;
+        }
+
+        .slot-card .badge {
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+    .btn-date {
+        border: 1px solid #3b5998;
+        color: #3b5998;
+    }
+
+        .btn-date:hover {
+            background-color: #3b5998;
+            color: white;
+        }
+</style>
+
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-white rounded shadow p-4 border border-primary">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h3 class="mb-0 text-primary">
+                <i class="bi bi-calendar-week me-2"></i>Appointment Slots for @selectedDay.ToString("dddd, MMM dd yyyy")
+            </h3>
+            <form method="get" class="d-flex align-items-center">
+                <label class="me-2 fw-semibold">Select Date:</label>
+                <input type="date" name="date" class="form-control me-2" value="@selectedDay.ToString("yyyy-MM-dd")" onchange="this.form.submit()" />
+            </form>
+        </div>
+
+        @if (isWeekend)
+        {
+            <div class="alert alert-warning text-center fw-semibold">
+                It’s a weekend — No appointments available.
+            </div>
+        }
+        else
+        {
+            <div class="row row-cols-1 row-cols-md-4 g-4">
+                @foreach (var slot in timeSlots)
+                {
+                    var slotTime = DateTime.ParseExact(slot, "hh:mm tt", null);
+                    var appointment = dailyAppointments
+                        .FirstOrDefault(a => a.AppointmentDate.Hour == slotTime.Hour);
+
+                    <div class="col">
+                        <div class="slot-card">
+                            <h5>@slot</h5>
+
+                            @if (appointment != null)
+                            {
+                                <div class="text-success fw-semibold">@appointment.Patient.PatientName</div>
+                                <div class="text-muted">@appointment.Doctor.Name</div>
+                                <span class="badge bg-@(appointment.Status == "Confirmed" ? "success" : appointment.Status == "Pending" ? "warning" : "secondary")">
+                                    @appointment.Status
+                                </span>
+                            }
+                            else
+                            {
+                                <a asp-action="Create" asp-controller="Appointments"
+                                   asp-route-date="@selectedDay.ToString("yyyy-MM-dd")"
+                                   asp-route-time="@slot">
+                                    + Add Appointment
+                                </a>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</div>

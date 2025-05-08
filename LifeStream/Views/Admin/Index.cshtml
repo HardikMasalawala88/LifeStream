@@ -2,261 +2,224 @@
     Layout = "_LayoutAdmin";
 }
 
-<!-- Sale & Revenue Start -->
-<div class="container-fluid pt-4 px-4">
-    <div class="row g-4">
-        <div class="col-sm-6 col-xl-3">
-            <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                <i class="fa fa-chart-line fa-3x text-primary"></i>
-                <div class="ms-3">
-                    <p class="mb-2">Today Sale</p>
-                    <h6 class="mb-0">$1234</h6>
-                </div>
+@if (User.IsInRole(UserRoleInfo.Receptionist))
+{
+    <div class="container-fluid px-4 py-3">
+        <div class="d-flex justify-content-between flex-wrap align-items-center mb-3">
+            <div>
+                <h4 class="fw-bold text-primary">Good Afternoon 🌤</h4>
+                <p class="text-muted mb-0">Current Time: @DateTime.Now.ToString("h:mm tt")</p>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+                <strong>Date:</strong>
+                <span id="current-date" class="fw-semibold"></span>
+                <input type="date" id="calendar" class="form-control" style="width: 160px;" onchange="updateCalendar()" />
             </div>
         </div>
-        <div class="col-sm-6 col-xl-3">
-            <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                <i class="fa fa-chart-bar fa-3x text-primary"></i>
-                <div class="ms-3">
-                    <p class="mb-2">Total Sale</p>
-                    <h6 class="mb-0">$1234</h6>
-                </div>
-            </div>
+
+        <div class="d-flex justify-content-center gap-2 flex-wrap mb-3">
+            <button class="btn btn-primary" onclick="changeWeek(-1)">← Previous Week</button>
+            <div id="weekdays" class="d-flex gap-2 flex-wrap"></div>
+            <button class="btn btn-primary" onclick="changeWeek(1)">Next Week →</button>
         </div>
-        <div class="col-sm-6 col-xl-3">
-            <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                <i class="fa fa-chart-area fa-3x text-primary"></i>
-                <div class="ms-3">
-                    <p class="mb-2">Today Revenue</p>
-                    <h6 class="mb-0">$1234</h6>
-                </div>
-            </div>
+
+        <div class="d-flex justify-content-center gap-2 flex-wrap mb-4">
+            <button class="btn btn-outline-primary" onclick="filterSlots('morning')">Morning</button>
+            <button class="btn btn-outline-warning" onclick="filterSlots('afternoon')">Afternoon</button>
+            <button class="btn btn-outline-success" onclick="filterSlots('evening')">Evening</button>
+            <button class="btn btn-outline-dark" onclick="filterSlots('all')">Show All</button>
         </div>
-        <div class="col-sm-6 col-xl-3">
-            <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                <i class="fa fa-chart-pie fa-3x text-primary"></i>
-                <div class="ms-3">
-                    <p class="mb-2">Total Revenue</p>
-                    <h6 class="mb-0">$1234</h6>
-                </div>
+
+        <div class="d-flex justify-content-center mt-2">
+            <div class="card p-4 shadow-sm rounded">
+                <h3 class="fw-bold mb-3 text-center">Available Slots</h3>
+                <div id="slots" class="row g-3 justify-content-start"></div>
             </div>
         </div>
     </div>
-</div>
-<!-- Sale & Revenue End -->
-<!-- Sales Chart Start -->
-<div class="container-fluid pt-4 px-4">
-    <div class="row g-4">
-        <div class="col-sm-12 col-xl-6">
-            <div class="bg-light text-center rounded p-4">
-                <div class="d-flex align-items-center justify-content-between mb-4">
-                    <h6 class="mb-0">Worldwide Sales</h6>
-                    <a href="">Show All</a>
-                </div>
-                <canvas id="worldwide-sales"></canvas>
-            </div>
-        </div>
-        <div class="col-sm-12 col-xl-6">
-            <div class="bg-light text-center rounded p-4">
-                <div class="d-flex align-items-center justify-content-between mb-4">
-                    <h6 class="mb-0">Salse & Revenue</h6>
-                    <a href="">Show All</a>
-                </div>
-                <canvas id="salse-revenue"></canvas>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Sales Chart End -->
-<!-- Recent Sales Start -->
-<div class="container-fluid pt-4 px-4">
-    <div class="bg-light text-center rounded p-4">
-        <div class="d-flex align-items-center justify-content-between mb-4">
-            <h6 class="mb-0">Recent Salse</h6>
-            <a href="">Show All</a>
-        </div>
-        <div class="table-responsive">
-            <table class="table text-start align-middle table-bordered table-hover mb-0">
-                <thead>
-                    <tr class="text-dark">
-                        <th scope="col"><input class="form-check-input" type="checkbox"></th>
-                        <th scope="col">Date</th>
-                        <th scope="col">Invoice</th>
-                        <th scope="col">Customer</th>
-                        <th scope="col">Amount</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><input class="form-check-input" type="checkbox"></td>
-                        <td>01 Jan 2045</td>
-                        <td>INV-0123</td>
-                        <td>Jhon Doe</td>
-                        <td>$123</td>
-                        <td>Paid</td>
-                        <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-                    </tr>
-                    <tr>
-                        <td><input class="form-check-input" type="checkbox"></td>
-                        <td>01 Jan 2045</td>
-                        <td>INV-0123</td>
-                        <td>Jhon Doe</td>
-                        <td>$123</td>
-                        <td>Paid</td>
-                        <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-                    </tr>
-                    <tr>
-                        <td><input class="form-check-input" type="checkbox"></td>
-                        <td>01 Jan 2045</td>
-                        <td>INV-0123</td>
-                        <td>Jhon Doe</td>
-                        <td>$123</td>
-                        <td>Paid</td>
-                        <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-                    </tr>
-                    <tr>
-                        <td><input class="form-check-input" type="checkbox"></td>
-                        <td>01 Jan 2045</td>
-                        <td>INV-0123</td>
-                        <td>Jhon Doe</td>
-                        <td>$123</td>
-                        <td>Paid</td>
-                        <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-                    </tr>
-                    <tr>
-                        <td><input class="form-check-input" type="checkbox"></td>
-                        <td>01 Jan 2045</td>
-                        <td>INV-0123</td>
-                        <td>Jhon Doe</td>
-                        <td>$123</td>
-                        <td>Paid</td>
-                        <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-<!-- Recent Sales End -->
-<!-- Widgets Start -->
-<div class="container-fluid pt-4 px-4">
-    <div class="row g-4">
-        <div class="col-sm-12 col-md-6 col-xl-4">
-            <div class="h-100 bg-light rounded p-4">
-                <div class="d-flex align-items-center justify-content-between mb-2">
-                    <h6 class="mb-0">Messages</h6>
-                    <a href="">Show All</a>
-                </div>
-                <div class="d-flex align-items-center border-bottom py-3">
-                    <img class="rounded-circle flex-shrink-0" src="~/AdminLayout/img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                    <div class="w-100 ms-3">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h6 class="mb-0">Jhon Doe</h6>
-                            <small>15 minutes ago</small>
-                        </div>
-                        <span>Short message goes here...</span>
-                    </div>
-                </div>
-                <div class="d-flex align-items-center border-bottom py-3">
-                    <img class="rounded-circle flex-shrink-0" src="~/AdminLayout/img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                    <div class="w-100 ms-3">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h6 class="mb-0">Jhon Doe</h6>
-                            <small>15 minutes ago</small>
-                        </div>
-                        <span>Short message goes here...</span>
-                    </div>
-                </div>
-                <div class="d-flex align-items-center border-bottom py-3">
-                    <img class="rounded-circle flex-shrink-0" src="~/AdminLayout/img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                    <div class="w-100 ms-3">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h6 class="mb-0">Jhon Doe</h6>
-                            <small>15 minutes ago</small>
-                        </div>
-                        <span>Short message goes here...</span>
-                    </div>
-                </div>
-                <div class="d-flex align-items-center pt-3">
-                    <img class="rounded-circle flex-shrink-0" src="~/AdminLayout/img/user.jpg" alt="" style="width: 40px; height: 40px;">
-                    <div class="w-100 ms-3">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h6 class="mb-0">Jhon Doe</h6>
-                            <small>15 minutes ago</small>
-                        </div>
-                        <span>Short message goes here...</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-12 col-md-6 col-xl-4">
-            <div class="h-100 bg-light rounded p-4">
-                <div class="d-flex align-items-center justify-content-between mb-4">
-                    <h6 class="mb-0">Calender</h6>
-                    <a href="">Show All</a>
-                </div>
-                <div id="calender"></div>
-            </div>
-        </div>
-        <div class="col-sm-12 col-md-6 col-xl-4">
-            <div class="h-100 bg-light rounded p-4">
-                <div class="d-flex align-items-center justify-content-between mb-4">
-                    <h6 class="mb-0">To Do List</h6>
-                    <a href="">Show All</a>
-                </div>
-                <div class="d-flex mb-2">
-                    <input class="form-control bg-transparent" type="text" placeholder="Enter task">
-                    <button type="button" class="btn btn-primary ms-2">Add</button>
-                </div>
-                <div class="d-flex align-items-center border-bottom py-2">
-                    <input class="form-check-input m-0" type="checkbox">
-                    <div class="w-100 ms-3">
-                        <div class="d-flex w-100 align-items-center justify-content-between">
-                            <span>Short task goes here...</span>
-                            <button class="btn btn-sm"><i class="fa fa-times"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="d-flex align-items-center border-bottom py-2">
-                    <input class="form-check-input m-0" type="checkbox">
-                    <div class="w-100 ms-3">
-                        <div class="d-flex w-100 align-items-center justify-content-between">
-                            <span>Short task goes here...</span>
-                            <button class="btn btn-sm"><i class="fa fa-times"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="d-flex align-items-center border-bottom py-2">
-                    <input class="form-check-input m-0" type="checkbox" checked>
-                    <div class="w-100 ms-3">
-                        <div class="d-flex w-100 align-items-center justify-content-between">
-                            <span><del>Short task goes here...</del></span>
-                            <button class="btn btn-sm text-primary"><i class="fa fa-times"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="d-flex align-items-center border-bottom py-2">
-                    <input class="form-check-input m-0" type="checkbox">
-                    <div class="w-100 ms-3">
-                        <div class="d-flex w-100 align-items-center justify-content-between">
-                            <span>Short task goes here...</span>
-                            <button class="btn btn-sm"><i class="fa fa-times"></i></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="d-flex align-items-center pt-2">
-                    <input class="form-check-input m-0" type="checkbox">
-                    <div class="w-100 ms-3">
-                        <div class="d-flex w-100 align-items-center justify-content-between">
-                            <span>Short task goes here...</span>
-                            <button class="btn btn-sm"><i class="fa fa-times"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Widgets End -->
+}
+
+<style>
+    .btn-secondary.active {
+        background-color: #0d6efd !important;
+        color: white;
+    }
+
+    .card-slot {
+        width: 150px;
+        height: 90px;
+        border-radius: 12px;
+        background-color: #f9f9f9;
+        box-shadow: 0 0 6px rgba(0,0,0,0.1);
+        padding: 0.75rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        transition: 0.2s ease-in-out;
+    }
+
+        .card-slot:hover {
+            background-color: #eef1f7;
+            align-items: center;
+        }
+
+        .card-slot .time {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #000;
+        }
+
+        .card-slot a {
+            font-size: 0.85rem;
+            color: #007bff;
+            text-decoration: none;
+        }
+
+            .card-slot a:hover {
+                text-decoration: underline;
+            }
+
+    .alert {
+        width: 100%;
+    }
+
+    .slot-section {
+        margin-top: 15px;
+        width: 100%;
+    }
+
+        .slot-section h6 {
+            font-weight: 600;
+            margin-bottom: 10px;
+            padding-left: 5px;
+            color: #444;
+        }
+
+    @@media (max-width: 576px) {
+        .card-slot {
+            width: 100%;
+        }
+    }
+</style>
+
+<script>
+    let currentDate = new Date();
+
+    const slots = {
+        morning: ["09:00 AM", "10:00 AM", "11:00 AM", "12:00 PM"],
+        afternoon: ["01:00 PM", "02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM"],
+        evening: ["06:00 PM", "07:00 PM", "08:00 PM"]
+    };
+
+    const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+    function updateDate() {
+        document.getElementById("current-date").textContent = currentDate.toLocaleDateString("en-US", {
+            weekday: "long", year: "numeric", month: "long", day: "numeric"
+        });
+    }
+
+    function updateCalendar() {
+        const selectedDate = new Date(document.getElementById("calendar").value);
+        if (!isNaN(selectedDate)) {
+            currentDate = selectedDate;
+            updateDate();
+            renderWeekdayButtons();
+            updateSlots("all");
+        }
+    }
+
+    function changeWeek(offset) {
+        currentDate.setDate(currentDate.getDate() + (offset * 7));
+        document.getElementById("calendar").value = currentDate.toISOString().split("T")[0];
+        updateDate();
+        renderWeekdayButtons();
+        updateSlots("all");
+    }
+
+    function renderWeekdayButtons() {
+        const container = document.getElementById("weekdays");
+        container.innerHTML = "";
+        for (let i = 0; i < 7; i++) {
+            const btn = document.createElement("button");
+            btn.className = `btn btn-secondary ${i === currentDate.getDay() ? "active" : ""}`;
+            btn.textContent = dayNames[i];
+            btn.onclick = () => {
+                currentDate.setDate(currentDate.getDate() - currentDate.getDay() + i);
+                document.getElementById("calendar").value = currentDate.toISOString().split("T")[0];
+                updateDate();
+                renderWeekdayButtons();
+                updateSlots("all");
+            };
+            container.appendChild(btn);
+        }
+    }
+
+    function updateSlots(filter) {
+        const container = document.getElementById("slots");
+        container.innerHTML = "";
+
+        if (currentDate.getDay() === 0) {
+            container.innerHTML = `<div class="alert alert-danger text-center">⛔ Sunday is closed</div>`;
+            return;
+        }
+
+        if (filter === "morning" || filter === "all") {
+            renderSection("🌅 Morning Slots", slots.morning, container);
+        }
+
+        if (filter === "afternoon" || filter === "all") {
+            renderSection("☀ Afternoon Slots", slots.afternoon, container);
+        }
+
+        if (filter === "evening" || filter === "all") {
+            renderSection("🌙 Evening Slots", slots.evening, container);
+        }
+    }
+
+    function renderSection(title, timeSlots, container) {
+        const section = document.createElement("div");
+        section.className = "slot-section";
+
+        const heading = document.createElement("h6");
+        heading.textContent = title;
+        section.appendChild(heading);
+
+        const row = document.createElement("div");
+        row.className = "d-flex flex-wrap gap-3";
+
+        timeSlots.forEach(time => {
+            const card = document.createElement("div");
+            card.className = "card-slot";
+
+            if (time === "02:00 PM") {
+                card.innerHTML = `
+                    <div class="time">${time}</div>
+                    <div class="text-muted" style="font-size: 0.8rem;">📝 Lunch Break</div>
+                `;
+            } else {
+                card.innerHTML = `
+                    <div class="time">${time}</div>
+                    <a href="/Appointments/Create">+ Add Appointment</a>
+                `;
+            }
+
+            row.appendChild(card);
+        });
+
+        section.appendChild(row);
+        container.appendChild(section);
+    }
+
+    function filterSlots(category) {
+        updateSlots(category);
+    }
+
+    window.onload = () => {
+        document.getElementById("calendar").value = currentDate.toISOString().split("T")[0];
+        updateDate();
+        renderWeekdayButtons();
+        updateSlots("all");
+    };
+</script>
