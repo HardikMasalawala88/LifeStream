@@ -17,5 +17,6 @@ namespace LifeStream.Models
         [EmailAddress(ErrorMessage = "Invalid email format")]
         public string Email { get; set; }
         public DateTime DOJ { get; set; }
+        public bool IsActive { get; set; }
     }
 }

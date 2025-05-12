@@ -1,280 +1,543 @@
-﻿@{
+﻿@model List<LifeStream.Models.Appointment>
+@{
     Layout = "_LayoutAdmin";
 }
+<style>
+    :root {
+        --primary: #4f46e5;
+        --primary-light: #6366f1;
+        --secondary: #10b981;
+        --secondary-light: #34d399;
+        --accent: #f59e0b;
+        --accent-light: #fbbf24;
+        --purple: #8b5cf6;
+        --purple-light: #a78bfa;
+        --light: #f8fafc;
+        --dark: #1e293b;
+        --gray: #64748b;
+        --border: #e2e8f0;
+    }
 
-<!-- Sale & Revenue Start -->
-<main class="app-main">
-    <!--begin::App Content Header-->
-    <div class="app-content-header">
-        <!--begin::Container-->
-        <div class="container-fluid">
-            <!--begin::Row-->
-            <div class="row">
-                @* <div class="col-sm-6"><h3 class="mb-0">Dashboard v3</h3></div> 
-                 <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-end">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Dashboard v3</li>
-                    </ol>
-                </div> *@
+    body {
+        background-color: #f1f5f9;
+        font-family: 'Inter', system-ui, sans-serif;
+    }
+
+    .dashboard-container {
+        padding: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 -10px 20px -10px;
+    }
+
+    .card {
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        background: white;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        height: 100%;
+        margin-bottom: 20px;
+    }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+    .card-header {
+        background: white;
+        border-bottom: 1px solid var(--border);
+        padding: 14px 18px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .card-title {
+        font-size: 15px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin: 0;
+        color: var(--dark);
+    }
+
+    .stat-card {
+        color: white;
+        border-radius: 10px;
+        padding: 18px;
+        position: relative;
+        overflow: hidden;
+        min-height: 130px;
+    }
+
+        .stat-card i {
+            position: absolute;
+            right: 18px;
+            top: 18px;
+            font-size: 50px;
+            opacity: 0.15;
+        }
+
+        .stat-card h3 {
+            font-size: 26px;
+            font-weight: 700;
+            margin: 10px 0 0;
+            display: inline-block;
+        }
+
+        .stat-card h6 {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 0;
+            opacity: 0.9;
+        }
+
+    .stat-badge {
+        background: rgba(255,255,255,0.2);
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 12px;
+        display: inline-block;
+        margin-left: 8px;
+        vertical-align: middle;
+    }
+
+    .appointments-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+        .appointments-table thead th {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 12px;
+            color: var(--gray);
+            padding: 10px 14px;
+            background-color: #f8fafc;
+            position: sticky;
+            top: 0;
+        }
+
+        .appointments-table tbody tr:hover {
+            background-color: rgba(79, 70, 229, 0.03);
+        }
+
+        .appointments-table td {
+            padding: 12px 14px;
+            vertical-align: middle;
+            border-top: 1px solid var(--border);
+            font-size: 13px;
+        }
+
+    .patient-cell {
+        font-weight: 500;
+    }
+
+    .doctor-cell {
+        color: var(--gray);
+        font-size: 13px;
+    }
+
+    .date-cell {
+        text-align: right;
+    }
+
+    .date-main {
+        font-weight: 500;
+        display: block;
+    }
+
+    .date-time {
+        font-size: 12px;
+        color: var(--gray);
+        display: block;
+    }
+
+    .chart-container {
+        height: 250px;
+        position: relative;
+        margin: 0 auto;
+        padding: 10px;
+    }
+
+    .btn {
+        font-size: 13px;
+        font-weight: 500;
+        padding: 7px 14px;
+        border-radius: 6px;
+        transition: all 0.2s ease;
+    }
+
+    .btn-primary {
+        background-color: var(--primary);
+        border-color: var(--primary);
+    }
+
+        .btn-primary:hover {
+            background-color: #4338ca;
+            border-color: #4338ca;
+        }
+
+    .empty-state {
+        text-align: center;
+        padding: 30px 20px;
+        margin: 0 auto;
+    }
+
+    .scrollable-container {
+        max-height: 320px;
+        overflow-y: auto;
+        margin: 0;
+    }
+
+    /* Column spacing */
+    [class*="col-"] {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    /* Card body padding */
+    .card-body {
+        padding: 18px;
+    }
+
+    /* Remove extra margins */
+    .no-margin {
+        margin: 0;
+    }
+
+    /* Section spacing */
+    .section-spacing {
+        margin-bottom: 25px;
+    }
+
+    /* Recent Activity Styles */
+    .list-group-item {
+        border-left: 0;
+        border-right: 0;
+        transition: all 0.2s ease;
+    }
+
+    .list-group-item:first-child {
+        border-top: 0;
+    }
+
+    .list-group-item:last-child {
+        border-bottom: 0;
+    }
+
+    .list-group-item:hover {
+        background-color: rgba(79, 70, 229, 0.03);
+    }
+
+    .bg-opacity-10 {
+        background-color: rgba(79, 70, 229, 0.1);
+    }
+
+    .text-primary {
+        color: var(--primary) !important;
+    }
+
+    .notification-icon {
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+    }
+
+    .notification-time {
+        font-size: 11px;
+        color: var(--gray);
+    }
+
+    .notification-content {
+        font-size: 13px;
+        line-height: 1.4;
+    }
+
+    .notification-highlight {
+        color: var(--primary);
+        font-weight: 500;
+    }
+</style>
+
+<div class="dashboard-container">
+    <!-- Stats Cards Row -->
+    <div class="row section-spacing">
+        <div class="col-xl-3 col-md-6 col-sm-6">
+            <div class="stat-card" style="background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);">
+                <i class="fas fa-user-injured"></i>
+                <h6>Total Patients</h6>
+                <h3>@ViewBag.TotalPatients <span class="stat-badge">+12.5%</span></h3>
             </div>
-            <!--end::Row-->
         </div>
-        <!--end::Container-->
+        <div class="col-xl-3 col-md-6 col-sm-6">
+            <div class="stat-card" style="background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 100%);">
+                <i class="fas fa-user-md"></i>
+                <h6>Total Doctors</h6>
+                <h3>@ViewBag.TotalDoctors <span class="stat-badge">+5%</span></h3>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 col-sm-6">
+            <div class="stat-card" style="background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);">
+                <i class="fas fa-calendar-check"></i>
+                <h6>Total Appointments</h6>
+                <h3>@ViewBag.TotalAppointments <span class="stat-badge">+24%</span></h3>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 col-sm-6">
+            <div class="stat-card" style="background: linear-gradient(135deg, var(--purple) 0%, var(--purple-light) 100%);">
+                <i class="fas fa-comments"></i>
+                <h6>Total Feedbacks</h6>
+                <h3>@ViewBag.TotalFeedbacks <span class="stat-badge">+8%</span></h3>
+            </div>
+        </div>
     </div>
 
-
-    <div class="app-content">
-        <!--begin::Container-->
-        <div class="container-fluid">
-            <!--begin::Row-->
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="card mb-4">
-                        <div class="card-header border-0">
-                            <div class="d-flex justify-content-between">
-                                <h3 class="card-title">Online Store Visitors</h3>
-                                <a href="javascript:void(0);"
-                                   class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">View Report</a>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="d-flex">
-                                <p class="d-flex flex-column">
-                                    <span class="fw-bold fs-5">820</span> <span>Visitors Over Time</span>
-                                </p>
-                                <p class="ms-auto d-flex flex-column text-end">
-                                    <span class="text-success"> <i class="bi bi-arrow-up"></i> 12.5% </span>
-                                    <span class="text-secondary">Since last week</span>
-                                </p>
-                            </div>
-                            <!-- /.d-flex -->
-                            <div class="position-relative mb-4"><div id="visitors-chart"></div></div>
-                            <div class="d-flex flex-row justify-content-end">
-                                <span class="me-2">
-                                    <i class="bi bi-square-fill text-primary"></i> This Week
-                                </span>
-                                <span> <i class="bi bi-square-fill text-secondary"></i> Last Week </span>
-                            </div>
-                        </div>
+    <!-- Charts Row -->
+    <div class="row section-spacing">
+        <div class="col-lg-7">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="card-title">
+                        <i class="fas fa-chart-line"></i>
+                        Monthly Appointments Trend
+                    </h5>
+                </div>
+                <div class="card-body no-margin">
+                    <div class="chart-container">
+                        <canvas id="appointmentsBarChart"></canvas>
                     </div>
-                    <!-- /.card -->
-                    <div class="card mb-4">
-                        <div class="card-header border-0">
-                            <h3 class="card-title">Products</h3>
-                            <div class="card-tools">
-                                <a href="#" class="btn btn-tool btn-sm"> <i class="bi bi-download"></i> </a>
-                                <a href="#" class="btn btn-tool btn-sm"> <i class="bi bi-list"></i> </a>
-                            </div>
-                        </div>
-                        <div class="card-body table-responsive p-0">
-                            <table class="table table-striped align-middle">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-5">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title"><i class="fas fa-chart-pie"></i> Distribution</h5>
+                </div>
+                <div class="card-body no-margin">
+                    <div class="chart-container">
+                        <canvas id="doctorPieChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Appointments and Activity Row -->
+    <div class="row">
+        <div class="col-lg-7">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="card-title">
+                        <i class="fas fa-calendar-day"></i>
+                        Upcoming Appointments
+                    </h5>
+                    <a asp-controller="Appointments" asp-action="Index" class="btn btn-sm btn-secondary">View All</a>
+                </div>
+                <div class="card-body p-0">
+                    @if (Model.Any())
+                    {
+                        <div class="scrollable-container">
+                            <table class="appointments-table">
                                 <thead>
                                     <tr>
-                                        <th>Product</th>
-                                        <th>Price</th>
-                                        <th>Sales</th>
-                                        <th>More</th>
+                                        <th>Patient</th>
+                                        <th>Doctor</th>
+                                        <th class="date-cell">Date</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>
-                                            <img src="../../dist/assets/img/default-150x150.png"
-                                                 alt="Product 1"
-                                                 class="rounded-circle img-size-32 me-2" />
-                                            Some Product
-                                        </td>
-                                        <td>$13 USD</td>
-                                        <td>
-                                            <small class="text-success me-1">
-                                                <i class="bi bi-arrow-up"></i>
-                                                12%
-                                            </small>
-                                            12,000 Sold
-                                        </td>
-                                        <td>
-                                            <a href="#" class="text-secondary"> <i class="bi bi-search"></i> </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <img src="../../dist/assets/img/default-150x150.png"
-                                                 alt="Product 1"
-                                                 class="rounded-circle img-size-32 me-2" />
-                                            Another Product
-                                        </td>
-                                        <td>$29 USD</td>
-                                        <td>
-                                            <small class="text-info me-1">
-                                                <i class="bi bi-arrow-down"></i>
-                                                0.5%
-                                            </small>
-                                            123,234 Sold
-                                        </td>
-                                        <td>
-                                            <a href="#" class="text-secondary"> <i class="bi bi-search"></i> </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <img src="../../dist/assets/img/default-150x150.png"
-                                                 alt="Product 1"
-                                                 class="rounded-circle img-size-32 me-2" />
-                                            Amazing Product
-                                        </td>
-                                        <td>$1,230 USD</td>
-                                        <td>
-                                            <small class="text-danger me-1">
-                                                <i class="bi bi-arrow-down"></i>
-                                                3%
-                                            </small>
-                                            198 Sold
-                                        </td>
-                                        <td>
-                                            <a href="#" class="text-secondary"> <i class="bi bi-search"></i> </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <img src="../../dist/assets/img/default-150x150.png"
-                                                 alt="Product 1"
-                                                 class="rounded-circle img-size-32 me-2" />
-                                            Perfect Item
-                                            <span class="badge text-bg-danger">NEW</span>
-                                        </td>
-                                        <td>$199 USD</td>
-                                        <td>
-                                            <small class="text-success me-1">
-                                                <i class="bi bi-arrow-up"></i>
-                                                63%
-                                            </small>
-                                            87 Sold
-                                        </td>
-                                        <td>
-                                            <a href="#" class="text-secondary"> <i class="bi bi-search"></i> </a>
-                                        </td>
-                                    </tr>
+                                    @foreach (var appointment in Model)
+                                    {
+                                        <tr>
+                                            <td class="patient-cell">@(appointment.Patient?.PatientName ?? "Unknown")</td>
+                                            <td class="doctor-cell">@(appointment.Doctor?.Name ?? "Unknown")</td>
+                                            <td class="date-cell">
+                                                <span class="date-main">@appointment.AppointmentDate.ToString("dd MMM")</span>
+                                                <span class="date-time">@appointment.AppointmentDate.ToString("hh:mm tt")</span>
+                                            </td>
+                                        </tr>
+                                    }
                                 </tbody>
                             </table>
                         </div>
-                    </div>
-                    <!-- /.card -->
+                    }
+                    else
+                    {
+                        <div class="empty-state">
+                            <i class="fas fa-calendar-times fa-2x mb-3 text-muted"></i>
+                            <h5>No upcoming appointments</h5>
+                            <p class="text-muted">Schedule appears to be clear</p>
+                        </div>
+                    }
                 </div>
-                <!-- /.col-md-6 -->
-                <div class="col-lg-6">
-                    <div class="card mb-4">
-                        <div class="card-header border-0">
-                            <div class="d-flex justify-content-between">
-                                <h3 class="card-title">Sales</h3>
-                                <a href="javascript:void(0);"
-                                   class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">View Report</a>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="d-flex">
-                                <p class="d-flex flex-column">
-                                    <span class="fw-bold fs-5">$18,230.00</span> <span>Sales Over Time</span>
-                                </p>
-                                <p class="ms-auto d-flex flex-column text-end">
-                                    <span class="text-success"> <i class="bi bi-arrow-up"></i> 33.1% </span>
-                                    <span class="text-secondary">Since Past Year</span>
-                                </p>
-                            </div>
-                            <!-- /.d-flex -->
-                            <div class="position-relative mb-4"><div id="sales-chart"></div></div>
-                            <div class="d-flex flex-row justify-content-end">
-                                <span class="me-2">
-                                    <i class="bi bi-square-fill text-primary"></i> This year
-                                </span>
-                                <span> <i class="bi bi-square-fill text-secondary"></i> Last year </span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.card -->
-                    <div class="card">
-                        <div class="card-header border-0">
-                            <h3 class="card-title">Online Store Overview</h3>
-                            <div class="card-tools">
-                                <a href="#" class="btn btn-sm btn-tool"> <i class="bi bi-download"></i> </a>
-                                <a href="#" class="btn btn-sm btn-tool"> <i class="bi bi-list"></i> </a>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center border-bottom mb-3">
-                                <p class="text-success fs-2">
-                                    <svg height="32"
-                                         fill="none"
-                                         stroke="currentColor"
-                                         stroke-width="1.5"
-                                         viewBox="0 0 24 24"
-                                         xmlns="http://www.w3.org/2000/svg"
-                                         aria-hidden="true">
-                                        <path stroke-linecap="round"
-                                              stroke-linejoin="round"
-                                              d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.678 48.678 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3l-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 003.7 3.7 48.656 48.656 0 007.324 0 4.006 4.006 0 003.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3l-3 3"></path>
-                                    </svg>
-                                </p>
-                                <p class="d-flex flex-column text-end">
-                                    <span class="fw-bold">
-                                        <i class="bi bi-graph-up-arrow text-success"></i> 12%
-                                    </span>
-                                    <span class="text-secondary">CONVERSION RATE</span>
-                                </p>
-                            </div>
-                            <!-- /.d-flex -->
-                            <div class="d-flex justify-content-between align-items-center border-bottom mb-3">
-                                <p class="text-info fs-2">
-                                    <svg height="32"
-                                         fill="none"
-                                         stroke="currentColor"
-                                         stroke-width="1.5"
-                                         viewBox="0 0 24 24"
-                                         xmlns="http://www.w3.org/2000/svg"
-                                         aria-hidden="true">
-                                        <path stroke-linecap="round"
-                                              stroke-linejoin="round"
-                                              d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"></path>
-                                    </svg>
-                                </p>
-                                <p class="d-flex flex-column text-end">
-                                    <span class="fw-bold">
-                                        <i class="bi bi-graph-up-arrow text-info"></i> 0.8%
-                                    </span>
-                                    <span class="text-secondary">SALES RATE</span>
-                                </p>
-                            </div>
-                            <!-- /.d-flex -->
-                            <div class="d-flex justify-content-between align-items-center mb-0">
-                                <p class="text-danger fs-2">
-                                    <svg height="32"
-                                         fill="none"
-                                         stroke="currentColor"
-                                         stroke-width="1.5"
-                                         viewBox="0 0 24 24"
-                                         xmlns="http://www.w3.org/2000/svg"
-                                         aria-hidden="true">
-                                        <path stroke-linecap="round"
-                                              stroke-linejoin="round"
-                                              d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"></path>
-                                    </svg>
-                                </p>
-                                <p class="d-flex flex-column text-end">
-                                    <span class="fw-bold">
-                                        <i class="bi bi-graph-down-arrow text-danger"></i>
-                                        1%
-                                    </span>
-                                    <span class="text-secondary">REGISTRATION RATE</span>
-                                </p>
-                            </div>
-                            <!-- /.d-flex -->
-                        </div>
-                    </div>
-                </div>
-                <!-- /.col-md-6 -->
             </div>
-            <!--end::Row-->
         </div>
-        <!--end::Container-->
+
+        <div class="col-lg-5">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">
+                        <i class="fas fa-list-alt"></i>
+                        Recent Activity
+                    </h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="scrollable-container" style="max-height: 360px;">
+                        <div class="list-group list-group-flush" id="recent-activity-list">
+                            <div class="list-group-item text-muted">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-info-circle me-2"></i>
+                                    <small>Waiting for notifications...</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</main>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.0/signalr.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // SignalR real-time notifications
+            const connection = new signalR.HubConnectionBuilder()
+                .withUrl("/notificationHub")
+                .build();
+
+            connection.on("ReceiveNotification", function (message) {
+                const list = document.getElementById("recent-activity-list");
+                const placeholder = list.querySelector(".text-muted");
+                if (placeholder) {
+                    placeholder.remove();
+                }
+
+                const newItem = document.createElement("div");
+                newItem.className = "list-group-item border-0 py-3 px-4";
+                newItem.innerHTML = `
+                    <div class="d-flex align-items-start">
+                        <div class="me-3">
+                            <div class="notification-icon bg-opacity-10">
+                                <i class="fas fa-calendar-check text-primary"></i>
+                            </div>
+                        </div>
+                        <div class="flex-grow-1">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <span class="fw-semibold small">New Appointment</span>
+                                <span class="notification-time">${new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+                            </div>
+                            <p class="notification-content mb-1">${formatNotificationMessage(message)}</p>
+                            <small class="notification-time">${new Date().toLocaleDateString()}</small>
+                        </div>
+                    </div>
+                `;
+                list.prepend(newItem);
+
+                // Add animation
+                newItem.style.opacity = "0";
+                newItem.style.transform = "translateY(10px)";
+                newItem.style.transition = "all 0.3s ease";
+                
+                setTimeout(() => {
+                    newItem.style.opacity = "1";
+                    newItem.style.transform = "translateY(0)";
+                }, 10);
+
+                // Limit to 8 notifications
+                if (list.children.length > 8) {
+                    list.removeChild(list.lastChild);
+                }
+            });
+
+                    function formatNotificationMessage(message) {
+                    // Replace **text** with span-highlighted text
+                    return message.replace(/\*\*(.*?)\*\*/g, '<span class="notification-highlight">$1</span>');
+                }
+
+
+            connection.start().catch(err => console.error(err.toString()));
+
+            // Charts
+            new Chart(document.getElementById('doctorPieChart'), {
+                type: 'pie',
+                data: {
+                    labels: ['Patients', 'Appointments', 'Doctors'],
+                    datasets: [{
+                        data: [@ViewBag.TotalPatients, @ViewBag.TotalAppointments, @ViewBag.TotalDoctors],
+                        backgroundColor: ['#4f46e5', '#f59e0b' , '#10b981'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                usePointStyle: true,
+                                font: {
+                                    size: 12
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            new Chart(document.getElementById('appointmentsBarChart').getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: [@Html.Raw(ViewBag.AppointmentMonths)],
+                    datasets: [{
+                        data: [@Html.Raw(ViewBag.MonthlyCounts)],
+                        backgroundColor: 'rgba(79, 70, 229, 0.8)',
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                precision: 0
+                            }
+                        },
+                        x: {
+                            grid: { display: false }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#1e293b',
+                            padding: 8,
+                            cornerRadius: 6
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+}

@@ -1,0 +1,174 @@
+﻿@model LifeStream.Models.Feedback
+
+@{
+    ViewData["Title"] = "Edit Feedback";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container-fluid py-4">
+    <div class="row justify-content-center">
+        <div class="col-xl-8 col-lg-10">
+            <div class="card border-0 shadow-lg rounded-3 overflow-hidden">
+                <!-- Header Section -->
+                <div class="card-header bg-gradient-primary text-white py-4">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h3 class="mb-0">
+                            <i class="bi bi-chat-square-text me-2"></i> Edit Feedback
+                        </h3>
+                        <a asp-action="Index" class="btn btn-outline-light btn-sm rounded-pill">
+                            <i class="bi bi-arrow-left me-1"></i> Back to List
+                        </a>
+                    </div>
+                </div>
+
+                <form asp-action="Edit" method="post" class="needs-validation" novalidate>
+                    <div class="card-body p-4">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger rounded-3 mb-4"></div>
+
+                        <input type="hidden" asp-for="FeedbackId" />
+
+                        <!-- Feedback Information Section -->
+                        <div class="row g-3">
+                            <!-- Appointment -->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="AppointmentId" class="form-label fw-bold mb-2">
+                                        <i class="bi bi-calendar-check me-2 text-primary"></i>Appointment
+                                    </label>
+                                    <select asp-for="AppointmentId" class="form-select" asp-items="ViewBag.AppointmentId" required>
+                                        <option value="">-- Select Appointment --</option>
+                                    </select>
+                                    <span asp-validation-for="AppointmentId" class="text-danger small"></span>
+                                </div>
+                            </div>
+
+                            <!-- Feedback Date -->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="FeedbackDate" class="form-label fw-bold mb-2">
+                                        <i class="bi bi-calendar-date me-2 text-primary"></i>Feedback Date
+                                    </label>
+                                    <input asp-for="FeedbackDate" type="date" class="form-control" required />
+                                    <span asp-validation-for="FeedbackDate" class="text-danger small"></span>
+                                </div>
+                            </div>
+
+                            <!-- Comment -->
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label asp-for="Comment" class="form-label fw-bold mb-2">
+                                        <i class="bi bi-chat-left-text me-2 text-primary"></i>Feedback Comment
+                                    </label>
+                                    <textarea asp-for="Comment" class="form-control" rows="4" required></textarea>
+                                    <span asp-validation-for="Comment" class="text-danger small"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Centered Footer Buttons -->
+                    <div class="card-footer bg-light py-3">
+                        <div class="d-flex justify-content-center">
+                            <button type="submit" class="btn btn-primary px-4 rounded-pill me-2">
+                                <i class="bi bi-check-circle me-1"></i> Save Changes
+                            </button>
+                            <a asp-action="Index" class="btn btn-outline-secondary px-4 rounded-pill">
+                                <i class="bi bi-x-circle me-1"></i> Cancel
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .bg-gradient-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        }
+
+        .card {
+            border: none;
+            box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.08);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+            color: #495057;
+        }
+
+        .form-control, .form-select {
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.375rem;
+            border: 1px solid #ced4da;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+
+            .form-control:focus, .form-select:focus {
+                border-color: #86b7fe;
+                box-shadow: 0 0 0 0.25rem rgba(102, 126, 234, 0.25);
+            }
+
+        .text-danger.small {
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+        }
+
+        textarea.form-control {
+            min-height: 120px;
+        }
+
+        /* Responsive adjustments */
+        @@media (max-width: 768px) {
+            .card-footer .d-flex {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .card-footer .btn {
+                width: 100%;
+            }
+        }
+    </style>
+}
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        // Form validation
+        (function () {
+            'use strict';
+            var forms = document.querySelectorAll('.needs-validation');
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+        })();
+
+        // Set today's date as default if empty
+        document.addEventListener('DOMContentLoaded', function() {
+            const feedbackDateField = document.getElementById('FeedbackDate');
+            if (!feedbackDateField.value) {
+                const today = new Date().toISOString().split('T')[0];
+                feedbackDateField.value = today;
+            }
+        });
+    </script>
+}

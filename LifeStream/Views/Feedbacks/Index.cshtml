@@ -1,6 +1,6 @@
-﻿@model IEnumerable<LifeStream.Models.Patient>
+﻿@model IEnumerable<LifeStream.Models.Feedback>
 @{
-    ViewData["Title"] = "Patient Management";
+    ViewData["Title"] = "Feedback Management";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -144,24 +144,24 @@
     <div class="col-12">
         <div class="card card-primary">
             <div class="card-header bg-gradient-primary">
-                <h3 class="card-title">Patient Management</h3>
+                <h3 class="card-title">Feedback Management</h3>
                 <div class="card-tools">
-                    @if (!User.IsInRole(UserRoleInfo.Admin)){
-                    <a asp-action="Create" class="btn btn-tool btn-sm">
-                        <i class="fas fa-plus"></i> Add New Patient
-                    </a>
-                }
+                    @if (!User.IsInRole(UserRoleInfo.Admin))
+                    {
+                        <a asp-action="Create" class="btn btn-tool btn-sm">
+                            <i class="fas fa-plus"></i> Add New Feedback
+                        </a>
+                    }
                 </div>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                <table id="patientsTable" class="table table-bordered table-striped table-hover">
+                <table id="feedbackTable" class="table table-bordered table-striped table-hover">
                     <thead>
                         <tr>
-                            <th>Patient Name</th>
-                            <th>Email</th>
-                            <th>Phone Number</th>
-                            <th>Appointments</th>
+                            <th>Appointment</th>
+                            <th>Comment</th>
+                            <th>Feedback Date</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -169,49 +169,31 @@
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <td data-label="Patient Name">
-                                    <strong>@item.PatientName</strong>
+                                <td data-label="Appointment">
+                                    @Html.DisplayFor(modelItem => item.Appointment.AppointmentId)
                                 </td>
-                                <td data-label="Email">
-                                    @item.Email
+                                <td data-label="Comment">
+                                    <div class="text-truncate" style="max-width: 200px;" title="@item.Comment">
+                                        @item.Comment
+                                    </div>
                                 </td>
-                                <td data-label="Phone Number">
-                                    @item.PhoneNumber
-                                </td>
-                                <td data-label="Appointments">
-                                    @if (item.Appointments.Any())
-                                    {
-                                        <div class="text-truncate" style="max-width: 200px;" title="@string.Join(", ", item.Appointments.Select(a => $"{a.AppointmentDate.ToString("MMM dd")} - {a.Doctor.Name}"))">
-                                            @item.Appointments.Count() appointment(s)
-                                            <small class="text-muted">
-                                                (
-                                                @string.Join(", ", item.Appointments.Take(2).Select(a => a.Doctor.Name))
-                                                @if (item.Appointments.Count() > 2)
-                                                {
-                                                    <text>...</text>
-                                                }
-                                                )
-                                            </small>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <span class="text-muted">No appointments</span>
-                                    }
+                                <td data-label="Feedback Date">
+                                    @Html.DisplayFor(modelItem => item.FeedbackDate)
                                 </td>
                                 <td data-label="Actions">
                                     <div class="btn-group">
-                                        <a asp-action="Details" asp-route-id="@item.UserId" class="btn btn-sm btn-info" title="Details">
+                                        <a asp-action="Details" asp-route-id="@item.FeedbackId" class="btn btn-sm btn-info" title="Details">
                                             <i class="fas fa-eye"></i>
                                         </a>
-                                        @if (!User.IsInRole(UserRoleInfo.Admin)){
-                                        <a asp-action="Edit" asp-route-id="@item.UserId" class="btn btn-sm btn-primary" title="Edit">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
-                                                data-bs-target="#deletePatientModal" data-patientid="@item.UserId" title="Delete">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
+                                        @if (!User.IsInRole(UserRoleInfo.Admin))
+                                        {
+                                            <a asp-action="Edit" asp-route-id="@item.FeedbackId" class="btn btn-sm btn-primary" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                                                    data-bs-target="#deleteFeedbackModal" data-feedbackid="@item.FeedbackId" title="Delete">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
                                         }
                                     </div>
                                 </td>
@@ -226,22 +208,21 @@
     </div>
 </div>
 
-<!-- Delete Patient Modal -->
-<div class="modal fade" id="deletePatientModal" tabindex="-1" aria-labelledby="deletePatientModalLabel" aria-hidden="true">
+<!-- Delete Feedback Modal -->
+<div class="modal fade" id="deleteFeedbackModal" tabindex="-1" aria-labelledby="deleteFeedbackModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header bg-danger text-white">
-                <h5 class="modal-title" id="deletePatientModalLabel">Confirm Delete</h5>
+                <h5 class="modal-title" id="deleteFeedbackModalLabel">Confirm Delete</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>Are you sure you want to delete this patient? This action cannot be undone.</p>
-                <p class="text-danger"><strong>Warning:</strong> All associated appointments will also be deleted.</p>
+                <p>Are you sure you want to delete this feedback? This action cannot be undone.</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <form id="deletePatientForm" method="post" style="display: inline;">
-                    <input type="hidden" id="patientId" name="UserId" />
+                <form id="deleteFeedbackForm" method="post" style="display: inline;">
+                    <input type="hidden" id="feedbackId" name="FeedbackId" />
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
             </div>
@@ -253,12 +234,12 @@
     <script>
         $(function () {
             // Initialize DataTable
-            $('#patientsTable').DataTable({
+            $('#feedbackTable').DataTable({
                 "responsive": true,
                 "autoWidth": false,
-                "order": [[0, "asc"]], // Default sort by patient name
+                "order": [[2, "desc"]], // Default sort by feedback date
                 "columnDefs": [
-                    { "orderable": false, "targets": [3, 4] }
+                    { "orderable": false, "targets": [3] }
                 ],
                 "language": {
                     "paginate": {
@@ -269,12 +250,12 @@
             });
 
             // Delete modal handler
-            $('#deletePatientModal').on('show.bs.modal', function (event) {
+            $('#deleteFeedbackModal').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget);
-                var patientId = button.data('patientid');
+                var feedbackId = button.data('feedbackid');
                 var modal = $(this);
-                modal.find('#patientId').val(patientId);
-                modal.find('#deletePatientForm').attr('action', '/Patients/Delete/' + patientId);
+                modal.find('#feedbackId').val(feedbackId);
+                modal.find('#deleteFeedbackForm').attr('action', '/Feedback/Delete/' + feedbackId);
             });
         });
     </script>

@@ -1,82 +1,341 @@
 ﻿@model LifeStream.Models.Patient
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Patient Details";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
-<div class="container-fluid pt-4 px-4">
-    <div class="row g-4">
-        <div class="col-sm-12 col-xl-12">
-            <div class="bg-light rounded p-4">
-<h1>Patient Details</h1>
-                <hr />
 
-<div>
-   
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PatientName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PatientName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DateOfBirth)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DateOfBirth)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Gender)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Gender)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Age)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Age)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PhoneNumber)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Address)
-        </dd>
-    </dl>
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="patient-details-card">
+                <!-- Header Section -->
+                <div class="patient-header">
+                    <div class="patient-info">
+                        <h1 class="patient-title">Patient Details</h1>
+                        <div class="patient-meta">
+                            <span class="name-highlight">
+                                @Model.PatientName
+                            </span>
+                            <span class="age-badge">
+                                <i class="bi bi-calendar-heart"></i> @Model.Age years old
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content Section -->
+                <div class="patient-content">
+                    <div class="row g-4">
+                        <!-- Personal Information -->
+                        <div class="col-md-6">
+                            <div class="info-section">
+                                <h3 class="section-title">
+                                    <i class="bi bi-person-vcard text-primary me-2"></i> Personal Information
+                                </h3>
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <div class="info-icon">
+                                            <i class="bi bi-person"></i>
+                                        </div>
+                                        <div class="info-content">
+                                            <label>Full Name</label>
+                                            <p>@Model.FirstName @Model.LastName</p>
+                                        </div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div class="info-icon">
+                                            <i class="bi bi-gender-ambiguous"></i>
+                                        </div>
+                                        <div class="info-content">
+                                            <label>Gender</label>
+                                            <p>@Model.Gender</p>
+                                        </div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div class="info-icon">
+                                            <i class="bi bi-calendar-date"></i>
+                                        </div>
+                                        <div class="info-content">
+                                            <label>Date of Birth</label>
+                                            <p>@Model.DateOfBirth.ToString("MMMM dd, yyyy")</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Contact Information -->
+                        <div class="col-md-6">
+                            <div class="info-section">
+                                <h3 class="section-title">
+                                    <i class="bi bi-telephone text-primary me-2"></i> Contact Information
+                                </h3>
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <div class="info-icon">
+                                            <i class="bi bi-envelope"></i>
+                                        </div>
+                                        <div class="info-content">
+                                            <label>Email</label>
+                                            <p>@Model.Email</p>
+                                        </div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div class="info-icon">
+                                            <i class="bi bi-phone"></i>
+                                        </div>
+                                        <div class="info-content">
+                                            <label>Phone Number</label>
+                                            <p>@Model.PhoneNumber</p>
+                                        </div>
+                                    </div>
+                                    <div class="info-item">
+                                        <div class="info-icon">
+                                            <i class="bi bi-house-door"></i>
+                                        </div>
+                                        <div class="info-content">
+                                            <label>Address</label>
+                                            <p>@Model.Address</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="patient-actions">
+                    @if (!User.IsInRole(UserRoleInfo.Admin))
+                    {
+                        <a asp-action="Edit" asp-route-id="@Model?.UserId" class="btn btn-primary btn-edit">
+                            <i class="bi bi-pencil-square me-2"></i> Edit Patient
+                        </a>
+                    }
+                    <a asp-action="Index" class="btn btn-outline-primary btn-back">
+                        <i class="bi bi-arrow-left me-2"></i> Back to List
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<div>
-@*     <a asp-action="Edit" asp-route-id="@Model?.UserId">Edit</a> |
- *@
-    <i class="bi bi-arrow-left-short text-primary"></i>
-    <a asp-action="Index">Back to List</a>
-</div>
-</div>
-</div>
-</div>
-</div>
+
+<style>
+    .patient-details-card {
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+    }
+
+    .patient-header {
+        background: linear-gradient(135deg, #4a6cf7 0%, #2541b2 100%);
+        padding: 2.5rem;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 2rem;
+    }
+
+    .patient-info {
+        flex: 1;
+        min-width: 250px;
+    }
+
+    .patient-title {
+        color: white;
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        line-height: 1.2;
+    }
+
+    .patient-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        align-items: center;
+    }
+
+    .name-highlight {
+        background: white;
+        color: #2541b2;
+        padding: 0.5rem 1.25rem;
+        border-radius: 2rem;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        font-size: 1.1rem;
+    }
+
+        .name-highlight i {
+            margin-right: 0.5rem;
+            color: #2541b2;
+        }
+
+    .age-badge {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        padding: 0.5rem 1.25rem;
+        border-radius: 2rem;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        font-size: 1.1rem;
+        backdrop-filter: blur(5px);
+    }
+
+        .age-badge i {
+            margin-right: 0.5rem;
+            color: #ffc107;
+        }
+
+    .patient-content {
+        padding: 2.5rem;
+    }
+
+    .info-section {
+        margin-bottom: 2rem;
+    }
+
+    .section-title {
+        font-size: 1.4rem;
+        color: #2c3e50;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 1px solid #f0f0f0;
+        display: flex;
+        align-items: center;
+    }
+
+    .info-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .info-item {
+        display: flex;
+        align-items: center;
+        padding: 1.25rem;
+        background: #f8f9fa;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+    }
+
+        .info-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(74, 108, 247, 0.1);
+        }
+
+    .info-icon {
+        width: 40px;
+        height: 40px;
+        background: rgba(74, 108, 247, 0.1);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 1.25rem;
+        flex-shrink: 0;
+    }
+
+        .info-icon i {
+            color: #4a6cf7;
+            font-size: 1.25rem;
+        }
+
+    .info-content {
+        flex: 1;
+    }
+
+        .info-content label {
+            display: block;
+            font-size: 0.8rem;
+            color: #6c757d;
+            margin-bottom: 0.25rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+
+        .info-content p {
+            margin: 0;
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+
+    .patient-actions {
+        padding: 1.5rem 2.5rem;
+        border-top: 1px solid #f0f0f0;
+        display: flex;
+        justify-content: flex-end;
+        gap: 1rem;
+        background: #f8f9fa;
+    }
+
+    .btn-edit, .btn-back {
+        padding: 0.75rem 1.75rem;
+        border-radius: 8px;
+        font-weight: 500;
+        font-size: 0.95rem;
+        display: inline-flex;
+        align-items: center;
+        transition: all 0.3s ease;
+    }
+
+    .btn-edit {
+        background: #4a6cf7;
+        color: white;
+        border: none;
+    }
+
+        .btn-edit:hover {
+            background: #3a5bd9;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(74, 108, 247, 0.3);
+        }
+
+    .btn-back {
+        background: white;
+        color: #4a6cf7;
+        border: 1px solid #4a6cf7;
+    }
+
+        .btn-back:hover {
+            background: #f8f9ff;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(74, 108, 247, 0.2);
+        }
+
+    @@media (max-width: 768px) {
+        .patient-header {
+            flex-direction: column;
+            text-align: center;
+            padding: 2rem 1.5rem;
+        }
+
+        .patient-meta {
+            justify-content: center;
+        }
+
+        .patient-content {
+            padding: 1.5rem;
+        }
+
+        .patient-actions {
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 1.5rem;
+        }
+
+        .btn-edit, .btn-back {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+</style>

@@ -6,171 +6,172 @@
 
 <style>
     .card-primary {
-        border-color: #667eea;
+    border-color: #667eea;
     }
-    
-    .card-primary .card-header {
-        background-color: #667eea;
-        color: white;
-        border-bottom: 1px solid #5a6fcf;
+
+    .bg-gradient-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
     }
-    
+
     .table {
-        width: 100%;
-        border-collapse: collapse;
+    width: 100%;
+    border-collapse: collapse;
     }
-    
+
     .table thead th {
-        background-color: #f8f9fa;
-        color: #2c3e50;
-        font-weight: 600;
-        border-bottom: 2px solid #e9ecef;
-        padding: 12px 15px;
-        text-align: left;
+    background-color: #f8f9fa;
+    color: #2c3e50;
+    font-weight: 600;
+    border-bottom: 2px solid #e9ecef;
+    padding: 12px 15px;
+    text-align: left;
     }
-    
+
     .table tbody td {
-        padding: 12px 15px;
-        border-top: 1px solid #e9ecef;
-        vertical-align: middle;
+    padding: 12px 15px;
+    border-top: 1px solid #e9ecef;
+    vertical-align: middle;
     }
-    
+
     .table-hover tbody tr:hover {
-        background-color: rgba(102, 126, 234, 0.05);
+    background-color: rgba(102, 126, 234, 0.05);
     }
-    
+
     .img-circle {
-        border-radius: 50%;
+    border-radius: 50%;
     }
-    
+
     .progress {
-        height: 6px;
-        background-color: #e9ecef;
-        border-radius: 3px;
+    height: 6px;
+    background-color: #e9ecef;
+    border-radius: 3px;
     }
-    
+
     .progress-bar {
-        background-color: #667eea;
+    background-color: #667eea;
     }
-    
+
     .badge {
-        font-weight: 500;
-        padding: 4px 8px;
-        font-size: 0.75rem;
+    font-weight: 500;
+    padding: 4px 8px;
+    font-size: 0.75rem;
     }
-    
+
     .bg-primary {
-        background-color: #667eea !important;
+    background-color: #667eea !important;
     }
-    
+
     .btn-primary {
-        background-color: #667eea;
-        border-color: #5a6fcf;
+    background-color: #667eea;
+    border-color: #5a6fcf;
     }
-    
+
     .btn-primary:hover {
-        background-color: #5a6fcf;
-        border-color: #4f63bd;
+    background-color: #5a6fcf;
+    border-color: #4f63bd;
     }
-    
+
     .btn-info {
-        background-color: #6cb2eb;
-        border-color: #5aa1e0;
+    background-color: #6cb2eb;
+    border-color: #5aa1e0;
     }
-    
+
     .btn-info:hover {
-        background-color: #5aa1e0;
-        border-color: #4e90d0;
+    background-color: #5aa1e0;
+    border-color: #4e90d0;
     }
-    
+
     .btn-danger {
-        background-color: #e3342f;
-        border-color: #d32722;
+    background-color: #e3342f;
+    border-color: #d32722;
     }
-    
+
     .btn-danger:hover {
-        background-color: #d32722;
-        border-color: #c3211d;
+    background-color: #d32722;
+    border-color: #c3211d;
     }
-    
+
     .btn-group .btn {
-        margin-right: 5px;
+    margin-right: 5px;
     }
-    
+
     .btn-group .btn:last-child {
-        margin-right: 0;
+    margin-right: 0;
     }
-    
+
     .text-muted {
-        color: #6c757d !important;
+    color: #6c757d !important;
     }
-    
+
     .card-tools .btn {
-        color: white;
-        background-color: rgba(255, 255, 255, 0.2);
-        border: none;
+    color: white;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: none;
     }
-    
+
     .card-tools .btn:hover {
-        background-color: rgba(255, 255, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0.3);
     }
-    
+
     /* Modal styling */
     .modal-header.bg-danger {
-        background-color: #e3342f !important;
+    background-color: #e3342f !important;
     }
-    
+
     /* Responsive adjustments */
     @@media (max-width: 768px) {
-        .table thead {
-            display: none;
-        }
-        
-        .table, .table tbody, .table tr, .table td {
-            display: block;
-            width: 100%;
-        }
-        
-        .table tr {
-            margin-bottom: 15px;
-            border: 1px solid #e9ecef;
-            border-radius: 4px;
-        }
-        
-        .table td {
-            text-align: right;
-            padding-left: 50%;
-            position: relative;
-            border-bottom: 1px solid #e9ecef;
-        }
-        
-        .table td::before {
-            content: attr(data-label);
-            position: absolute;
-            left: 15px;
-            width: 45%;
-            padding-right: 15px;
-            font-weight: 600;
-            text-align: left;
-            color: #2c3e50;
-        }
-        
-        .table td:last-child {
-            border-bottom: 0;
-        }
+    .table thead {
+    display: none;
+    }
+
+    .table, .table tbody, .table tr, .table td {
+    display: block;
+    width: 100%;
+    }
+
+    .table tr {
+    margin-bottom: 15px;
+    border: 1px solid #e9ecef;
+    border-radius: 4px;
+    }
+
+    .table td {
+    text-align: right;
+    padding-left: 50%;
+    position: relative;
+    border-bottom: 1px solid #e9ecef;
+    }
+
+    .table td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 15px;
+    width: 45%;
+    padding-right: 15px;
+    font-weight: 600;
+    text-align: left;
+    color: #2c3e50;
+    }
+
+    .table td:last-child {
+    border-bottom: 0;
+    }
     }
 </style>
 
 <div class="row">
     <div class="col-12">
         <div class="card card-primary">
-            <div class="card-header">
+            <div class="card-header bg-gradient-primary">
                 <h3 class="card-title">Doctor Management</h3>
-                <div class="card-tools">
-                    <a asp-action="Create" class="btn btn-tool btn-sm">
-                        <i class="fas fa-plus"></i> Add New Doctor
-                    </a>
-                </div>
+                @if (User.IsInRole(UserRoleInfo.Admin))
+                {
+                    <div class="card-tools">
+                        <a asp-action="Create" class="btn btn-tool btn-sm">
+                            <i class="fas fa-plus"></i> Add New Doctor
+                        </a>
+                    </div>
+                }
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -191,9 +192,9 @@
                             <tr>
                                 <td data-label="Photo">
                                     <img src="@Url.Content(item.ImagePath ?? "/images/default-doctor.png")" 
-                                         alt="Doctor Image" 
-                                         class="img-circle img-size-50" 
-                                         style="width: 50px; height: 50px; object-fit: cover;">
+                                    alt="Doctor Image" 
+                                    class="img-circle img-size-50" 
+                                    style="width: 50px; height: 50px; object-fit: cover;">
                                 </td>
                                 <td data-label="Name">
                                     <strong>@item.Name</strong><br>
@@ -212,18 +213,25 @@
                                 </td>
                                 <td data-label="Actions">
                                     <div class="btn-group">
-                                        <a asp-action="Edit" asp-route-id="@item.UserId" class="btn btn-sm btn-primary" title="Edit">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <a asp-action="Details" asp-route-id="@item.UserId" class="btn btn-sm btn-info" title="Details">
-                                            <i class="fas fa-eye"></i>
-                                        </a>
-                                        <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" 
-                                                data-bs-target="#deleteDoctorModal" data-userid="@item.UserId" title="Delete">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
+                                        @if (!User.IsInRole(UserRoleInfo.Admin))
+                                        {
+                                            <a asp-action="Edit" asp-route-id="@item.UserId" class="btn btn-sm btn-primary" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                        }
+                                        @if (User.IsInRole(UserRoleInfo.Admin))
+                                        {
+                                            <a asp-action="Details" asp-route-id="@item.UserId" class="btn btn-sm btn-info" title="Details">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                                                    data-bs-target="#deleteDoctorModal" data-userid="@item.UserId" title="Delete">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        }
                                     </div>
                                 </td>
+
                             </tr>
                         }
                     </tbody>
@@ -258,25 +266,26 @@
 </div>
 
 @section Scripts {
+    <!-- Existing Scripts -->
     <script>
         $(function () {
-            // Initialize DataTable
+            // DataTables init
             $('#doctorsTable').DataTable({
-                "responsive": true,
-                "autoWidth": false,
-                "columnDefs": [
-                    { "orderable": false, "targets": [0, 5] },
-                    { "className": "dt-center", "targets": [0, 5] }
+                responsive: true,
+                autoWidth: false,
+                columnDefs: [
+                    { orderable: false, targets: [0, 5] },
+                    { className: "dt-center", targets: [0, 5] }
                 ],
-                "language": {
-                    "paginate": {
-                        "previous": "<i class='fas fa-chevron-left'></i>",
-                        "next": "<i class='fas fa-chevron-right'></i>"
+                language: {
+                    paginate: {
+                        previous: "<i class='fas fa-chevron-left'></i>",
+                        next: "<i class='fas fa-chevron-right'></i>"
                     }
                 }
             });
 
-            // Delete modal handler
+            // Delete Modal
             $('#deleteDoctorModal').on('show.bs.modal', function (event) {
                 var button = $(event.relatedTarget);
                 var userId = button.data('userid');
@@ -285,5 +294,44 @@
                 modal.find('#deleteForm').attr('action', '/Doctor/Delete/' + userId);
             });
         });
+    </script>
+
+    <!-- SignalR Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.0/signalr.min.js"></script>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" style="position: fixed; top: 20px; right: 20px; z-index: 9999;"></div>
+
+    <!-- SignalR Script -->
+    <script>
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/notificationHub")
+            .build();
+
+        connection.on("ReceiveNotification", function (doctorName, message) {
+            showToast(`${doctorName}, ${message}`);
+        });
+
+        connection.start().catch(err => console.error(err.toString()));
+
+        function showToast(message) {
+            const toastId = 'toast_' + Date.now();
+            const toastHtml = `
+                <div id="${toastId}" class="toast align-items-center text-white bg-success border-0 mb-3 show" role="alert" aria-live="assertive" aria-atomic="true" style="min-width: 250px;">
+                    <div class="d-flex">
+                        <div class="toast-body">
+                            <i class="fas fa-bell me-2"></i> ${message}
+                        </div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto" onclick="document.getElementById('${toastId}').remove()" aria-label="Close"></button>
+                    </div>
+                </div>`;
+            document.getElementById("toastContainer").insertAdjacentHTML('beforeend', toastHtml);
+
+            // Auto-remove toast after 5 seconds
+            setTimeout(() => {
+                const toastEl = document.getElementById(toastId);
+                if (toastEl) toastEl.remove();
+            }, 5000);
+        }
     </script>
 }

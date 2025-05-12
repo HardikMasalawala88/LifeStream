@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LifeStream.Data;
 using LifeStream.Models;
 using LifeStream.Areas.Identity.Data;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.SignalR;
+using LifeStream.Hubs; 
+
 
 namespace LifeStream.Controllers
 {
@@ -16,11 +15,13 @@ namespace LifeStream.Controllers
     {
         private readonly LifeStreamdDBContext _context;
         private readonly UserManager<LifeStreamUser> _userManager;
+        private readonly IHubContext<NotificationHub> _hubContext;
 
-        public PatientsController(LifeStreamdDBContext context, UserManager<LifeStreamUser> userManager)
+        public PatientsController(LifeStreamdDBContext context, UserManager<LifeStreamUser> userManager, IHubContext<NotificationHub> hubContext)
         {
             _context = context;
             _userManager = userManager;
+            _hubContext = hubContext;
         }
 
         // GET: Patients
@@ -74,7 +75,7 @@ namespace LifeStream.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("UserId,PatientName,FirstName,LastName,Email,DateOfBirth,Gender,Age,PhoneNumber,Address")] Patient patient)
+        public async Task<IActionResult> Create(Patient patient)
         {
             if (ModelState.IsValid)
             {
@@ -92,23 +93,26 @@ namespace LifeStream.Controllers
 
                 if (result.Succeeded)
                 {
-                    // Step 2: Assign "Patient" role to the new user
+                    
                     await _userManager.AddToRoleAsync(user, UserRole.Patient.ToString());
 
-                    // Step 3: Save user ID in the Patient table
-                    patient.UserId = user.Id; // Assign the created UserId
+                    patient.UserId = user.Id; 
 
-                    //patient.Age = (DateTime.Today.Year - patient.DateOfBirth.Year) -
-                    //  (DateTime.Today.DayOfYear < patient.DateOfBirth.DayOfYear ? 1 : 0);
                     patient.Age = CalculateAge(patient.DateOfBirth);
                     _context.Patients.Add(patient);
                     await _context.SaveChangesAsync();
 
+                    await _hubContext.Clients.All.SendAsync("ReceiveActivity", new
+                    {
+                        icon = "fas fa-user-plus",
+                        message = $"New Patient Registered: {patient.PatientName}",
+                        time = DateTime.Now.ToString("g")
+                    });
+
                     return RedirectToAction(nameof(Index));
                 }
                 else
-                {
-                    // Handle errors if user creation fails
+                { 
                     foreach (var error in result.Errors)
                     {
                         ModelState.AddModelError("", error.Description);
@@ -163,7 +167,7 @@ namespace LifeStream.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("UserId,PatientName,FirstName,LastName,Email,DateOfBirth,Gender,Age,PhoneNumber,Address")] Patient patient)
+        public async Task<IActionResult> Edit(string id, Patient patient)
         {
             if (id != patient.UserId)
             {

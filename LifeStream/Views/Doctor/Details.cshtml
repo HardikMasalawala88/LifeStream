@@ -13,8 +13,8 @@
                 <div class="profile-header">
                     <div class="profile-image-container">
                         <img src="@Model.ImagePath" alt="Doctor"
-                             class="profile-image"
-                             onerror="this.src='/images/default-doctor.png'">
+                        class="profile-image"
+                        onerror="this.src='/images/default-doctor.png'">
                         <div class="verification-badge">
                             <i class="bi bi-check-circle-fill"></i>
                         </div>
@@ -97,9 +97,12 @@
 
                 <!-- Action Buttons -->
                 <div class="profile-actions">
-                    <a asp-action="Edit" class="btn btn-primary btn-edit">
-                        <i class="bi bi-pencil-square me-2"></i> Edit Profile
-                    </a>
+                    @if (!User.IsInRole(UserRoleInfo.Admin))
+                    {
+                        <a asp-action="Edit" class="btn btn-primary btn-edit">
+                            <i class="bi bi-pencil-square me-2"></i> Edit Profile
+                        </a>
+                    }
                     <a asp-action="Index" class="btn btn-outline-primary btn-back">
                         <i class="bi bi-arrow-left me-2"></i> Back to List
                     </a>

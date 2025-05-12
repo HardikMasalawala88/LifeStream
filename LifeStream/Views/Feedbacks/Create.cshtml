@@ -1,6 +1,7 @@
-﻿@model LifeStream.Models.Staff
+﻿@model LifeStream.Models.Feedback
+
 @{
-    ViewData["Title"] = "Create Staff";
+    ViewData["Title"] = "Create Feedback";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -11,7 +12,7 @@
                 <div class="card-header bg-gradient-primary text-white py-4">
                     <div class="d-flex justify-content-between align-items-center">
                         <h3 class="mb-0">
-                            <i class="fas fa-user-tie me-2"></i> Create New Staff Profile
+                            <i class="fas fa-comment-medical me-2"></i> Create New Feedback
                         </h3>
                         <a asp-action="Index" class="btn btn-outline-light btn-sm">
                             <i class="fas fa-arrow-left me-1"></i> Back to List
@@ -26,60 +27,47 @@
                         <div class="row g-4">
                             <!-- Left Column -->
                             <div class="col-md-6">
-                                <!-- Name Section -->
+                                <!-- Appointment Selection -->
                                 <div class="form-floating mb-4">
-                                    <input asp-for="StaffName" class="form-control" placeholder=" " required />
-                                    <label asp-for="StaffName" class="form-label">
-                                        <i class="fas fa-signature me-2 text-primary"></i>Full Name
+                                    <select asp-for="AppointmentId" class="form-select" required>
+                                        <option value="">-- Select Appointment --</option>
+                                        @foreach (var item in ViewBag.AppointmentId)
+                                        {
+                                            <option value="@item.Value">@item.Text</option>
+                                        }
+                                    </select>
+                                    <label asp-for="AppointmentId" class="form-label">
+                                        <i class="fas fa-calendar-check me-2 text-primary"></i>Appointment
                                     </label>
-                                    <span asp-validation-for="StaffName" class="text-danger small"></span>
+                                    <span asp-validation-for="AppointmentId" class="text-danger small"></span>
                                 </div>
-
-                                <!-- Designation -->
-                                <div class="form-floating mb-4">
-                                    <input asp-for="Designation" class="form-control" placeholder=" " required />
-                                    <label asp-for="Designation" class="form-label">
-                                        <i class="fas fa-briefcase me-2 text-primary"></i>Designation
-                                    </label>
-                                    <span asp-validation-for="Designation" class="text-danger small"></span>
-                                </div>
-
-                                <!-- Email -->
-                                <div class="form-floating mb-4">
-                                    <input asp-for="Email" type="email" class="form-control" placeholder=" " required />
-                                    <label asp-for="Email" class="form-label">
-                                        <i class="fas fa-envelope me-2 text-primary"></i>Email Address
-                                    </label>
-                                    <span asp-validation-for="Email" class="text-danger small"></span>
-                                </div>
-                            </div>
 
                             <!-- Right Column -->
                             <div class="col-md-6">
-                                <!-- Phone Number -->
+                                <!-- Feedback Date -->
                                 <div class="form-floating mb-4">
-                                    <input asp-for="PhoneNumber" class="form-control" placeholder=" " required />
-                                    <label asp-for="PhoneNumber" class="form-label">
-                                        <i class="fas fa-phone-alt me-2 text-primary"></i>Phone Number
+                                    <input asp-for="FeedbackDate" type="date" class="form-control" placeholder=" " required />
+                                    <label asp-for="FeedbackDate" class="form-label">
+                                        <i class="fas fa-calendar-day me-2 text-primary"></i>Feedback Date
                                     </label>
-                                    <span asp-validation-for="PhoneNumber" class="text-danger small"></span>
-                                </div>
-
-                                <!-- Date of Joining -->
-                                <div class="form-floating mb-4">
-                                    <input asp-for="DOJ" type="date" class="form-control" placeholder=" " required />
-                                    <label asp-for="DOJ" class="form-label">
-                                        <i class="fas fa-calendar-alt me-2 text-primary"></i>Date of Joining
-                                    </label>
-                                    <span asp-validation-for="DOJ" class="text-danger small"></span>
+                                    <span asp-validation-for="FeedbackDate" class="text-danger small"></span>
                                 </div>
                             </div>
+                        </div>
+
+                        <!-- Comment Section -->
+                        <div class="form-group mb-4">
+                            <label class="form-label">
+                                <i class="fas fa-comment-dots me-2 text-primary"></i>Feedback Comment
+                            </label>
+                            <textarea asp-for="Comment" class="form-control" rows="4" placeholder="Enter your feedback here..." required></textarea>
+                            <span asp-validation-for="Comment" class="text-danger small"></span>
                         </div>
                     </div>
 
                     <div class="card-footer bg-light text-center py-3">
                         <button type="submit" class="btn btn-primary btn-lg px-5">
-                            <i class="fas fa-user-plus me-2"></i> Create Staff
+                            <i class="fas fa-save me-2"></i> Submit Feedback
                         </button>
                     </div>
                 </form>
@@ -138,6 +126,17 @@
         .btn-outline-primary:hover i {
             color: white;
         }
+
+        textarea.form-control {
+            min-height: 120px;
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+
+            textarea.form-control:focus {
+                border-color: #667eea;
+                box-shadow: 0 0 0 0.25rem rgba(102, 126, 234, 0.25);
+            }
     </style>
 }
 

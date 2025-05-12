@@ -14,11 +14,13 @@ namespace LifeStream.Controllers
     {
         private readonly UserManager<LifeStreamUser> _userManager;
         private readonly LifeStreamdDBContext dBContext;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public ReceptionistController(LifeStreamdDBContext dBContext, UserManager<LifeStreamUser> userManager)
+        public ReceptionistController(LifeStreamdDBContext dBContext, UserManager<LifeStreamUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             this.dBContext = dBContext;
             _userManager = userManager;
+            _roleManager = roleManager;
         }
         // GET: ReceptionistController
         public async Task<ActionResult> Index(string searchQuery)
@@ -63,55 +65,63 @@ namespace LifeStream.Controllers
         // POST: ReceptionistController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-            public async Task<ActionResult> Create(Receptionist recep)
+        public async Task<ActionResult> Create(Receptionist recep)
+        {
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
+                var user = new LifeStreamUser
                 {
-                    
-                        var user = new LifeStreamUser
+                    Id = Guid.NewGuid().ToString(),
+                    UserName = recep.Email,
+                    NormalizedUserName = recep.Email.ToUpper(),
+                    Email = recep.Email,
+                    NormalizedEmail = recep.Email.ToUpper(),
+                    FirstName = recep.FirstName,
+                    LastName = recep.LastName,
+                    EmailConfirmed = true,
+                    SecurityStamp = Guid.NewGuid().ToString(),
+                    ConcurrencyStamp = Guid.NewGuid().ToString()
+                };
+
+                var result = await _userManager.CreateAsync(user, "Rec@123");
+
+                if (result.Succeeded)
+                {
+                    string roleName = UserRole.Receptionist.ToString();
+
+                    // Ensure the role exists
+                    if (!await _roleManager.RoleExistsAsync(roleName))
+                    {
+                        var roleResult = await _roleManager.CreateAsync(new IdentityRole(roleName));
+                        if (!roleResult.Succeeded)
                         {
-                            Id = Guid.NewGuid().ToString(),
-                            UserName = recep.Email,
-                            NormalizedUserName = recep.Email.ToUpper(),
-                            Email = recep.Email,
-                            NormalizedEmail = recep.Email.ToUpper(),
-                            FirstName = recep.FirstName,
-                            LastName = recep.LastName,
-                            Role = UserRole.Receptionist, // Assign Patient Role                            //PhoneNumber = doc.PhoneNumber,
-                            EmailConfirmed = true,
-                            SecurityStamp = Guid.NewGuid().ToString(),
-                            ConcurrencyStamp = Guid.NewGuid().ToString()
-                        };
-
-                        var result = await _userManager.CreateAsync(user, "Rec@123"); // You may use a random password generator
-
-                        if (result.Succeeded)
-                        {
-                            // Step 2: Assign "Patient" role to the new user
-                            await _userManager.AddToRoleAsync(user, UserRole.Receptionist.ToString());
-
-                            // Step 3: Save user ID in the Patient table
-                            recep.UserId = user.Id; // Assign the created UserId
-
-                            dBContext.Receptionists.Add(recep);
-                            await dBContext.SaveChangesAsync();
-
-                            return RedirectToAction(nameof(Index));
+                            ModelState.AddModelError("", "Failed to create role.");
+                            return View(recep);
                         }
-                        else
-                        {
-                            // Handle errors if user creation fails
-                            foreach (var error in result.Errors)
-                            {
-                                ModelState.AddModelError("", error.Description);
-                            }
-                        }
-
                     }
-                
-                    //ViewBag.UserId = new SelectList(dBContext.Users, "Id", "UserName", doc.UserId);
-                    return View(recep);
+
+                    // Assign role to user
+                    await _userManager.AddToRoleAsync(user, roleName);
+
+                    // Save user ID in Receptionist table
+                    recep.UserId = user.Id;
+
+                    dBContext.Receptionists.Add(recep);
+                    await dBContext.SaveChangesAsync();
+
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
+                }
             }
+
+            return View(recep);
+        }
 
         // GET: ReceptionistController/Edit/5
         public async Task<IActionResult> Edit(string id)

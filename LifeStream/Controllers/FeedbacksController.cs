@@ -10,22 +10,23 @@ using LifeStream.Models;
 
 namespace LifeStream.Controllers
 {
-    public class StaffsController : Controller
+    public class FeedbacksController : Controller
     {
         private readonly LifeStreamdDBContext _context;
 
-        public StaffsController(LifeStreamdDBContext context)
+        public FeedbacksController(LifeStreamdDBContext context)
         {
             _context = context;
         }
 
-        // GET: Staffs
+        // GET: Feedbacks
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Staffs.ToListAsync());
+            var lifeStreamdDBContext = _context.Feedbacks.Include(f => f.Appointment);
+            return View(await lifeStreamdDBContext.ToListAsync());
         }
 
-        // GET: Staffs/Details/5
+        // GET: Feedbacks/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +34,42 @@ namespace LifeStream.Controllers
                 return NotFound();
             }
 
-            var staff = await _context.Staffs
-                .FirstOrDefaultAsync(m => m.StaffId == id);
-            if (staff == null)
+            var feedback = await _context.Feedbacks
+                .Include(f => f.Appointment)
+                .FirstOrDefaultAsync(m => m.FeedbackId == id);
+            if (feedback == null)
             {
                 return NotFound();
             }
 
-            return View(staff);
+            return View(feedback);
         }
 
-        // GET: Staffs/Create
+        // GET: Feedbacks/Create
         public IActionResult Create()
         {
+            ViewData["AppointmentId"] = new SelectList(_context.Appointments, "AppointmentId", "AppointmentId");
             return View();
         }
 
-        // POST: Staffs/Create
+        // POST: Feedbacks/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create( Staff staff)
+        public async Task<IActionResult> Create([Bind("FeedbackId,AppointmentId,Comment,FeedbackDate")] Feedback feedback)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(staff);
+                _context.Add(feedback);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(staff);
+            ViewData["AppointmentId"] = new SelectList(_context.Appointments, "AppointmentId", "AppointmentId", feedback.AppointmentId);
+            return View(feedback);
         }
 
-        // GET: Staffs/Edit/5
+        // GET: Feedbacks/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +77,23 @@ namespace LifeStream.Controllers
                 return NotFound();
             }
 
-            var staff = await _context.Staffs.FindAsync(id);
-            if (staff == null)
+            var feedback = await _context.Feedbacks.FindAsync(id);
+            if (feedback == null)
             {
                 return NotFound();
             }
-            return View(staff);
+            ViewData["AppointmentId"] = new SelectList(_context.Appointments, "AppointmentId", "AppointmentId", feedback.AppointmentId);
+            return View(feedback);
         }
 
-        // POST: Staffs/Edit/5
+        // POST: Feedbacks/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Staff staff)
+        public async Task<IActionResult> Edit(int id, [Bind("FeedbackId,AppointmentId,Comment,FeedbackDate")] Feedback feedback)
         {
-            if (id != staff.StaffId)
+            if (id != feedback.FeedbackId)
             {
                 return NotFound();
             }
@@ -97,12 +102,12 @@ namespace LifeStream.Controllers
             {
                 try
                 {
-                    _context.Update(staff);
+                    _context.Update(feedback);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!StaffExists(staff.StaffId))
+                    if (!FeedbackExists(feedback.FeedbackId))
                     {
                         return NotFound();
                     }
@@ -113,10 +118,11 @@ namespace LifeStream.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(staff);
+            ViewData["AppointmentId"] = new SelectList(_context.Appointments, "AppointmentId", "AppointmentId", feedback.AppointmentId);
+            return View(feedback);
         }
 
-        // GET: Staffs/Delete/5
+        // GET: Feedbacks/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,34 +130,35 @@ namespace LifeStream.Controllers
                 return NotFound();
             }
 
-            var staff = await _context.Staffs
-                .FirstOrDefaultAsync(m => m.StaffId == id);
-            if (staff == null)
+            var feedback = await _context.Feedbacks
+                .Include(f => f.Appointment)
+                .FirstOrDefaultAsync(m => m.FeedbackId == id);
+            if (feedback == null)
             {
                 return NotFound();
             }
 
-            return View(staff);
+            return View(feedback);
         }
 
-        // POST: Staffs/Delete/5
+        // POST: Feedbacks/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var staff = await _context.Staffs.FindAsync(id);
-            if (staff != null)
+            var feedback = await _context.Feedbacks.FindAsync(id);
+            if (feedback != null)
             {
-                _context.Staffs.Remove(staff);
+                _context.Feedbacks.Remove(feedback);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool StaffExists(int id)
+        private bool FeedbackExists(int id)
         {
-            return _context.Staffs.Any(e => e.StaffId == id);
+            return _context.Feedbacks.Any(e => e.FeedbackId == id);
         }
     }
 }

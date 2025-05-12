@@ -1,7 +1,7 @@
-﻿@model LifeStream.Models.Staff
+﻿@model LifeStream.Models.Feedback
 
 @{
-    ViewData["Title"] = "Staff Details";
+    ViewData["Title"] = "Feedback Details";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -12,13 +12,10 @@
                 <!-- Header Section -->
                 <div class="staff-header">
                     <div class="staff-info">
-                        <h1 class="staff-title">Staff Details</h1>
+                        <h1 class="staff-title">Feedback Details</h1>
                         <div class="staff-meta">
-                            <span class="name-highlight">
-                                @Model.StaffName
-                            </span>
-                            <span class="designation-badge">
-                                <i class="bi bi-award"></i> @Model.Designation
+                            <span class="role-badge">
+                                <i class="bi bi-chat-square-text"></i> Patient Feedback
                             </span>
                         </div>
                     </div>
@@ -27,68 +24,39 @@
                 <!-- Content Section -->
                 <div class="staff-content">
                     <div class="row g-4">
-                        <!-- Professional Information -->
+                        <!-- Feedback Information -->
                         <div class="col-md-6">
                             <div class="info-section">
                                 <h3 class="section-title">
-                                    <i class="bi bi-person-badge text-primary me-2"></i> Professional Information
+                                    <i class="bi bi-info-circle text-primary me-2"></i> Feedback Information
                                 </h3>
                                 <div class="info-grid">
                                     <div class="info-item">
                                         <div class="info-icon">
-                                            <i class="bi bi-person"></i>
+                                            <i class="bi bi-calendar-date"></i>
                                         </div>
                                         <div class="info-content">
-                                            <label>Full Name</label>
-                                            <p>@Model.StaffName</p>
-                                        </div>
-                                    </div>
-                                    <div class="info-item">
-                                        <div class="info-icon">
-                                            <i class="bi bi-award"></i>
-                                        </div>
-                                        <div class="info-content">
-                                            <label>Designation</label>
-                                            <p>@Model.Designation</p>
-                                        </div>
-                                    </div>
-                                    <div class="info-item">
-                                        <div class="info-icon">
-                                            <i class="bi bi-calendar-check"></i>
-                                        </div>
-                                        <div class="info-content">
-                                            <label>Date of Joining</label>
-                                            <p>@Model.DOJ.ToString("MMMM dd, yyyy")</p>
+                                            <label>Feedback Date</label>
+                                            <p>@Model.FeedbackDate.ToString("MMMM dd, yyyy")</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Contact Information -->
-                        <div class="col-md-6">
+                        <!-- Comment Section -->
+                        <div class="col-12">
                             <div class="info-section">
                                 <h3 class="section-title">
-                                    <i class="bi bi-telephone text-primary me-2"></i> Contact Information
+                                    <i class="bi bi-chat-left-text text-primary me-2"></i> Patient Comment
                                 </h3>
-                                <div class="info-grid">
-                                    <div class="info-item">
-                                        <div class="info-icon">
-                                            <i class="bi bi-envelope"></i>
-                                        </div>
-                                        <div class="info-content">
-                                            <label>Email</label>
-                                            <p>@Model.Email</p>
-                                        </div>
+                                <div class="info-item">
+                                    <div class="info-icon">
+                                        <i class="bi bi-chat-square-quote"></i>
                                     </div>
-                                    <div class="info-item">
-                                        <div class="info-icon">
-                                            <i class="bi bi-phone"></i>
-                                        </div>
-                                        <div class="info-content">
-                                            <label>Phone Number</label>
-                                            <p>@Model.PhoneNumber</p>
-                                        </div>
+                                    <div class="info-content">
+                                        <label>Feedback Comment</label>
+                                        <p class="feedback-comment">@Model.Comment</p>
                                     </div>
                                 </div>
                             </div>
@@ -98,9 +66,12 @@
 
                 <!-- Action Buttons -->
                 <div class="staff-actions">
-                    <a asp-action="Edit" asp-route-id="@Model?.StaffId" class="btn btn-primary btn-edit">
-                        <i class="bi bi-pencil-square me-2"></i> Edit Staff
-                    </a>
+                    @if (!User.IsInRole(UserRoleInfo.Admin))
+                    {
+                        <a asp-action="Edit" asp-route-id="@Model?.FeedbackId" class="btn btn-primary btn-edit">
+                            <i class="bi bi-pencil-square me-2"></i> Edit Feedback
+                        </a>
+                    }
                     <a asp-action="Index" class="btn btn-outline-primary btn-back">
                         <i class="bi bi-arrow-left me-2"></i> Back to List
                     </a>
@@ -119,7 +90,7 @@
     }
 
     .staff-header {
-        background: linear-gradient(135deg, #4a6cf7 0%, #2541b2 100%);
+        background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
         padding: 2.5rem;
         display: flex;
         align-items: center;
@@ -147,23 +118,7 @@
         align-items: center;
     }
 
-    .name-highlight {
-        background: white;
-        color: #2541b2;
-        padding: 0.5rem 1.25rem;
-        border-radius: 2rem;
-        font-weight: 600;
-        display: inline-flex;
-        align-items: center;
-        font-size: 1.1rem;
-    }
-
-        .name-highlight i {
-            margin-right: 0.5rem;
-            color: #2541b2;
-        }
-
-    .designation-badge {
+    .role-badge {
         background: rgba(255, 255, 255, 0.2);
         color: white;
         padding: 0.5rem 1.25rem;
@@ -171,11 +126,11 @@
         font-weight: 500;
         display: inline-flex;
         align-items: center;
-        font-size: 1.1rem;
+        font-size: 0.95rem;
         backdrop-filter: blur(5px);
     }
 
-        .designation-badge i {
+        .role-badge i {
             margin-right: 0.5rem;
             color: #ffc107;
         }
@@ -215,13 +170,13 @@
 
         .info-item:hover {
             transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(74, 108, 247, 0.1);
+            box-shadow: 0 5px 15px rgba(106, 17, 203, 0.1);
         }
 
     .info-icon {
         width: 40px;
         height: 40px;
-        background: rgba(74, 108, 247, 0.1);
+        background: rgba(106, 17, 203, 0.1);
         border-radius: 8px;
         display: flex;
         align-items: center;
@@ -231,7 +186,7 @@
     }
 
         .info-icon i {
-            color: #4a6cf7;
+            color: #6a11cb;
             font-size: 1.25rem;
         }
 
@@ -256,6 +211,12 @@
             color: #2c3e50;
         }
 
+    .feedback-comment {
+        font-style: italic;
+        white-space: pre-wrap;
+        line-height: 1.6;
+    }
+
     .staff-actions {
         padding: 1.5rem 2.5rem;
         border-top: 1px solid #f0f0f0;
@@ -276,27 +237,27 @@
     }
 
     .btn-edit {
-        background: #4a6cf7;
+        background: #6a11cb;
         color: white;
         border: none;
     }
 
         .btn-edit:hover {
-            background: #3a5bd9;
+            background: #5a0db3;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(74, 108, 247, 0.3);
+            box-shadow: 0 5px 15px rgba(106, 17, 203, 0.3);
         }
 
     .btn-back {
         background: white;
-        color: #4a6cf7;
-        border: 1px solid #4a6cf7;
+        color: #6a11cb;
+        border: 1px solid #6a11cb;
     }
 
         .btn-back:hover {
-            background: #f8f9ff;
+            background: #f9f5ff;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(74, 108, 247, 0.2);
+            box-shadow: 0 5px 15px rgba(106, 17, 203, 0.2);
         }
 
     @@media (max-width: 768px) {

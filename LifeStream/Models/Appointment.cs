@@ -24,7 +24,7 @@ namespace LifeStream.Models
 
         public string Description { get; set; }
 
-        public ICollection<Feedback> FeedBacks { get; set; } = new List<Feedback>();
+       public ICollection<Feedback> FeedBacks { get; set; } = new List<Feedback>();
 
     }
 }

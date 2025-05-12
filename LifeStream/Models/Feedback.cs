@@ -12,10 +12,6 @@ namespace LifeStream.Models
         public int AppointmentId { get; set; }
         public Appointment? Appointment { get; set; }
 
-        [ForeignKey("Doctor")]
-        public string DoctorId { get; set; }
-        public Doctor? Doctor { get; set; }
-
         public string Comment { get; set; }
 
         public DateTime FeedbackDate { get; set; }

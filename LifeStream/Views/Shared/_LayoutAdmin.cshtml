@@ -83,8 +83,10 @@
                         <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">                                                     
                             <!--begin::Menu Footer-->
                             <li class="user-footer">
-                                <a href="#" class="btn btn-default btn-flat">Profile</a>
-                                <a href="#" class="btn btn-default btn-flat float-end">Sign out</a>
+                                @* <a href="#" class="btn btn-default btn-flat">Profile</a> *@
+                               <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                <button id="logout" type="submit" class="nav-link btn btn-link text-dark border-0">Logout</button>
+                                </form>
                             </li>
                             <!--end::Menu Footer-->
                         </ul>
@@ -97,7 +99,7 @@
         </nav>
 
         <!--begin::Sidebar-->
-        <aside class="app-sidebar bg-body-secondary " data-bs-theme="light">
+        <aside class="app-sidebar bg-body-secondary " data-bs-theme="white">
             <!--begin::Sidebar Brand-->
             <div class="sidebar-brand">
                 <!--begin::Brand Link-->
@@ -147,12 +149,6 @@
                                         <p>Doctor's List</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a asp-controller="Doctor" asp-action="Create" class="nav-link">
-                                        <i class="bi bi-person-fill-add"></i>
-                                        <p>Add Doctor</p>
-                                    </a>
-                                </li>
                             </ul>
                         </li>
                         <li class="nav-item">
@@ -168,6 +164,40 @@
                                     <a asp-controller="Appointments" asp-action="Index" class="nav-link">
                                         <i class="fa-solid fa-clipboard-list"></i>
                                         <p>Appointment List</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fa-solid fa-user-large"></i>
+                                <p>
+                                    Receptionist
+                                    <i class="nav-arrow bi bi-chevron-right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a asp-controller="Receptionist" asp-action="Index" class="nav-link">
+                                        <i class="bi bi-person-lines-fill"></i>
+                                        <p>Receptionist List</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fa-solid fa-user-group"></i>
+                                <p>
+                                    Patients
+                                    <i class="nav-arrow bi bi-chevron-right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a asp-controller="Patients" asp-action="Index" class="nav-link">
+                                        <i class="bi bi-person-lines-fill"></i>
+                                        <p>Patients List</p>
                                     </a>
                                 </li>
                             </ul>
@@ -190,6 +220,23 @@
                             </ul>
                         </li>
                         <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fa-solid fa-file-medical"></i>
+                                <p>
+                                    Feedbacks
+                                    <i class="nav-arrow bi bi-chevron-right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a asp-controller="Feedbacks" asp-action="Index" class="nav-link">
+                                        <i class="fa-solid fa-list-check"></i>
+                                        <p>Feedback List</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                       @*  <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon bi bi-pencil-square"></i>
                                 <p>
@@ -222,7 +269,7 @@
                                     </a>
                                 </li>
                             </ul>
-                        </li>
+                       </li>*@
                     </ul>
                     <!--end::Sidebar Menu-->
                 </nav>
@@ -248,7 +295,7 @@
         <!--end::Footer-->
     </div>
 
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/8.0.0/signalr.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.10.1/browser/overlayscrollbars.browser.es6.min.js"
             integrity="sha256-dghWARbRe2eLlIJ56wNB+b760ywulqK3DzZYEpsg2fQ="
             crossorigin="anonymous"></script>
@@ -262,6 +309,7 @@
             crossorigin="anonymous"></script>
     <!--end::Required Plugin(Bootstrap 5)--><!--begin::Required Plugin(AdminLTE)-->
     <script src="~/AdminLayout/js/adminlte.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!--end::Required Plugin(AdminLTE)--><!--begin::OverlayScrollbars Configure-->
     <script>
         const SELECTOR_SIDEBAR_WRAPPER = '.sidebar-wrapper';

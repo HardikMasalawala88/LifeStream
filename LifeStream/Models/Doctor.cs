@@ -38,11 +38,7 @@ namespace LifeStream.Models
         public int ExprienceYear { get; set; }
         public string? ImagePath { get; set; }
 
-
-        //public string status { get; set; }
-
         public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
         public ICollection<MedicalRecord> MedicalRecords { get; set; } = new List<MedicalRecord>();
-        public ICollection<Feedback> FeedBacks { get; set; } = new List<Feedback>();
     }
 }

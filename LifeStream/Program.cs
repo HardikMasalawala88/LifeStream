@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using LifeStream.Data;
 using LifeStream.Areas.Identity.Data;
 using Microsoft.OpenApi.Models;
+using LifeStream.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("LifeStreamdDBContextConnection")
@@ -18,6 +19,7 @@ builder.Services.AddDefaultIdentity<LifeStreamUser>(options =>
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+builder.Services.AddSignalR();
 
 #region Swagger
 // Add Swagger services
@@ -93,6 +95,7 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapHub<NotificationHub>("/notificationHub");
 app.MapRazorPages();
 
 app.Run();
